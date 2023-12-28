@@ -8,13 +8,17 @@ add_subdirectory(mylibraries)
 add_library(LIBRARIES_LINK_LIB INTERFACE)
 
 #3rdParty
-target_link_libraries(LIBRARIES_LINK_LIB INTERFACE glew_interface)
-target_link_libraries(LIBRARIES_LINK_LIB INTERFACE ${GLEW_STATIC_LIB})
+if(OPENGL)
+  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE glew_interface)
+  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE ${GLEW_STATIC_LIB})
+endif()
 
-if(OPENGL_XX_WINX64)
-target_link_libraries(LIBRARIES_LINK_LIB INTERFACE glfw_interface)
-elseif(OPENGL_XX_WEBASSEMBLY)
-target_link_libraries(LIBRARIES_LINK_LIB INTERFACE emscripten_interface)
+if(WINX64)
+  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE glfw_interface)
+endif()
+
+if(WEBASSEMBLY)
+  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE emscripten_interface)
 endif()
 
 target_link_libraries(LIBRARIES_LINK_LIB INTERFACE glm_interface)
