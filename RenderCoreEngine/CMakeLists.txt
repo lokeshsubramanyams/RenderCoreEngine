@@ -1,6 +1,4 @@
-﻿# CMakeList.txt : CMake project for RenderCoreEngine, include source and define
-# project specific logic here.
-
+﻿
 #RenderCoreEngine/CMakeLists.txt
 
 #Total 5 build_types:
@@ -15,18 +13,18 @@ cmake_minimum_required (VERSION 3.10)
 
 project (RenderCoreEngine)
 
-option(DEBUG "Enable or Disable debug"        OFF)
+option(DEBUG "Enable or Disable debug"        ON)
 
 option(WINX64 "Opengl windows 64 build"       OFF)
 option(WEBASSEMBLY "Opengl wasassembly build" OFF)
 
-option(OPENGL  "OpenGL Graphics Pipeline"    OFF)#Tring to use OpenGL4.x try to close to 4.3
-option(WEBGL   "WebGL-2.0 Graphics Pipeline" OFF)#WEBGL2.0->OpenGLES3.0->OpenGL 4.3
+option(OPENGL  "OpenGL4.x Graphics Pipeline"    OFF)#Tring to use OpenGL4.x try to close to 4.3
+option(WEBGL   "WebGL2.0 Graphics Pipeline" OFF)#WEBGL2.0-->OpenGLES3.0-->OpenGL 4.3
 option(VULKAN  "Vulkan Graphics Pipeline"    OFF)#this is only to Windows
 option(WEBGPU  "WebGPU Graphics Pipeline"    OFF)#this is for platforms webassembly and windows
 
  
-if(PRESET_NAME STREQUAL "windows-x64-release-openGL")
+if(PRESET_NAME STREQUAL "windows-x64-openGL")
 
      set(WINX64 ON CACHE BOOL "windows" FORCE)
      set(OPENGL ON CACHE BOOL "opengl" FORCE)
@@ -34,9 +32,9 @@ if(PRESET_NAME STREQUAL "windows-x64-release-openGL")
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
-     set(WEBGL OFF CACHE BOOL "webgl" FORCE)
+     set(WEBGL OFF CACHE BOOL "webgl" FORCE) 
      
-elseif(PRESET_NAME STREQUAL "windows-x64-release-vulkan")
+elseif(PRESET_NAME STREQUAL "windows-x64-vulkan")
 
      set(WINX64 ON CACHE BOOL "windows" FORCE)
      set(VULKAN ON CACHE BOOL "vulkan" FORCE)
@@ -46,7 +44,7 @@ elseif(PRESET_NAME STREQUAL "windows-x64-release-vulkan")
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
      set(WEBGL OFF CACHE BOOL "webgl" FORCE)
      
-elseif(PRESET_NAME STREQUAL "windows-x64-release-webgpu")
+elseif(PRESET_NAME STREQUAL "windows-x64-webgpu")
 
      set(WINX64 ON CACHE BOOL "windows" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
@@ -56,7 +54,7 @@ elseif(PRESET_NAME STREQUAL "windows-x64-release-webgpu")
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
      set(WEBGL OFF CACHE BOOL "webgl" FORCE)
      
-elseif(PRESET_NAME STREQUAL "emscripten-release-openGL")
+elseif(PRESET_NAME STREQUAL "emscripten-openGL")
 
      set(WEBASSEMBLY ON CACHE BOOL "webassembly" FORCE)
      set(OPENGL ON CACHE BOOL "opengl" FORCE)
@@ -66,7 +64,7 @@ elseif(PRESET_NAME STREQUAL "emscripten-release-openGL")
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
 
-elseif(PRESET_NAME STREQUAL "emscripten-release-webgpu")
+elseif(PRESET_NAME STREQUAL "emscripten-webgpu")
 
      set(WEBASSEMBLY ON CACHE BOOL "webassembly" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
@@ -88,6 +86,7 @@ WEBGL=${WEBGL},
 WEBGPU=${WEBGPU},
 DEBUG=${DEBUG}")
 
+remove_definitions(-DDEBUG)
 remove_definitions(-DPLATFORM_WEBASSEMBLY)
 remove_definitions(-DPLATFORM_WINDOWS)
 remove_definitions(-DOPENGL)
@@ -114,12 +113,19 @@ if(WEBGPU)
   add_definitions(-DWEBGPU)
 endif()
 
+if(DEBUG)
+  add_definitions(-DDEBUG)
+endif()
 
 add_subdirectory(libraries)
 add_subdirectory(resources)
 add_subdirectory(src)
 
-add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE} appicon.rc)
+if(WINX64)
+  add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE} appicon.rc)
+elseif(WEBASSEMBLY)
+  add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE})
+endif()
 
 target_link_libraries(RenderCoreEngine PRIVATE LIBRARIES_LINK_LIB)
 

@@ -22,6 +22,11 @@
 #include "Context.hpp"
 #endif
 
+#ifdef DEBUG
+#include "Test.hpp"
+#endif 
+
+
 
 #include "Math.hpp"
 #include "Transform.hpp"

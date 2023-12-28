@@ -38,3 +38,7 @@ endif()
 if(WEBGPU)
   target_link_libraries(LIBRARIES_LINK_LIB INTERFACE webgpu_interface)
 endif()
+
+if(DEBUG)
+  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE debug_interface)
+endif()

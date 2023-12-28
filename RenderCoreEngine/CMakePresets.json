@@ -2,7 +2,7 @@
   "version": 3,
   "configurePresets": [
     {
-      "name": "windows-base-release",
+      "name": "windows-base",
       "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
@@ -23,36 +23,36 @@
       }
     },
     {
-      "name": "windows-x64-release-openGL",
+      "name": "windows-x64-openGL",
       "displayName": "windows-x64-openGL",
-      "inherits": "windows-base-release",
+      "inherits": "windows-base",
       "cacheVariables": {
-        "PRESET_NAME": "windows-x64-release-openGL"
+        "PRESET_NAME": "windows-x64-openGL"
       }
     },
     {
-      "name": "windows-x64-release-vulkan",
+      "name": "windows-x64-vulkan",
       "displayName": "windows-x64-vulkan",
-      "inherits": "windows-base-release",
+      "inherits": "windows-base",
       "cacheVariables": {
-        "PRESET_NAME": "windows-x64-release-vulkan"
+        "PRESET_NAME": "windows-x64-vulkan"
       }
     },
     {
-      "name": "windows-x64-release-webgpu",
+      "name": "windows-x64-webgpu",
       "displayName": "windows-x64-webGpu",
-      "inherits": "windows-base-release",
+      "inherits": "windows-base",
       "cacheVariables": {
-        "PRESET_NAME": "windows-x64-release-webgpu"
+        "PRESET_NAME": "windows-x64-webgpu"
       }
     },
 
 
     {
-      "name": "emscripten-release",
+      "name": "emscripten",
       "hidden": true,
       "generator": "Ninja",
-      "inherits": "windows-base-release",
+      "inherits": "windows-base",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "C:\\emsdk\\upstream\\emscripten\\cmake\\Modules\\Platform\\Emscripten.cmake",
         "CMAKE_C_COMPILER": "C:\\emsdk\\upstream\\emscripten\\emcc.bat",
@@ -60,19 +60,19 @@
       }
     },
     {
-      "name": "emscripten-release-openGL",
+      "name": "emscripten-openGL",
       "displayName": "webAssembly-openGL",
-      "inherits": "emscripten-release",
+      "inherits": "emscripten",
       "cacheVariables": {
-        "PRESET_NAME": "emscripten-release-openGL"
+        "PRESET_NAME": "emscripten-openGL"
       }
     },
     {
-      "name": "emscripten-release-webgpu",
+      "name": "emscripten-webgpu",
       "displayName": "webAssembly-webGpu",
-      "inherits": "emscripten-release",
+      "inherits": "emscripten",
       "cacheVariables": {
-        "PRESET_NAME": "emscripten-release-webgpu"
+        "PRESET_NAME": "emscripten-webgpu"
       }
     }
   ]

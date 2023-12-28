@@ -31,3 +31,6 @@ add_library(webgpu_interface INTERFACE)
 target_include_directories(webgpu_interface INTERFACE ${WEBGPU_INCLUDE_DIR})
 
 
+set(DEBUG_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/debug")
+add_library(debug_interface INTERFACE)
+target_include_directories(debug_interface INTERFACE ${DEBUG_INCLUDE_DIR})
