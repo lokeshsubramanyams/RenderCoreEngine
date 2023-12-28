@@ -7,7 +7,6 @@
 #Windows-x64-openGL
 #Windows-x64-vulkan
 #Windows-x64-webgpu
-
 #Emscripten-OpenGL
 #Emscripten-webgpu
 
@@ -31,9 +30,7 @@ if(PRESET_NAME STREQUAL "windows-x64-release-openGL")
 
      set(WINX64 ON CACHE BOOL "windows" FORCE)
      set(OPENGL ON CACHE BOOL "opengl" FORCE)
-     add_definitions(-DPLATFORM_WINDOWS)
 
-     remove_definitions(-DPLATFORM_WEBASSEMBLY)
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
@@ -41,11 +38,9 @@ if(PRESET_NAME STREQUAL "windows-x64-release-openGL")
      
 elseif(PRESET_NAME STREQUAL "windows-x64-release-vulkan")
 
-     set(WINX64 ON CACHE BOOL "windows with vulkan" FORCE)
-     set(VULKAN ON CACHE BOOL "windows with vulkan" FORCE)
-     add_definitions(-DPLATFORM_WINDOWS)
+     set(WINX64 ON CACHE BOOL "windows" FORCE)
+     set(VULKAN ON CACHE BOOL "vulkan" FORCE)
 
-     remove_definitions(-DPLATFORM_WEBASSEMBLY)
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
@@ -55,9 +50,7 @@ elseif(PRESET_NAME STREQUAL "windows-x64-release-webgpu")
 
      set(WINX64 ON CACHE BOOL "windows" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
-     add_definitions(-DPLATFORM_WINDOWS)
 
-     remove_definitions(-DPLATFORM_WEBASSEMBLY)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
@@ -68,9 +61,7 @@ elseif(PRESET_NAME STREQUAL "emscripten-release-openGL")
      set(WEBASSEMBLY ON CACHE BOOL "webassembly" FORCE)
      set(OPENGL ON CACHE BOOL "opengl" FORCE)
      set(WEBGL ON CACHE BOOL "webgl" FORCE)
-     add_definitions(-DPLATFORM_WEBASSEMBLY)
-
-     remove_definitions(-DPLATFORM_WINDOWS)
+   
      set(WINX64 OFF CACHE BOOL "windows" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
@@ -80,9 +71,7 @@ elseif(PRESET_NAME STREQUAL "emscripten-release-webgpu")
      set(WEBASSEMBLY ON CACHE BOOL "webassembly" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
      set(WEBGL ON CACHE BOOL "webgl" FORCE)
-     add_definitions(-DPLATFORM_WEBASSEMBLY)
 
-     remove_definitions(-DPLATFORM_WINDOWS)
      set(WINX64 OFF CACHE BOOL "windows" FORCE)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
@@ -99,6 +88,33 @@ WEBGL=${WEBGL},
 WEBGPU=${WEBGPU},
 DEBUG=${DEBUG}")
 
+remove_definitions(-DPLATFORM_WEBASSEMBLY)
+remove_definitions(-DPLATFORM_WINDOWS)
+remove_definitions(-DOPENGL)
+remove_definitions(-DWEBGL)
+remove_definitions(-DVULKAN)
+remove_definitions(-DWEBGPU)
+
+if(WINX64)
+  add_definitions(-DPLATFORM_WINDOWS)
+elseif(WEBASSEMBLY)
+  add_definitions(-DPLATFORM_WEBASSEMBLY)
+endif()
+
+if(OPENGL)
+  add_definitions(-DOPENGL)
+endif()
+if(WEBGL)
+  add_definitions(-DWEBGL)
+endif()
+if(VULKAN)
+  add_definitions(-DVULKAN)
+endif()
+if(WEBGPU)
+  add_definitions(-DWEBGPU)
+endif()
+
+
 add_subdirectory(libraries)
 add_subdirectory(resources)
 add_subdirectory(src)
@@ -111,4 +127,4 @@ if (CMAKE_VERSION VERSION_GREATER 3.10)
   set_property(TARGET RenderCoreEngine PROPERTY CXX_STANDARD 20)
 endif()
 
-# TODO: Add tests and install targets if needed.
+

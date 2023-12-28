@@ -3,21 +3,30 @@
 #ifdef PLATFORM_WINDOWS
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
-#include "Context.hpp"
 #endif
 
 #ifdef PLATFORM_WEBASSEMBLY
 #include<emscripten.h>
 #endif
 
-#include "RCEngine.hpp"
+#ifdef OPENGL
+#include "Context.hpp"
+#endif
+#ifdef WEBGL
+#include "Context.hpp"
+#endif
+#ifdef VULKAN
+#include "Context.hpp"
+#endif
+#ifdef WEBGPU
+#include "Context.hpp"
+#endif
 
 
-#include<glm/glm.hpp>
 #include "Math.hpp"
 #include "Transform.hpp"
 
-
+#include "RCEngine.hpp"
 
 using namespace std;
 using namespace RCEngine::MathLib;
@@ -33,7 +42,7 @@ int main()
 	transform.rotation = { 0.0 ,0.0,0.0,1.0};
 	transform.Scale = { 1.0,1.0,1.0 };
 
-	double length = (b - a).length();
+	auto length = (b - a).length();
 
 	cout << "length :" << length << endl;
 

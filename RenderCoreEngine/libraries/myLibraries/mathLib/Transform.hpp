@@ -1,11 +1,15 @@
 #pragma once
 #include <Math.hpp>
-namespace RCEngine::MathLib
+
+namespace RCEngine
 {
-	struct Transform
+	namespace MathLib
 	{
-		Vector3 position;
-		Quaternion rotation;
-		Vector3 Scale;
-	};
+		struct Transform
+		{
+			Vector3 position;
+			Quaternion rotation;
+			Vector3 Scale;
+		};
+	}
 }
