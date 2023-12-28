@@ -17,22 +17,21 @@ if(WINX64)
   target_link_libraries(LIBRARIES_LINK_LIB INTERFACE glfw_interface)
 endif()
 
-if(WEBASSEMBLY)
-  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE emscripten_interface)
-endif()
 
-if(OPENGL)
+if(OPENGL OR  VULKAN)
   target_link_libraries(LIBRARIES_LINK_LIB INTERFACE glew_interface)
   target_link_libraries(LIBRARIES_LINK_LIB INTERFACE ${GLEW_STATIC_LIB})
   target_link_libraries(LIBRARIES_LINK_LIB INTERFACE opengl_interface)
 endif()
 
-if(WEBGL)
-  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE webgl_interface)
-endif()
-
 if(VULKAN)
   target_link_libraries(LIBRARIES_LINK_LIB INTERFACE vulkan_interface)
+  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE vulkansdk_interface)
+endif()
+
+if(WEBGL)
+  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE emscripten_interface)
+  target_link_libraries(LIBRARIES_LINK_LIB INTERFACE webgl_interface)
 endif()
 
 if(WEBGPU)

@@ -13,7 +13,7 @@
 #include "Context.hpp"
 #endif
 #ifdef WEBGL
-#include "Context.hpp"
+#include "WebGL.hpp"
 #endif
 #ifdef VULKAN
 #include "Context.hpp"

@@ -28,4 +28,9 @@ endif()
     add_library(glm_interface INTERFACE)
     target_include_directories(glm_interface INTERFACE ${GLM_INCLUDE_DIR})
 
+    
+    set(VULKAN_INCLUDE_DIR "C:/VulkanSDK/1.3.268.0/Include/vulkan")
+    add_library(vulkansdk_interface INTERFACE)
+    target_include_directories(vulkansdk_interface INTERFACE ${VULKAN_INCLUDE_DIR})
+    set(VULKAN_STATIC_LIB "C:/VulkanSDK/1.3.268.0/Lib")
 

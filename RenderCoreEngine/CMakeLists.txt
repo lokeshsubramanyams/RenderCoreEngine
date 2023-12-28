@@ -48,17 +48,17 @@ elseif(PRESET_NAME STREQUAL "windows-x64-webgpu")
 
      set(WINX64 ON CACHE BOOL "windows" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
+     set(WEBGL ON CACHE BOOL "webgl" FORCE)
 
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
-     set(WEBGL OFF CACHE BOOL "webgl" FORCE)
-     
+    
 elseif(PRESET_NAME STREQUAL "emscripten-openGL")
 
      set(WEBASSEMBLY ON CACHE BOOL "webassembly" FORCE)
      set(OPENGL ON CACHE BOOL "opengl" FORCE)
-     set(WEBGL ON CACHE BOOL "webgl" FORCE)
+     set(WEBGL ON CACHE BOOL "webgl" FORCE)#required to include emscripten
    
      set(WINX64 OFF CACHE BOOL "windows" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
@@ -68,7 +68,7 @@ elseif(PRESET_NAME STREQUAL "emscripten-webgpu")
 
      set(WEBASSEMBLY ON CACHE BOOL "webassembly" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
-     set(WEBGL ON CACHE BOOL "webgl" FORCE)
+     set(WEBGL ON CACHE BOOL "webgl" FORCE)#required to include emscripten
 
      set(WINX64 OFF CACHE BOOL "windows" FORCE)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)

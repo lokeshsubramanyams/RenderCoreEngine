@@ -39,16 +39,6 @@
       }
     },
     {
-      "name": "windows-x64-webgpu",
-      "displayName": "windows-x64-webGpu",
-      "inherits": "windows-base",
-      "cacheVariables": {
-        "PRESET_NAME": "windows-x64-webgpu"
-      }
-    },
-
-
-    {
       "name": "emscripten",
       "hidden": true,
       "generator": "Ninja",
@@ -73,6 +63,14 @@
       "inherits": "emscripten",
       "cacheVariables": {
         "PRESET_NAME": "emscripten-webgpu"
+      }
+    },
+    {
+      "name": "windows-x64-webgpu",
+      "displayName": "windows-x64-webGpu",
+      "inherits": "emscripten",
+      "cacheVariables": {
+        "PRESET_NAME": "windows-x64-webgpu"
       }
     }
   ]
