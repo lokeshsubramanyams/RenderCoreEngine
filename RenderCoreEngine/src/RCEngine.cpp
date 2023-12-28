@@ -1,14 +1,21 @@
 ﻿// RenderCoreEngine.cpp : Defines the entry point for the application.
 
+#ifdef PLATFORM_WINDOWS
+#include<GLFW/glfw3.h>
+#include "Context.hpp"
+#endif
+
+#ifdef PLATFORM_WEBASSEMBLY
+#include<emscripen/emscripten.h>
+#endif
 
 #include "RCEngine.hpp"
 
+#include<GL/glew.h>
 #include<glm/glm.hpp>
 #include "Math.hpp"
 #include "Transform.hpp"
 
-#include<GLFW/glfw3.h>
-#include "Context.hpp"
 
 
 using namespace std;

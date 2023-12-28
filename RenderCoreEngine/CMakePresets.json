@@ -1,14 +1,16 @@
 ﻿{
+  "version": 3,
   "configurePresets": [
     {
-      "name": "windows-base",
+      "name": "windows-base-release",
       "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "cl.exe",
-        "CMAKE_CXX_COMPILER": "cl.exe"
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_BUILD_TYPE": "Release"
       },
       "condition": {
         "type": "equals",
@@ -21,47 +23,58 @@
       }
     },
     {
-      "name": "windows-x64-debug",
-      "displayName": "windows-x64-Debug",
-      "inherits": "windows-base",
+      "name": "windows-x64-release-openGL",
+      "displayName": "windows-x64-openGL",
+      "inherits": "windows-base-release",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
+        "PRESET_NAME": "windows-x64-release-openGL"
       }
     },
     {
-      "name": "windows-x64-release",
-      "displayName": "windows-x64-Release",
-      "inherits": "windows-base",
+      "name": "windows-x64-release-vulkan",
+      "displayName": "windows-x64-vulkan",
+      "inherits": "windows-base-release",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
+        "PRESET_NAME": "windows-x64-release-vulkan"
       }
     },
     {
-      "name": "emscripten-debug",
-      "displayName": "webAssembly-debug",
-      "generator": "Ninja",
-      "inherits": "windows-base",
+      "name": "windows-x64-release-webgpu",
+      "displayName": "windows-x64-webGpu",
+      "inherits": "windows-base-release",
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "C:\\emsdk\\upstream\\emscripten\\cmake\\Modules\\Platform\\Emscripten.cmake",
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_COMPILER": "C:\\emsdk\\upstream\\emscripten\\emcc.bat",
-        "CMAKE_CXX_COMPILER": "C:\\emsdk\\upstream\\emscripten\\em++.bat"
+        "PRESET_NAME": "windows-x64-release-webgpu"
       }
     },
+
+
     {
       "name": "emscripten-release",
-      "displayName": "webAssembly-release",
+      "hidden": true,
       "generator": "Ninja",
-      "inherits": "windows-base",
+      "inherits": "windows-base-release",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "C:\\emsdk\\upstream\\emscripten\\cmake\\Modules\\Platform\\Emscripten.cmake",
-        "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_C_COMPILER": "C:\\emsdk\\upstream\\emscripten\\emcc.bat",
         "CMAKE_CXX_COMPILER": "C:\\emsdk\\upstream\\emscripten\\em++.bat"
       }
-
+    },
+    {
+      "name": "emscripten-release-openGL",
+      "displayName": "webAssembly-openGL",
+      "inherits": "emscripten-release",
+      "cacheVariables": {
+        "PRESET_NAME": "emscripten-release-openGL"
+      }
+    },
+    {
+      "name": "emscripten-release-webgpu",
+      "displayName": "webAssembly-webGpu",
+      "inherits": "emscripten-release",
+      "cacheVariables": {
+        "PRESET_NAME": "emscripten-release-webgpu"
+      }
     }
-  ],
-  "defaultConfigurePreset": "windows-x64-debug",
-  "version": 3
+  ]
+  
 }
