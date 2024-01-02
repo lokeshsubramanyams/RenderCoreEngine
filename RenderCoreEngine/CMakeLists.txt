@@ -48,8 +48,8 @@ elseif(PRESET_NAME STREQUAL "windows-x64-webgpu")
 
      set(WINX64 ON CACHE BOOL "windows" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
-     set(WEBGL ON CACHE BOOL "webgl" FORCE)
 
+     set(WEBGL OFF CACHE BOOL "webgl" FORCE)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)

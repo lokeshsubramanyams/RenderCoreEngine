@@ -1,36 +1,17 @@
 
 # libraries/3rdParty/CMakeLists.txt
 
-
-    #glew-opengl
-    set(GLEW_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/glew-2.2.0/include")
-    add_library(glew_interface INTERFACE)
-    target_include_directories(glew_interface INTERFACE ${GLEW_INCLUDE_DIR})
-    set(GLEW_STATIC_LIB "${CMAKE_CURRENT_SOURCE_DIR}/glew-2.2.0/lib/x64/glew32.lib")
-
-if(WINX64)
-    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/glew-2.2.0/bin/Release/x64/glew32.dll" ${CMAKE_BINARY_DIR} COPYONLY)
-endif()
-
-    #glfw
-    set(GLFW_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/glfw-3.3.9/include")
-    add_library(glfw_interface INTERFACE)
-    target_include_directories(glfw_interface INTERFACE ${GLFW_INCLUDE_DIR})
-
-    #emscriptien "C:/emsdk/upstream/emscripten/system/include"
-    set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include")
-    add_library(emscripten_interface INTERFACE)
-    target_include_directories(emscripten_interface INTERFACE ${EMSCRIPTEN_INCLUDE_DIR})
-
-
-    #glm-common for all platforms
-    set(GLM_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/glm-0.9.9")
-    add_library(glm_interface INTERFACE)
-    target_include_directories(glm_interface INTERFACE ${GLM_INCLUDE_DIR})
-
     
-    set(VULKAN_INCLUDE_DIR "C:/VulkanSDK/1.3.268.0/Include/vulkan")
-    add_library(vulkansdk_interface INTERFACE)
-    target_include_directories(vulkansdk_interface INTERFACE ${VULKAN_INCLUDE_DIR})
-    set(VULKAN_STATIC_LIB "C:/VulkanSDK/1.3.268.0/Lib")
+################################################################################################
+
+    include(vcpkg.cmake)
+
+    set(glew_library glew.cmake)
+    set(glfw3_library glfw3.cmake)
+    set(glm_library glm.cmake)
+    set(assimp_library assimp.cmake)
+    set(emscripten_library emscripten.cmake)
+    set(vulkan_library vulkan.cmake)
+
+##########################################################################
 

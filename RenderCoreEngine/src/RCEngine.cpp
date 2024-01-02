@@ -19,7 +19,7 @@
 #include "Context.hpp"
 #endif
 #ifdef WEBGPU
-#include "Context.hpp"
+#include "WebGpu.hpp"
 #endif
 
 #ifdef DEBUG
@@ -32,6 +32,9 @@
 #include "Transform.hpp"
 
 #include "RCEngine.hpp"
+
+
+#include<assimp/Importer.hpp>
 
 using namespace std;
 using namespace RCEngine::MathLib;
