@@ -1,4 +1,7 @@
-﻿
+﻿#do below command in project terminal
+#cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+
+
 #RenderCoreEngine/CMakeLists.txt
 
 #Total 5 build_types:
@@ -12,6 +15,12 @@
 cmake_minimum_required (VERSION 3.10)
 
 project (RenderCoreEngine)
+
+set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"  CACHE STRING "Vcpkg toolchain file") 
+
+set(VCPKG_INSTALL "C:/vcpkg/installed/x64-windows-static")
+
+
 
 option(DEBUG "Enable or Disable debug"        ON)
 
@@ -117,9 +126,25 @@ if(DEBUG)
   add_definitions(-DDEBUG)
 endif()
 
-add_subdirectory(libraries)
+include_directories("${VCPKG_INSTALL}/include")
+
+add_library(module_interface INTERFACE)
+
+
+add_subdirectory(libraries/debug)
+add_subdirectory(libraries/mathLib)
+add_subdirectory(libraries/context)
 add_subdirectory(resources)
 add_subdirectory(src)
+
+target_link_libraries(module_interface INTERFACE main_module)
+#header only module so no need to add Private or public to the build
+target_link_libraries(module_interface INTERFACE mathLib_interface)
+target_link_libraries(module_interface INTERFACE context_module)
+target_link_libraries(module_interface INTERFACE debug_module)
+
+target_link_libraries(module_interface PRIVATE ${context_module})
+target_link_libraries(module_interface PRIVATE ${debug_module})
 
 if(WINX64)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE} appicon.rc)
@@ -127,7 +152,11 @@ elseif(WEBASSEMBLY)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE})
 endif()
 
-target_link_libraries(RenderCoreEngine PRIVATE LIBRARIES_LINK_LIB)
+target_link_libraries(RenderCoreEngine PRIVATE module_interface)
+#target_link_libraries(RenderCoreEngine INTERFACE mathLib_module)
+#target_link_libraries(RenderCoreEngine INTERFACE context_module)
+#target_link_libraries(RenderCoreEngine INTERFACE  debug_module  )
+
 
 if (CMAKE_VERSION VERSION_GREATER 3.10)
   set_property(TARGET RenderCoreEngine PROPERTY CXX_STANDARD 20)
