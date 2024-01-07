@@ -28,7 +28,7 @@ option(WINX64 "Opengl windows 64 build"       OFF)
 option(WEBASSEMBLY "Opengl wasassembly build" OFF)
 
 option(OPENGL  "OpenGL4.x Graphics Pipeline"    OFF)#Tring to use OpenGL4.x try to close to 4.3
-option(WEBGL   "WebGL2.0 Graphics Pipeline" OFF)#WEBGL2.0-->OpenGLES3.0-->OpenGL 4.3
+option(EMSCRIPTEN   "WebGL2.0 Graphics Pipeline" OFF)#WEBGL2.0-->OpenGLES3.0-->OpenGL 4.3
 option(VULKAN  "Vulkan Graphics Pipeline"    OFF)#this is only to Windows
 option(WEBGPU  "WebGPU Graphics Pipeline"    OFF)#this is for platforms webassembly and windows
 
@@ -41,7 +41,7 @@ if(PRESET_NAME STREQUAL "windows-x64-openGL")
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
-     set(WEBGL OFF CACHE BOOL "webgl" FORCE) 
+     set(EMSCRIPTEN OFF CACHE BOOL "webgl" FORCE) 
      
 elseif(PRESET_NAME STREQUAL "windows-x64-vulkan")
 
@@ -51,14 +51,14 @@ elseif(PRESET_NAME STREQUAL "windows-x64-vulkan")
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
-     set(WEBGL OFF CACHE BOOL "webgl" FORCE)
+     set(EMSCRIPTEN OFF CACHE BOOL "webgl" FORCE)
      
 elseif(PRESET_NAME STREQUAL "windows-x64-webgpu")
 
      set(WINX64 ON CACHE BOOL "windows" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
 
-     set(WEBGL OFF CACHE BOOL "webgl" FORCE)
+     set(EMSCRIPTEN OFF CACHE BOOL "webgl" FORCE)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
@@ -67,7 +67,7 @@ elseif(PRESET_NAME STREQUAL "emscripten-openGL")
 
      set(WEBASSEMBLY ON CACHE BOOL "webassembly" FORCE)
      set(OPENGL ON CACHE BOOL "opengl" FORCE)
-     set(WEBGL ON CACHE BOOL "webgl" FORCE)#required to include emscripten
+     set(EMSCRIPTEN ON CACHE BOOL "webgl" FORCE)#required to include emscripten
    
      set(WINX64 OFF CACHE BOOL "windows" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
@@ -77,7 +77,7 @@ elseif(PRESET_NAME STREQUAL "emscripten-webgpu")
 
      set(WEBASSEMBLY ON CACHE BOOL "webassembly" FORCE)
      set(WEBGPU ON CACHE BOOL "webgpu" FORCE)
-     set(WEBGL ON CACHE BOOL "webgl" FORCE)#required to include emscripten
+     set(EMSCRIPTEN ON CACHE BOOL "webgl" FORCE)#required to include emscripten
 
      set(WINX64 OFF CACHE BOOL "windows" FORCE)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
@@ -91,7 +91,7 @@ WINX64=${WINX64},
 WEBASSEMBLY=${WEBASSEMBLY},
 OPENGL=${OPENGL},
 VULKAN=${VULKAN}, 
-WEBGL=${WEBGL}, 
+WEBGL=${EMSCRIPTEN}, 
 WEBGPU=${WEBGPU},
 DEBUG=${DEBUG}")
 
@@ -112,7 +112,7 @@ endif()
 if(OPENGL)
   add_definitions(-DOPENGL)
 endif()
-if(WEBGL)
+if(EMSCRIPTEN)
   add_definitions(-DWEBGL)
 endif()
 if(VULKAN)
@@ -133,18 +133,26 @@ add_library(module_interface INTERFACE)
 
 add_subdirectory(libraries/debug)
 add_subdirectory(libraries/mathLib)
-add_subdirectory(libraries/context)
+add_subdirectory(libraries/platform)
+add_subdirectory(libraries/renderCore)
+add_subdirectory(libraries/openGLEngine)
 add_subdirectory(resources)
 add_subdirectory(src)
 
 target_link_libraries(module_interface INTERFACE main_module)
 #header only module so no need to add Private or public to the build
 target_link_libraries(module_interface INTERFACE mathLib_interface)
-target_link_libraries(module_interface INTERFACE context_module)
-target_link_libraries(module_interface INTERFACE debug_module)
+target_link_libraries(module_interface INTERFACE platform_module)
+target_link_libraries(module_interface INTERFACE renderCore_module)
+target_link_libraries(module_interface INTERFACE openGLEngine_module)
+target_link_libraries(module_interface INTERFACE debugg_module)
 
-target_link_libraries(module_interface PRIVATE ${context_module})
-target_link_libraries(module_interface PRIVATE ${debug_module})
+
+
+target_link_libraries(module_interface PRIVATE ${platform_module})
+target_link_libraries(module_interface PRIVATE ${renderCore_module})
+target_link_libraries(module_interface PRIVATE ${openGLEngine_module})
+target_link_libraries(module_interface PRIVATE ${debugg_module})
 
 if(WINX64)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE} appicon.rc)
@@ -153,9 +161,6 @@ elseif(WEBASSEMBLY)
 endif()
 
 target_link_libraries(RenderCoreEngine PRIVATE module_interface)
-#target_link_libraries(RenderCoreEngine INTERFACE mathLib_module)
-#target_link_libraries(RenderCoreEngine INTERFACE context_module)
-#target_link_libraries(RenderCoreEngine INTERFACE  debug_module  )
 
 
 if (CMAKE_VERSION VERSION_GREATER 3.10)
