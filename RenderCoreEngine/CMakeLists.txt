@@ -18,10 +18,9 @@ project (RenderCoreEngine)
 
 set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"  CACHE STRING "Vcpkg toolchain file") 
 
-set(VCPKG_INSTALL "C:/vcpkg/installed/x64-windows-static")
- 
-set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include")
-
+set(VCPKG_INSTALL_DIR "C:/vcpkg/installed/x64-windows-static")
+set(VCPKG_INSTALL_INCLUDE_DIR "${VCPKG_INSTALL_DIR}/include")
+set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")#"C:/emsdk/upstream/emscripten/cache/sysroot/include")
 
 
 option(DEBUG "Enable or Disable debug"        ON)
@@ -106,9 +105,25 @@ remove_definitions(-DVULKAN)
 remove_definitions(-DWEBGPU)
 
 
-include_directories("${VCPKG_INSTALL}/include")
 add_library(module_interface INTERFACE)
 
+add_subdirectory(libraries/debug)
+add_subdirectory(libraries/mathLib)
+add_subdirectory(libraries/platform)
+add_subdirectory(libraries/renderCore)
+
+add_subdirectory(resources)
+add_subdirectory(src)
+
+target_link_libraries(module_interface INTERFACE main_module)
+target_link_libraries(module_interface INTERFACE mathLib_interface)#header only module so no need to add Private or public to the build
+
+target_link_libraries(module_interface INTERFACE platform_module)
+target_link_libraries(module_interface PRIVATE ${platform_module})
+target_link_libraries(module_interface INTERFACE renderCore_module)
+target_link_libraries(module_interface PRIVATE ${renderCore_module})
+target_link_libraries(module_interface INTERFACE debugg_module)
+target_link_libraries(module_interface PRIVATE ${debugg_module})
 
 if(WINX64)
   add_definitions(-DPLATFORM_WINDOWS)
@@ -118,6 +133,9 @@ endif()
 
 if(OPENGL)
   add_definitions(-DOPENGL)
+  add_subdirectory(libraries/graphicsEngine/openGLEngine)
+  target_link_libraries(module_interface INTERFACE openGLEngine_module)
+  target_link_libraries(module_interface PRIVATE ${openGLEngine_module})
 endif()
 if(EMSCRIPTEN)
   add_definitions(-DEMSCRIPTEN)
@@ -125,41 +143,23 @@ if(EMSCRIPTEN)
 endif()
 if(VULKAN)
   add_definitions(-DVULKAN)
+  set(VULKAN_INCLUDE_DIR "C:/VulkanSDK/1.3.268.0/Include/vulkan")
+  set(VULKAN_STATIC_LIB "C:/VulkanSDK/1.3.268.0/Lib")
+  target_include_directories(module_interface INTERFACE ${VULKAN_INCLUDE_DIR})
+  target_link_libraries(module_interface INTERFACE ${VULKAN_STATIC_LIB})
+  add_subdirectory(libraries/graphicsEngine/vulkanEngine)
+  target_link_libraries(module_interface INTERFACE vulkanEngine_module)
+  target_link_libraries(module_interface PRIVATE ${vulkanEngine_module})
 endif()
 if(WEBGPU)
   add_definitions(-DWEBGPU)
+  add_subdirectory(libraries/graphicsEngine/webGpuEngine)
 endif()
 
 if(DEBUG)
   add_definitions(-DDEBUG)
 endif()
 
-
-
-
-add_subdirectory(libraries/debug)
-add_subdirectory(libraries/mathLib)
-add_subdirectory(libraries/platform)
-add_subdirectory(libraries/renderCore)
-add_subdirectory(libraries/openGLEngine)
-add_subdirectory(resources)
-add_subdirectory(src)
-
-target_link_libraries(module_interface INTERFACE main_module)
-#header only module so no need to add Private or public to the build
-target_link_libraries(module_interface INTERFACE mathLib_interface)
-
-target_link_libraries(module_interface INTERFACE platform_module)
-target_link_libraries(module_interface INTERFACE renderCore_module)
-target_link_libraries(module_interface INTERFACE openGLEngine_module)
-target_link_libraries(module_interface INTERFACE debugg_module)
-
-
-
-target_link_libraries(module_interface PRIVATE ${platform_module})
-target_link_libraries(module_interface PRIVATE ${renderCore_module})
-target_link_libraries(module_interface PRIVATE ${openGLEngine_module})
-target_link_libraries(module_interface PRIVATE ${debugg_module})
 
 if(WINX64)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE} appicon.rc)

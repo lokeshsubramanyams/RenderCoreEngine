@@ -8,3 +8,4 @@
 
 add_library(mathLib_interface INTERFACE)
 target_include_directories(mathLib_interface INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/")
+target_include_directories(mathLib_interface INTERFACE  "${VCPKG_INSTALL_INCLUDE_DIR}/glm")
