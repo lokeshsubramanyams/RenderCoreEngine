@@ -19,6 +19,8 @@ project (RenderCoreEngine)
 set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"  CACHE STRING "Vcpkg toolchain file") 
 
 set(VCPKG_INSTALL "C:/vcpkg/installed/x64-windows-static")
+ 
+set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include")
 
 
 
@@ -99,9 +101,14 @@ remove_definitions(-DDEBUG)
 remove_definitions(-DPLATFORM_WEBASSEMBLY)
 remove_definitions(-DPLATFORM_WINDOWS)
 remove_definitions(-DOPENGL)
-remove_definitions(-DWEBGL)
+remove_definitions(-DEMSCRIPTEN)
 remove_definitions(-DVULKAN)
 remove_definitions(-DWEBGPU)
+
+
+include_directories("${VCPKG_INSTALL}/include")
+add_library(module_interface INTERFACE)
+
 
 if(WINX64)
   add_definitions(-DPLATFORM_WINDOWS)
@@ -113,7 +120,8 @@ if(OPENGL)
   add_definitions(-DOPENGL)
 endif()
 if(EMSCRIPTEN)
-  add_definitions(-DWEBGL)
+  add_definitions(-DEMSCRIPTEN)
+  target_link_libraries(module_interface INTERFACE ${EMSCRIPTEN_INCLUDE_DIR})
 endif()
 if(VULKAN)
   add_definitions(-DVULKAN)
@@ -126,9 +134,7 @@ if(DEBUG)
   add_definitions(-DDEBUG)
 endif()
 
-include_directories("${VCPKG_INSTALL}/include")
 
-add_library(module_interface INTERFACE)
 
 
 add_subdirectory(libraries/debug)
@@ -142,6 +148,7 @@ add_subdirectory(src)
 target_link_libraries(module_interface INTERFACE main_module)
 #header only module so no need to add Private or public to the build
 target_link_libraries(module_interface INTERFACE mathLib_interface)
+
 target_link_libraries(module_interface INTERFACE platform_module)
 target_link_libraries(module_interface INTERFACE renderCore_module)
 target_link_libraries(module_interface INTERFACE openGLEngine_module)

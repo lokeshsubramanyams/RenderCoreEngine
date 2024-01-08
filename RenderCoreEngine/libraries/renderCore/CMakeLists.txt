@@ -5,8 +5,8 @@ add_library(renderCore_module ${SOURCE_FILES})
 target_include_directories(renderCore_module PUBLIC 
 "${CMAKE_CURRENT_SOURCE_DIR}/"
 "${CMAKE_CURRENT_SOURCE_DIR}/vertexEngine" 
-"${CMAKE_CURRENT_SOURCE_DIR}/vertexEngine/Mesh"
-"${CMAKE_CURRENT_SOURCE_DIR}/vertexEngine/Camera"
+"${CMAKE_CURRENT_SOURCE_DIR}/vertexEngine/mesh"
+"${CMAKE_CURRENT_SOURCE_DIR}/vertexEngine/camera"
 "${CMAKE_CURRENT_SOURCE_DIR}/fragmentEngine" )
 target_link_libraries(renderCore_module PUBLIC mathLib_interface)
 

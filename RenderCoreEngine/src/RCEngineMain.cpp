@@ -18,7 +18,8 @@ using namespace RCEngine::RenderCore::VertexEngine;
 int main()
 {
 	PlatformType pType = PlatformType::WINDOWS;
-	GraphicsEngine ge  = GraphicsEngine::OPENGL_ENGINE;
+	GraphicsEngine ge3  = GraphicsEngine::OPENGL_3x_ENGINE;//for browser
+	GraphicsEngine ge4 = GraphicsEngine::OPENGL_4x_ENGINE;//for windows
 
 	//Context* context = Context::CreateContext({0,0,600,400});// new RCEngine::Platform::Context();
 

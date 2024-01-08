@@ -1,13 +1,14 @@
 #pragma once 
-#include<GL/glew.h>
-#include "MathLib.hpp"
+#include <GLES3/gl3.h>
+
 namespace RCEngine
 {
 	namespace OpenGLEngine
 	{
-		class OpenGL
+		class OpenGL3x
 		{
-			
+		public:
+			void TestAPIs();
 		};
 
 	}

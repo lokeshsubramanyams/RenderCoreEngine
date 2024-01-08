@@ -9,7 +9,8 @@ namespace RCEngine
 
 	enum GraphicsEngine
 	{
-		OPENGL_ENGINE,
+		OPENGL_3x_ENGINE,
+		OPENGL_4x_ENGINE,
 		VULKAN_ENGINE,
 		WEBGPU_ENGINE
 	};

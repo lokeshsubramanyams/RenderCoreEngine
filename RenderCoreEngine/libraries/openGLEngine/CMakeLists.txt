@@ -1,6 +1,11 @@
 #libraries/openglEngine/CMakeLists.txt
 
-file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+set(SOURCE_FILES "")
+if(EMSCRIPTEN)
+  file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/opengl3x/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/opengl3x/*.cpp)
+else()
+  file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/opengl4x/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/opengl4x/*.cpp)
+endif()
 add_library(openGLEngine_module ${SOURCE_FILES})
 target_include_directories(openGLEngine_module PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/" )
 
