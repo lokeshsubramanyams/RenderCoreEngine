@@ -20,8 +20,8 @@ set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"  CACHE STRI
 
 set(VCPKG_INSTALL_DIR "C:/vcpkg/installed/x64-windows-static")
 set(VCPKG_INSTALL_INCLUDE_DIR "${VCPKG_INSTALL_DIR}/include")
-set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")#"C:/emsdk/upstream/emscripten/cache/sysroot/include")
-
+set(EMSCRIPTEN_CACHE_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include")
+set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
 
 option(DEBUG "Enable or Disable debug"        ON)
 
@@ -129,6 +129,7 @@ if(WINX64)
   add_definitions(-DPLATFORM_WINDOWS)
 elseif(WEBASSEMBLY)
   add_definitions(-DPLATFORM_WEBASSEMBLY)
+
 endif()
 
 if(OPENGL)
@@ -139,7 +140,7 @@ if(OPENGL)
 endif()
 if(EMSCRIPTEN)
   add_definitions(-DEMSCRIPTEN)
-  target_link_libraries(module_interface INTERFACE ${EMSCRIPTEN_INCLUDE_DIR})
+  
 endif()
 if(VULKAN)
   add_definitions(-DVULKAN)

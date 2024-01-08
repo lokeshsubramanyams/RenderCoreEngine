@@ -1,5 +1,5 @@
 #include "IContext.hpp"
-//#include<emscripten.h>
+#include<emscripten.h>
 
 namespace RCEngine
 {
@@ -12,7 +12,7 @@ namespace RCEngine
 		public:
 			ContextBrowser(MathLib::Rect _viewport);
 			~ContextBrowser();
-
+			
 		};
 	}
 }
