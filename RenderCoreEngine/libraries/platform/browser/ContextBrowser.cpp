@@ -7,7 +7,7 @@ namespace RCEngine
 		ContextBrowser::ContextBrowser(MathLib::Rect _viewport)
 			:IContext(_viewport)
 		{
-
+			
 		}
 
 		ContextBrowser::~ContextBrowser()

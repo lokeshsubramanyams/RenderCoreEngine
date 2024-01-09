@@ -14,22 +14,36 @@
 
 cmake_minimum_required (VERSION 3.10)
 
+# Enable Hot Reload for MSVC compilers if supported.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+
 project (RenderCoreEngine)
 
 set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"  CACHE STRING "Vcpkg toolchain file") 
 
 set(CMAKE_TOOLCHAIN_FILE "C:/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" CACHE STRING "emsdk toolchain file")
 
-
 set(VCPKG_INSTALL_DIR "C:/vcpkg/installed/x64-windows-static")
+
 set(VCPKG_INSTALL_INCLUDE_DIR "${VCPKG_INSTALL_DIR}/include")
+
 set(EMSCRIPTEN_CACHE_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include")
+
+set(EMSCRIPTEN_CACHE_INCLUDE_EMSCRIPTEN_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include/emscripten")
+
 set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
 
+option(OnDEVELOPMENT "Emscripten include change to cache dir while building"  ON)
 
+if(OnDEVELOPMENT)
+  set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
+else()
+  set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include/emscripten")
+endif()
 
-
-#include_directories("${EMSCRIPTEN_INCLUDE_DIR}/")
 
 option(DEBUG "Enable or Disable debug"        ON)
 
@@ -100,7 +114,7 @@ WINX64=${WINX64},
 WEBASSEMBLY=${WEBASSEMBLY},
 OPENGL=${OPENGL},
 VULKAN=${VULKAN}, 
-WEBGL=${EMSCRIPTEN}, 
+EMSCRIPTEN=${EMSCRIPTEN}, 
 WEBGPU=${WEBGPU},
 DEBUG=${DEBUG}")
 
@@ -123,15 +137,21 @@ add_subdirectory(libraries/renderCore)
 add_subdirectory(resources)
 add_subdirectory(src)
 
-
+target_link_libraries(module_interface INTERFACE main_module)
+target_link_libraries(module_interface INTERFACE mathLib_interface)#header only module so no need to add Private or public to the build
+target_link_libraries(module_interface INTERFACE platform_module)
+target_link_libraries(module_interface PRIVATE ${platform_module})
+target_link_libraries(module_interface INTERFACE renderCore_module)
+target_link_libraries(module_interface PRIVATE ${renderCore_module})
+target_link_libraries(module_interface INTERFACE debugg_module)
+target_link_libraries(module_interface PRIVATE ${debugg_module})
 
 
 
 if(WINX64)
   add_definitions(-DPLATFORM_WINDOWS)
-elseif(WEBASSEMBLY)
+ elseif(WEBASSEMBLY)
   add_definitions(-DPLATFORM_WEBASSEMBLY)
-
 endif()
 
 if(OPENGL)
@@ -142,7 +162,6 @@ if(OPENGL)
 endif()
 if(EMSCRIPTEN)
   add_definitions(-DEMSCRIPTEN)
-  
 endif()
 if(VULKAN)
   add_definitions(-DVULKAN)
@@ -169,17 +188,6 @@ if(WINX64)
 elseif(WEBASSEMBLY)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE})
 endif()
-
-#target_include_directories(RenderCoreEngine PRIVATE "${EMSCRIPTEN_INCLUDE_DIR}/")
-
-target_link_libraries(module_interface INTERFACE main_module)
-target_link_libraries(module_interface INTERFACE mathLib_interface)#header only module so no need to add Private or public to the build
-target_link_libraries(module_interface INTERFACE platform_module)
-target_link_libraries(module_interface PRIVATE ${platform_module})
-target_link_libraries(module_interface INTERFACE renderCore_module)
-target_link_libraries(module_interface PRIVATE ${renderCore_module})
-target_link_libraries(module_interface INTERFACE debugg_module)
-target_link_libraries(module_interface PRIVATE ${debugg_module})
 
 target_link_libraries(RenderCoreEngine PRIVATE module_interface)
 

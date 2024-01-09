@@ -1,5 +1,6 @@
 #include "OpenGL3x.hpp"
 
+
 namespace RCEngine
 {
 	namespace OpenGLEngine
@@ -11,6 +12,7 @@ namespace RCEngine
 
 			// Draw the triangle
 			glDrawArrays(GL_TRIANGLES, 0, 3);
+			
 		}
 	}
 }

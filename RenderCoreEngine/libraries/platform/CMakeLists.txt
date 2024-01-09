@@ -19,6 +19,5 @@ target_include_directories(platform_module PUBLIC
 target_link_libraries(platform_module PUBLIC mathLib_interface)
 
 if(EMSCRIPTEN)
-    #target_include_directories(platform_module INTERFACE  "${EMSCRIPTEN_INCLUDE_DIR}/")
-    target_include_directories(platform_module PRIVATE  "${EMSCRIPTEN_CACHE_INCLUDE_DIR}/")
+    target_include_directories(platform_module PUBLIC  "${EMSCRIPTEN_INCLUDE_DIR}")
 endif()
