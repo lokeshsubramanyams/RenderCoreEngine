@@ -15,6 +15,7 @@ target_link_libraries(openGLEngine_module PUBLIC platform_module mathLib_interfa
 
 if(EMSCRIPTEN)
     target_include_directories(openGLEngine_module PRIVATE  "${EMSCRIPTEN_CACHE_INCLUDE_DIR}/")
+    #target_include_directories(platform_module INTERFACE  "${EMSCRIPTEN_INCLUDE_DIR}/")
 else()
     target_include_directories(openGLEngine_module PUBLIC  "${VCPKG_INSTALL_INCLUDE_DIR}/")
 endif()

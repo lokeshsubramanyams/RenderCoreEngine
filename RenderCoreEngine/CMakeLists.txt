@@ -18,10 +18,18 @@ project (RenderCoreEngine)
 
 set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"  CACHE STRING "Vcpkg toolchain file") 
 
+set(CMAKE_TOOLCHAIN_FILE "C:/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" CACHE STRING "emsdk toolchain file")
+
+
 set(VCPKG_INSTALL_DIR "C:/vcpkg/installed/x64-windows-static")
 set(VCPKG_INSTALL_INCLUDE_DIR "${VCPKG_INSTALL_DIR}/include")
 set(EMSCRIPTEN_CACHE_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include")
 set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
+
+
+
+
+#include_directories("${EMSCRIPTEN_INCLUDE_DIR}/")
 
 option(DEBUG "Enable or Disable debug"        ON)
 
@@ -115,15 +123,9 @@ add_subdirectory(libraries/renderCore)
 add_subdirectory(resources)
 add_subdirectory(src)
 
-target_link_libraries(module_interface INTERFACE main_module)
-target_link_libraries(module_interface INTERFACE mathLib_interface)#header only module so no need to add Private or public to the build
 
-target_link_libraries(module_interface INTERFACE platform_module)
-target_link_libraries(module_interface PRIVATE ${platform_module})
-target_link_libraries(module_interface INTERFACE renderCore_module)
-target_link_libraries(module_interface PRIVATE ${renderCore_module})
-target_link_libraries(module_interface INTERFACE debugg_module)
-target_link_libraries(module_interface PRIVATE ${debugg_module})
+
+
 
 if(WINX64)
   add_definitions(-DPLATFORM_WINDOWS)
@@ -167,6 +169,17 @@ if(WINX64)
 elseif(WEBASSEMBLY)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE})
 endif()
+
+#target_include_directories(RenderCoreEngine PRIVATE "${EMSCRIPTEN_INCLUDE_DIR}/")
+
+target_link_libraries(module_interface INTERFACE main_module)
+target_link_libraries(module_interface INTERFACE mathLib_interface)#header only module so no need to add Private or public to the build
+target_link_libraries(module_interface INTERFACE platform_module)
+target_link_libraries(module_interface PRIVATE ${platform_module})
+target_link_libraries(module_interface INTERFACE renderCore_module)
+target_link_libraries(module_interface PRIVATE ${renderCore_module})
+target_link_libraries(module_interface INTERFACE debugg_module)
+target_link_libraries(module_interface PRIVATE ${debugg_module})
 
 target_link_libraries(RenderCoreEngine PRIVATE module_interface)
 
