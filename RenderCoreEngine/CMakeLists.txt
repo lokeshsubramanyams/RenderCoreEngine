@@ -132,7 +132,7 @@ add_library(module_interface INTERFACE)
 add_subdirectory(libraries/debug)
 add_subdirectory(libraries/mathLib)
 add_subdirectory(libraries/platform)
-add_subdirectory(libraries/renderCore)
+add_subdirectory(libraries/renderCoreEngine)
 add_subdirectory(libraries/graphicsEngine)
 
 add_subdirectory(resources)
