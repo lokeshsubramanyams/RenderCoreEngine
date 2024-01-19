@@ -6,7 +6,7 @@ message(STATUS "libraries/openglEngine/openGL4x-->:${CMAKE_CURRENT_BINARY_DIR}")
 
 add_library(openGLEngine_module ${SOURCE_FILES})
 target_include_directories(openGLEngine_module PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/" )
-target_link_libraries(openGLEngine_module PUBLIC  platform_module mathLib_interface renderCore_module )
+target_link_libraries(openGLEngine_module PUBLIC  graphicEngine_module )
 
 target_include_directories(openGLEngine_module PUBLIC  ${VCPKG_INSTALL_INCLUDE_DIR})
 target_include_directories(openGLEngine_module PUBLIC  ${CMAKE_CURRENT_BINARY_DIR}/shaders)

@@ -15,4 +15,14 @@ namespace RCEngine
 		WEBGPU_ENGINE
 	};
 
+	enum VertexShaderType
+	{
+		default_vert_fallBack
+	};
+
+	enum FragmentShaderType
+	{
+		default_frag_fallBack
+	};
+
 }

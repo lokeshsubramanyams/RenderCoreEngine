@@ -26,7 +26,4 @@ foreach(SHADER_FILE IN LISTS SHADER_FILES)
         message(FATAL_ERROR "xxd failed: ${XXD_ERROR}")
     endif()
 
-    # Optionally print xxd output for debugging purposes
-    message(STATUS "xxd output: ${XXD_OUTPUT}")
-
 endforeach()
