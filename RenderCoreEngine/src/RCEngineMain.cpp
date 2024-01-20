@@ -5,6 +5,7 @@
 #include "MathLib.h"
 #include "Debug.h"
 #include "Mesh.h"
+#include "RenderCore.h"
 #include "RenderCoreEngine.h"
 
 

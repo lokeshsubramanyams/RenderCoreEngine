@@ -1,5 +1,7 @@
 #include "IContext.h"
 
+#include<GLFW/glfw3.h>
+
 namespace RCEngine
 {
 	namespace Platform

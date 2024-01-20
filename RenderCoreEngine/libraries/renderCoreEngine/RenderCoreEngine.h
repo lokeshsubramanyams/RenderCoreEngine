@@ -1,28 +1,13 @@
 #pragma once
+
 namespace RCEngine
 {
-	enum PlatformType
+	namespace RenderCore
 	{
-		WINDOWS,
-		BROWSER
-	};
+		class RenderCoreEngine
+		{
 
-	enum GraphicsEngine
-	{
-		OPENGL_3x_ENGINE,
-		OPENGL_4x_ENGINE,
-		VULKAN_ENGINE,
-		WEBGPU_ENGINE
-	};
-
-	enum VertexShaderType
-	{
-		default_vert
-	};
-
-	enum FragmentShaderType
-	{
-		default_frag
-	};
-
+		};
+	}
 }
+
