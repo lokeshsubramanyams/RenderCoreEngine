@@ -1,0 +1,85 @@
+﻿{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 19,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "windows-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "windows-x64-openGL",
+      "displayName": "windows-x64-openGL",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "PRESET_NAME": "windows-x64-openGL"
+      }
+    },
+    {
+      "name": "windows-x64-vulkan",
+      "displayName": "windows-x64-vulkan",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "PRESET_NAME": "windows-x64-vulkan"
+      }
+    },
+    /*{
+      "name": "windows-x64-webgpu",
+      "displayName": "windows-x64-webGpu",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "PRESET_NAME": "windows-x64-webgpu"
+      }
+    },*/
+    {
+      "name": "emscripten",
+      "hidden": true,
+      "generator": "Ninja",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "C:\\emsdk\\upstream\\emscripten\\cmake\\Modules\\Platform\\Emscripten.cmake",
+        "CMAKE_C_COMPILER": "C:\\emsdk\\upstream\\emscripten\\emcc.bat",
+        "CMAKE_CXX_COMPILER": "C:\\emsdk\\upstream\\emscripten\\em++.bat",
+        //"CMAKE_INCLUDE_PATH": "C:\\emsdk\\upstream\\emscripten\\cache\\sysroot\\include"
+      }
+    },
+    {
+      "name": "emscripten-openGL",
+      "displayName": "webAssembly-openGL",
+      "inherits": "emscripten",
+      "cacheVariables": {
+        "PRESET_NAME": "emscripten-openGL"
+      }
+    },
+    {
+      "name": "emscripten-webgpu",
+      "displayName": "webAssembly-webGpu",
+      "inherits": "emscripten",
+      "cacheVariables": {
+        "PRESET_NAME": "emscripten-webgpu"
+      }
+    }
+
+  ]
+
+}

@@ -1,0 +1,64 @@
+{
+  "configurations": [
+    {
+      "name": "windows-base",
+      "generator": "Visual Studio 17 2022",
+      "configurationType": "Release",
+      "buildRoot": "${sourceDir}/out/build/${name}",
+      "installRoot": "${sourceDir}/out/install/${name}",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "condition": "equals('${hostSystemName}', 'Windows')",
+      //"inheritEnvironments": [ "msvc_x64_x64" ]
+    },
+    {
+      "name": "windows-x64-openGL",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "PRESET_NAME": "windows-x64-openGL"
+      }
+    },
+    {
+      "name": "windows-x64-vulkan",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "PRESET_NAME": "windows-x64-vulkan"
+      }
+    },
+    /*{
+      "name": "windows-x64-webgpu",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "PRESET_NAME": "windows-x64-webgpu"
+      }
+    },*/
+    {
+      "name": "emscripten",
+      "generator": "Ninja",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "C:\\emsdk\\upstream\\emscripten\\cmake\\Modules\\Platform\\Emscripten.cmake",
+        "CMAKE_C_COMPILER": "C:\\emsdk\\upstream\\emscripten\\emcc.bat",
+        "CMAKE_CXX_COMPILER": "C:\\emsdk\\upstream\\emscripten\\em++.bat"
+      },
+      "intelliSenseMode": "windows-clang-x64"
+    },
+    {
+      "name": "emscripten-openGL",
+      "inherits": "emscripten",
+      "cacheVariables": {
+        "PRESET_NAME": "emscripten-openGL"
+      }
+    },
+    {
+      "name": "emscripten-webgpu",
+      "inherits": "emscripten",
+      "cacheVariables": {
+        "PRESET_NAME": "emscripten-webgpu"
+      }
+    }
+  ]
+}
