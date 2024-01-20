@@ -1,5 +1,5 @@
-#include "OpenGL3x.hpp"
-#include "ShadersMeta.hpp"
+#include "OpenGL3x.h"
+#include "OpenGL3xShadersMeta.h"
 
 namespace RCEngine
 {

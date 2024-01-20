@@ -1,19 +1,18 @@
 ﻿
-#include "RCEngineMain.hpp"
+#include "RCEngineMain.h"
 
-#include "IContext.hpp"
-#include "MathLib.hpp"
-#include "Debug.hpp"
-#include "Mesh.hpp"
-#include "RenderCore.hpp"
+#include "IContext.h"
+#include "MathLib.h"
+#include "Debug.h"
+#include "Mesh.h"
+#include "RenderCoreEngine.h"
 
 
 using namespace RCEngine;
 using namespace RCEngine::Platform;
 using namespace RCEngine::Debugger;
 using namespace RCEngine::MathLib;
-using namespace RCEngine::RenderCore::VertexEngine;
-
+using namespace RCEngine::RenderCore::Graphics;
 
 int main()
 {
@@ -33,7 +32,7 @@ int main()
 	vert[2] = { 0.5,1,0 };
 	int indices[3] = { 0,1,2 };
 
-	Mesh* mesh = new Mesh(vert,indices);
+	Mesh* mesh = new Mesh(vert, indices);
 
 	delete mesh;
 	//delete context;

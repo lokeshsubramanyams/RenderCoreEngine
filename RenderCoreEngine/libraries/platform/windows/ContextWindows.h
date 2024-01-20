@@ -1,11 +1,10 @@
-#include "IContext.hpp"
+#include "IContext.h"
 
 namespace RCEngine
 {
 	namespace Platform
 	{
 		using namespace RCEngine::MathLib;
-
 
 		class ContextWindows :public IContext
 		{

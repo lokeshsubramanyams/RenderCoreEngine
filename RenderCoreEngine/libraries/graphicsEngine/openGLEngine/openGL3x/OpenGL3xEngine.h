@@ -1,11 +1,11 @@
 #pragma once
-#include "GraphicsEngine.hpp"
+#include "IGraphicsEngine.h"
 namespace RCEngine
 {
 	namespace OpenGLEngine
 	{
 		using namespace GraphicsEngine;
-		class VulkanEngine : public IGraphicsEngine
+		class OpenGL3xEngine : public IGraphicsEngine
 		{
 		public:
 			void TestAPIs();

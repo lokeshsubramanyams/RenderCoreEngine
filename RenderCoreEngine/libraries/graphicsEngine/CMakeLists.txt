@@ -1,17 +1,17 @@
  
-set(SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/IGraphicsEngine.hpp ${CMAKE_CURRENT_SOURCE_DIR}/IGraphicsEngine.cpp)
+#set(SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/IGraphicsEngine.h ${CMAKE_CURRENT_SOURCE_DIR}/IGraphicsEngine.cpp)
 
-add_library(graphicEngine_module ${SOURCE_FILES})
+add_library(graphicEngine_module INTERFACE)#${SOURCE_FILES})
 
 target_include_directories(graphicEngine_module INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/" )
-target_link_libraries(graphicEngine_module PUBLIC  platform_module mathLib_interface renderCore_module )
+target_link_libraries(graphicEngine_module INTERFACE  platform_module mathLib_interface renderCore_module )
 
 if(OPENGL)
   add_subdirectory(openGLEngine)
   add_definitions(-DOPENGL)
 
   target_include_directories(graphicEngine_module INTERFACE ${openGLEngine_module} )
-  target_link_libraries(graphicEngine_module PUBLIC openGLEngine_module)
+  target_link_libraries(graphicEngine_module INTERFACE openGLEngine_module)
   target_link_libraries(graphicEngine_module PRIVATE ${openGLEngine_module})
   
 endif()

@@ -1,6 +1,6 @@
 #libraries/openglEngine/openGL3x/CMakeLists.txt
 
-file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 add_subdirectory( ${CMAKE_CURRENT_SOURCE_DIR}/shaders)
 message(STATUS "libraries/openglEngine/openGL3x-->:${CMAKE_CURRENT_BINARY_DIR}")
 

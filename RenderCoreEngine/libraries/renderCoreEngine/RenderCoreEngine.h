@@ -17,12 +17,12 @@ namespace RCEngine
 
 	enum VertexShaderType
 	{
-		default_vert_fallBack
+		default_vert
 	};
 
 	enum FragmentShaderType
 	{
-		default_frag_fallBack
+		default_frag
 	};
 
 }

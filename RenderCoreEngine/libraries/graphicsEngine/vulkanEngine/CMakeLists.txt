@@ -1,6 +1,6 @@
 #libraries/vulkanEngine/CMakeLists.txt
 
-file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 add_library(vulkanEngine_module ${SOURCE_FILES})
 target_include_directories(vulkanEngine_module PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/" )

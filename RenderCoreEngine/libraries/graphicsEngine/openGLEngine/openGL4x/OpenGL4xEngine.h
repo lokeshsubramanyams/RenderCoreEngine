@@ -1,5 +1,6 @@
 #pragma once
-#include "IGraphicsEngine.hpp"
+#include "IGraphicsEngine.h"
+
 
 namespace RCEngine
 {
@@ -9,6 +10,7 @@ namespace RCEngine
 		class OpenGL4xEngine : public IGraphicsEngine
 		{
 		public:
+			void  InitilizeEngine()const override;
 		
 		};
 

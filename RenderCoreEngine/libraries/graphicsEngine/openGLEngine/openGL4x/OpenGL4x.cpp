@@ -1,6 +1,6 @@
-#include "OpenGL4x.hpp"
+#include "OpenGL4x.h"
 
-#include "ShadersMeta.hpp"
+#include "OpenGL4xShadersMeta.h"
 
 
 namespace RCEngine

@@ -1,10 +1,11 @@
-#include "MathLib.hpp"
+#include "MathLib.h"
 namespace RCEngine
 {
 	namespace RenderCore
 	{
-		namespace VertexEngine
+		namespace Graphics
 		{
+
 			using namespace RCEngine::MathLib;
 			class Mesh
 			{
@@ -17,5 +18,6 @@ namespace RCEngine
 
 			};
 		}
+		
 	}
 }

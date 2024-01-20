@@ -1,5 +1,5 @@
 #pragma once
-#include "GraphicsEngine.hpp"
+#include "IGraphicsEngine.h"
 namespace RCEngine
 {
 	namespace OpenGLEngine

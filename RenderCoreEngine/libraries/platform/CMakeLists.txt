@@ -1,11 +1,11 @@
 #libraries/platform/CMakeLists.txt
 
 
-set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IContext.hpp ${CMAKE_CURRENT_SOURCE_DIR}/IContext.cpp)
+set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IContext.h ${CMAKE_CURRENT_SOURCE_DIR}/IContext.cpp)
 if(EMSCRIPTEN)
-  file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/browser/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/browser/*.cpp)
+  file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/browser/*.h ${CMAKE_CURRENT_SOURCE_DIR}/browser/*.cpp)
 else()
-  file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.cpp)
+  file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.h ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.cpp)
 endif()
 
 add_library(platform_module ${SOURCE_FILES})

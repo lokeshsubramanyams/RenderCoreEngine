@@ -6,8 +6,10 @@ namespace RCEngine
 	{
 		class IGraphicsEngine
 		{
-		//public:
-			//virtual void Initilize() = 0;
+		public:
+			virtual void InitilizeEngine() const = 0;
+
+
 		};
 
 	}

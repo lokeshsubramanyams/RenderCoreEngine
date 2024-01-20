@@ -1,4 +1,4 @@
-#include "IContext.hpp"
+#include "IContext.h"
 #include <emscripten.h>
 
 namespace RCEngine

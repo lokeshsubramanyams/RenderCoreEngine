@@ -1,4 +1,4 @@
-#include "Debug.hpp"
+#include "Debug.h"
 
 void RCEngine::Debugger::Debug::Log(string str)
 {

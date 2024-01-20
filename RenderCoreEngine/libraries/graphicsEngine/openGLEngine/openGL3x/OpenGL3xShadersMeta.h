@@ -1,7 +1,7 @@
 #ifndef SHADERS_H
 #define SHADERS_H
 
-#include "common/ShaderMetaData.hpp"
+#include "graphics/ShaderMetaData.h"
 
 
 #include "default_vert.h"
