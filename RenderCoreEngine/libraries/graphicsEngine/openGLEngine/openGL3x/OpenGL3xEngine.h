@@ -11,6 +11,7 @@ namespace RCEngine
 		public:
 			void  InitilizeEngine()const override;
 			void  Render() override;
+			float testVariable = 0.001f;
 		};
 
 	}

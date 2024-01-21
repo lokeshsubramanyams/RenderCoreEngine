@@ -34,7 +34,9 @@ namespace RCEngine
 			std::unique_ptr<IRenderSurface> renderSurface;
 			std::unique_ptr<IGraphicsEngine> graphicsEngine;
 			void InitilizeEngine();
+			void Renderer();
 			void Run();
+			
 		};
 
 	}

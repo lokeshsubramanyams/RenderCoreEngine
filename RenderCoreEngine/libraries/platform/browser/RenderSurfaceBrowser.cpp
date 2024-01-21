@@ -1,10 +1,12 @@
 #include "RenderSurfaceBrowser.h"
 #include "Debug.h"
+#include "rcEmscripten/RcEmscripten.h"
 namespace RCEngine
 {
 	namespace Platform
 	{
 		using namespace RCEngine::Debugger;
+		using namespace RCEngine::Platform::Browser;
 
 		RenderSurfaceBrowser::RenderSurfaceBrowser(Rect _viewport)
 			:IRenderSurface(_viewport)
@@ -18,7 +20,7 @@ namespace RCEngine
 			attrs.powerPreference = EM_WEBGL_POWER_PREFERENCE_HIGH_PERFORMANCE;
 			attrs.enableExtensionsByDefault = EM_TRUE;
 			attrs.failIfMajorPerformanceCaveat = EM_FALSE;
-			attrs.majorVersion = 2; // Use WebGL 2.0
+			attrs.majorVersion = 3; // Use WebGL 2.0
 			attrs.minorVersion = 0;
 			emscripten_webgl_init_context_attributes(&attrs);
 			canvas = emscripten_webgl_create_context("#canvas", &attrs);
@@ -29,7 +31,16 @@ namespace RCEngine
 			else
 			{
 				Debug::Log("canvas created successfully");
+
+				EMSCRIPTEN_RESULT result = emscripten_set_canvas_element_size("#canvas", viewport.width, viewport.height);
+				if (result != EMSCRIPTEN_RESULT_SUCCESS) {
+					Debug::LogError("error on setting the canvas size");
+				}
+				
 			}
+
+			
+
 		}
 
 
@@ -52,9 +63,10 @@ namespace RCEngine
 			return canvas!= 0;
 		}
 
+
 		bool RenderSurfaceBrowser::ShouldClose()
 		{
-			return false;
+			return shouldClose;
 		}
 
 		void RenderSurfaceBrowser::SwapBuffers()
@@ -71,5 +83,22 @@ namespace RCEngine
 		{
 
 		}
+		void RenderSurfaceBrowser::RenderLoop()
+		{
+			Debug::Log("RenderLoop called!");
+			if (ShouldClose())
+			{
+				emscripten_cancel_main_loop();
+			}
+		}
+
+		void RenderSurfaceBrowser::Run(std::function<void()>renderFunction)
+		{
+			RcEmscriptenRenderFunctionPtr1 = renderFunction;
+			RcEmscriptenRenderFunctionPtr2 = std::bind(&RenderSurfaceBrowser::RenderLoop, this);
+			Debug::Log("Render loop set");
+			emscripten_set_main_loop(RcEmscriptenRenderFunction, 0, 1);
+		}
+	
 	}
 }

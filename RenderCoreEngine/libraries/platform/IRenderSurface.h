@@ -1,5 +1,7 @@
 #pragma once
 #include "MathLib.h"
+#include <functional>
+
 
 namespace RCEngine
 {
@@ -22,6 +24,7 @@ namespace RCEngine
 			 virtual void SwapBuffers() = 0;
 			 virtual bool IsValid() const = 0;
 			 virtual void DestroySurface() = 0;
+			 virtual void Run(std::function<void()>renderFunction) = 0;
        virtual void PollEvents();
 			 
 			 

@@ -7,11 +7,16 @@ namespace RCEngine
 
 		void OpenGL3xEngine::InitilizeEngine() const
 		{
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			
 		}
 		void OpenGL3xEngine::Render()
 		{
+			testVariable += 0.005;
+			if (testVariable > 1)testVariable = 0.0;
 			glClear(GL_COLOR_BUFFER_BIT);
+			glClearColor(testVariable, 0.3f, 0.3f, 1.0f);
 		}
+
+
 	}
 }

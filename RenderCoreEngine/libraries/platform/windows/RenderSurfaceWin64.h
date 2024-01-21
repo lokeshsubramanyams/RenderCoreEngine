@@ -19,6 +19,7 @@ namespace RCEngine
 			void DestroySurface()  override;
 			bool IsValid()const override;
 			void PollEvents() override;
+			void Run(std::function<void()>renderFunction) override;
 		};
 	}
 }

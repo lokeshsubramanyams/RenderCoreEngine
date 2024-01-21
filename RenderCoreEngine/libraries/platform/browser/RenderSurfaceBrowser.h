@@ -12,6 +12,7 @@ namespace RCEngine
 		{
 		private:
 			EMSCRIPTEN_WEBGL_CONTEXT_HANDLE canvas;
+			
 		public:
 			RenderSurfaceBrowser(Rect _viewport);
 			~RenderSurfaceBrowser();
@@ -20,8 +21,8 @@ namespace RCEngine
 			void SwapBuffers()  override;
 			void DestroySurface()  override;
 			bool IsValid()const  override;
-			
-				
+			void Run(std::function<void()>renderFunction) override;
+			void RenderLoop();// void* arg);
 		
 		};
 	}

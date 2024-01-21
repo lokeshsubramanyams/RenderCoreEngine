@@ -76,5 +76,15 @@ namespace RCEngine
 		{
 			return window != nullptr;
 		}
+
+		void RenderSurfaceWin64::Run(std::function<void()>renderFunction)
+		{
+			while (!ShouldClose())
+			{
+				PollEvents();
+				renderFunction();
+				SwapBuffers();
+			}
+		}
 	}
 }
