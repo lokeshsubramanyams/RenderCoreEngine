@@ -1,28 +1,49 @@
 #include "RenderCoreEngine.h"
-#include "IContext.h"
-#include "RenderCore.h"
-#if  PLATFORM_WINDOWS
-#include "ContextWindows.h"
-#elif PLATFORM_WEBASSEMBLY
-#include "ContextBrowser.h"
-#endif
+#include "RenderCoreEngine.h"
+
 
 namespace RCEngine
 {
 	namespace RenderCore
 	{
-		using namespace RCEngine::Platform;
+
 		void RenderCoreEngine::InitilizeEngine()
 		{
 			
-			IContext* context ;
+			
 #if  PLATFORM_WINDOWS
-			context = new ContextWindows({ 0,0,640,480 });
-#elif PLATFORM_WEBASSEMBLY
-			context = new ContextBrowser({ 0,0,640,480 });
+			
+			renderSurface = std::make_unique<RenderSurfaceWin64>(Rect{ 0,0,640,480 });
+#if (OPENGL)
+			graphicsEngine = std::make_unique<OpenGL4xEngine>();
 #endif
 
+#elif PLATFORM_WEBASSEMBLY
+			
+			renderSurface = std::make_unique<RenderSurfaceBrowser>(Rect{ 0,0,640,480 });
+#if (OPENGL)
+			graphicsEngine = std::make_unique<OpenGL3xEngine>();
+#endif
 
+#endif
+			
+			graphicsEngine->InitilizeEngine();
+
+			Run();
+
+
+		}
+		void RenderCore::RenderCoreEngine::Run()
+		{
+			renderSurface->MakeContextCurrent();
+
+			while (!renderSurface->ShouldClose())
+			{
+				renderSurface->PollEvents();
+				graphicsEngine->Render();
+				renderSurface->SwapBuffers();
+			}
+			
 		}
 	}
 }

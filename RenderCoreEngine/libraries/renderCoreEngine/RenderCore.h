@@ -1,3 +1,4 @@
+#pragma once
 namespace RCEngine
 {
 
@@ -7,7 +8,7 @@ namespace RCEngine
 			BROWSER
 		};
 
-		enum GraphicsEngine
+		enum GraphicsEngineType
 		{
 			OPENGL_3x_ENGINE,
 			OPENGL_4x_ENGINE,

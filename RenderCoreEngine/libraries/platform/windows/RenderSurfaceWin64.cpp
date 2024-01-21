@@ -1,4 +1,4 @@
-#include "ContextWindows.h"
+#include "RenderSurfaceWin64.h"
 #include "Debug.h"
 
 namespace RCEngine
@@ -7,7 +7,7 @@ namespace RCEngine
 	namespace Platform
 	{
 
-		ContextWindows::ContextWindows(Rect _viewport) :IContext(_viewport)
+		RenderSurfaceWin64::RenderSurfaceWin64(Rect _viewport) :IRenderSurface(_viewport)
 		{
 			if (!glfwInit())
 			{
@@ -23,7 +23,6 @@ namespace RCEngine
 			window = glfwCreateWindow(viewport.width, viewport.height, "RCEngine", NULL, NULL);
 
 
-
 			if (!window) {
 				// Window or OpenGL context creation failed
 				glfwTerminate();
@@ -35,13 +34,13 @@ namespace RCEngine
 
 			glfwMakeContextCurrent(window);
 
-			while (!glfwWindowShouldClose(window)) {
+			/*while (!glfwWindowShouldClose(window)) {
 				// Check and call events
 				glfwPollEvents();
-			}
+			}*/
 		}
 
-		ContextWindows::~ContextWindows()
+		RenderSurfaceWin64::~RenderSurfaceWin64()
 		{
 			if (window)
 			{
@@ -49,26 +48,31 @@ namespace RCEngine
 			}
 		}
 
-		void ContextWindows::makeContextCurrent() 
+		void RenderSurfaceWin64::MakeContextCurrent()
 		{
 			glfwMakeContextCurrent(window);
 		}
 
-		bool ContextWindows::shouldClose() 
+		void RenderSurfaceWin64::PollEvents()
+		{
+			glfwPollEvents();
+		}
+
+		bool RenderSurfaceWin64::ShouldClose()
 		{
 			return glfwWindowShouldClose(window);
 		}
 
-		void ContextWindows::swapBuffers() 
+		void RenderSurfaceWin64::SwapBuffers()
 		{
 			glfwSwapBuffers(window);
 		}
 
-		void ContextWindows::DestroyContext() 
+		void RenderSurfaceWin64::DestroySurface()
 		{
 			glfwDestroyWindow(window);
 		}
-		bool ContextWindows::IsValidContext()
+		bool RenderSurfaceWin64::IsValid()const
 		{
 			return window != nullptr;
 		}

@@ -1,5 +1,6 @@
 #pragma once
 #include "IGraphicsEngine.h"
+#include <GLES3/gl3.h>
 namespace RCEngine
 {
 	namespace OpenGLEngine
@@ -8,7 +9,8 @@ namespace RCEngine
 		class OpenGL3xEngine : public IGraphicsEngine
 		{
 		public:
-			void TestAPIs();
+			void  InitilizeEngine()const override;
+			void  Render() override;
 		};
 
 	}

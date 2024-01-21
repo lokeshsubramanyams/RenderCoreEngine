@@ -1,6 +1,7 @@
 #pragma once
 #include "IGraphicsEngine.h"
-
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 namespace RCEngine
 {
@@ -10,8 +11,9 @@ namespace RCEngine
 		class OpenGL4xEngine : public IGraphicsEngine
 		{
 		public:
+			OpenGL4xEngine();
 			void  InitilizeEngine()const override;
-		
+			void  Render() override;
 		};
 
 	}

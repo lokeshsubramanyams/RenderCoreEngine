@@ -8,7 +8,7 @@ namespace RCEngine
 		{
 		public:
 			virtual void InitilizeEngine() const = 0;
-
+			virtual void  Render() = 0;
 
 		};
 

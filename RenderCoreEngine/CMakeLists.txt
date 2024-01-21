@@ -134,6 +134,16 @@ elseif(WEBASSEMBLY)
   add_definitions(-DPLATFORM_WEBASSEMBLY)
 endif()
 
+if(OPENGL)
+ add_definitions(-DOPENGL)
+endif()
+if(VULKAN)
+add_definitions(-DVULKAN)
+endif()
+if(WEBGL)
+add_definitions(-DWEBGPU)
+endif()
+
 
 if(DEBUG)
   add_definitions(-DDEBUG)

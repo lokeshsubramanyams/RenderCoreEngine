@@ -1,4 +1,4 @@
-#include "ContextBrowser.h"
+#include "RenderSurfaceBrowser.h"
 #include "Debug.h"
 namespace RCEngine
 {
@@ -6,8 +6,8 @@ namespace RCEngine
 	{
 		using namespace RCEngine::Debugger;
 
-		ContextBrowser::ContextBrowser(Rect _viewport)
-			:IContext(_viewport)
+		RenderSurfaceBrowser::RenderSurfaceBrowser(Rect _viewport)
+			:IRenderSurface(_viewport)
 		{
 			EmscriptenWebGLContextAttributes attrs;
 			attrs.alpha = EM_TRUE;
@@ -26,40 +26,48 @@ namespace RCEngine
 			{
 				Debug::LogError("canvas not created!");
 			}
+			else
+			{
+				Debug::Log("canvas created successfully");
+			}
 		}
 
 
 
-		void ContextBrowser::makeContextCurrent()
+		void RenderSurfaceBrowser::MakeContextCurrent()
 		{
 			EMSCRIPTEN_RESULT res = emscripten_webgl_make_context_current(canvas);
 			if (res != EMSCRIPTEN_RESULT_SUCCESS)
 			{
 				Debug::LogError("emscripten not able to make context current:");
 			}
+			else
+			{
+				Debug::Log("emscripten_webgl_make_context_current successfully");
+			}
 		}
 
-		bool ContextBrowser::IsValidContext()
+		bool RenderSurfaceBrowser::IsValid() const
 		{
 			return canvas!= 0;
 		}
 
-		bool ContextBrowser::shouldClose()
+		bool RenderSurfaceBrowser::ShouldClose()
 		{
 			return false;
 		}
 
-		void ContextBrowser::swapBuffers()
+		void RenderSurfaceBrowser::SwapBuffers()
 		{
 			
 		}
 
-		void ContextBrowser::DestroyContext()
+		void RenderSurfaceBrowser::DestroySurface()
 		{
 			emscripten_webgl_destroy_context(canvas);
 		}
 
-		ContextBrowser::~ContextBrowser()
+		RenderSurfaceBrowser::~RenderSurfaceBrowser()
 		{
 
 		}

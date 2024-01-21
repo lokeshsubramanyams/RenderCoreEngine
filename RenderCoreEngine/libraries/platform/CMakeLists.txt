@@ -5,13 +5,13 @@
 set(SOURCE_FILES "")
 if(EMSCRIPTEN)
   file(GLOB_RECURSE PLATFORM_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/browser/*.h ${CMAKE_CURRENT_SOURCE_DIR}/browser/*.cpp)
-    set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IContext.h 
-                      ${CMAKE_CURRENT_SOURCE_DIR}/IContext.cpp
+    set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.h 
+                      ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.cpp
                         ${PLATFORM_SOURCE_FILES}  )
 else()
   file(GLOB_RECURSE PLATFORM_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.h ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.cpp)
-  set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IContext.h 
-                      ${CMAKE_CURRENT_SOURCE_DIR}/IContext.cpp
+  set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.h 
+                      ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.cpp
                         ${PLATFORM_SOURCE_FILES}  )
                      
 endif()

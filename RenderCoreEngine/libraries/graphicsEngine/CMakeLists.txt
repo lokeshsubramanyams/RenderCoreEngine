@@ -8,8 +8,6 @@ target_link_libraries(graphicEngine_module INTERFACE  platform_module mathLib_in
 
 if(OPENGL)
   add_subdirectory(openGLEngine)
-  add_definitions(-DOPENGL)
-
   target_include_directories(graphicEngine_module INTERFACE ${openGLEngine_module} )
   target_link_libraries(graphicEngine_module INTERFACE openGLEngine_module)
   target_link_libraries(graphicEngine_module PRIVATE ${openGLEngine_module})
@@ -18,7 +16,6 @@ endif()
 
 if(VULKAN)
   add_subdirectory(vulkanEngine)
-  add_definitions(-DVULKAN)
   set(VULKAN_INCLUDE_DIR "C:/VulkanSDK/1.3.268.0/Include/vulkan")
   set(VULKAN_STATIC_LIB "C:/VulkanSDK/1.3.268.0/Lib")
   target_include_directories(graphicEngine_module INTERFACE ${VULKAN_INCLUDE_DIR})
@@ -29,5 +26,5 @@ endif()
 
 if(WEBGPU)
 add_subdirectory(webGpuEngine)
-add_definitions(-DWEBGPU)
+
 endif()
