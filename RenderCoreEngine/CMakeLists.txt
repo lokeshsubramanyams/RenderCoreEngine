@@ -41,7 +41,7 @@ option(OnDEVELOPMENT "Emscripten include change to cache dir while building"  OF
 if(OnDEVELOPMENT)
   set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
 else()
-  set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include/emscripten")
+  set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include")
 endif()
 
 
@@ -127,6 +127,22 @@ remove_definitions(-DVULKAN)
 remove_definitions(-DWEBGPU)
 
 
+
+if(WINX64)
+  add_definitions(-DPLATFORM_WINDOWS)
+elseif(WEBASSEMBLY)
+  add_definitions(-DPLATFORM_WEBASSEMBLY)
+endif()
+
+
+if(DEBUG)
+  add_definitions(-DDEBUG)
+  message(STATUS "DEBUG is set")
+else()
+  message(STATUS "DEBUG is not set")
+endif()
+
+
 add_library(module_interface INTERFACE)
 
 add_subdirectory(libraries/debug)
@@ -150,17 +166,6 @@ target_link_libraries(module_interface INTERFACE debugg_module)
 target_link_libraries(module_interface PRIVATE ${debugg_module})
 
 
-
-if(WINX64)
-  add_definitions(-DPLATFORM_WINDOWS)
- elseif(WEBASSEMBLY)
-  add_definitions(-DPLATFORM_WEBASSEMBLY)
-endif()
-
-
-if(DEBUG)
-  add_definitions(-DDEBUG)
-endif()
 
 
 if(WINX64)

@@ -9,11 +9,16 @@ namespace RCEngine
 		class IContext
 		{
 		protected:
-			const MathLib::Rect viewport;
+			const Rect viewport;
 		public:
-			 IContext(MathLib::Rect viewport);
-			 virtual Rect GetViewport() const  = 0;
+			 IContext(Rect viewport);
 			 virtual ~IContext();
+			 Rect GetViewport();
+			 virtual void makeContextCurrent()  = 0;
+			 virtual bool shouldClose()  = 0;
+			 virtual void swapBuffers()  = 0;
+			 virtual void DestroyContext()  = 0;
+			 virtual bool IsValidContext() = 0;
 		};
 	}
 }

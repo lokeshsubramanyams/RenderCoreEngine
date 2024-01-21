@@ -6,8 +6,10 @@ namespace RCEngine
 	{
 		class RenderCoreEngine
 		{
-
+		public:
+			void InitilizeEngine();
 		};
+
 	}
 }
 

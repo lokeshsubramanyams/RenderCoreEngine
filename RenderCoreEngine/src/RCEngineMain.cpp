@@ -1,31 +1,20 @@
 ﻿
-#include "RCEngineMain.h"
 
-#include "IContext.h"
-#include "MathLib.h"
-#include "Debug.h"
-#include "Mesh.h"
+#include "RCEngineMain.h"
 #include "RenderCore.h"
 #include "RenderCoreEngine.h"
 
+#include "Debug.h"
 
 using namespace RCEngine;
-using namespace RCEngine::Platform;
 using namespace RCEngine::Debugger;
-using namespace RCEngine::MathLib;
-using namespace RCEngine::RenderCore::Graphics;
+using namespace RCEngine::RenderCore;
 
 int main()
 {
-	PlatformType pType = PlatformType::WINDOWS;
+	/*PlatformType pType = PlatformType::WINDOWS;
 	GraphicsEngine ge3  = GraphicsEngine::OPENGL_3x_ENGINE;//for browser
 	GraphicsEngine ge4 = GraphicsEngine::OPENGL_4x_ENGINE;//for windows
-
-	//Context* context = Context::CreateContext({0,0,600,400});// new RCEngine::Platform::Context();
-
-	//Rect viewport = context->GetViewport();
-	
-	//Debug::Log(string("viewport:{" + to_string(viewport.width) + "," + to_string(viewport.height) + "}"));
 
 	Vector3 vert[3];
 	vert[0] = { 0,0,0 };
@@ -36,7 +25,11 @@ int main()
 	Mesh* mesh = new Mesh(vert, indices);
 
 	delete mesh;
-	//delete context;
+	*/
+	int x;
+	Debug::Log("main");
+	RenderCoreEngine* engine = new RenderCoreEngine();
+	engine->InitilizeEngine();
 
 	return 0;
 }

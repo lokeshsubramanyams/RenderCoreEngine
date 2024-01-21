@@ -1,5 +1,6 @@
 #include "IContext.h"
-#include <emscripten.h>
+#include <emscripten/emscripten.h>
+#include<emscripten/html5.h>
 
 namespace RCEngine
 {
@@ -9,10 +10,16 @@ namespace RCEngine
 		
 		class ContextBrowser :public IContext
 		{
+		private:
+			EMSCRIPTEN_WEBGL_CONTEXT_HANDLE canvas;
 		public:
-			ContextBrowser(MathLib::Rect _viewport);
+			ContextBrowser(Rect _viewport);
 			~ContextBrowser();
-			
+			void makeContextCurrent()  override;
+			bool shouldClose()  override;
+			void swapBuffers()  override;
+			void DestroyContext()  override;
+			bool IsValidContext() override;
 		};
 	}
 }

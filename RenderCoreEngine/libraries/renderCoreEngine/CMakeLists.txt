@@ -9,7 +9,7 @@ target_include_directories(renderCore_module PUBLIC
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/camera/"
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/light/")
 
-target_link_libraries(renderCore_module PUBLIC mathLib_interface)
+target_link_libraries(renderCore_module PUBLIC mathLib_interface platform_module openGLEngine_module  )
 
 # Debugging: Print out all found source files
 foreach(SOURCE_FILE IN LISTS SOURCE_FILES)

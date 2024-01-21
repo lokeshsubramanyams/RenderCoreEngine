@@ -1,7 +1,5 @@
 #include "IContext.h"
-
 #include<GLFW/glfw3.h>
-
 namespace RCEngine
 {
 	namespace Platform
@@ -10,10 +8,16 @@ namespace RCEngine
 
 		class ContextWindows :public IContext
 		{
+		private:
+			 GLFWwindow* window;
 		public:
-			ContextWindows(MathLib::Rect _viewport);
+			ContextWindows(Rect _viewport);
 			~ContextWindows();
-
+			void makeContextCurrent()  override;
+			bool shouldClose()  override;
+			void swapBuffers()  override;
+			void DestroyContext()  override;
+			bool IsValidContext() override;
 		};
 	}
 }
