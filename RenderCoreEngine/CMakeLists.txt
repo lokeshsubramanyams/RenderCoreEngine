@@ -182,6 +182,16 @@ if(WINX64)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE} appicon.rc)
 elseif(WEBASSEMBLY)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE})
+  add_custom_command(TARGET RenderCoreEngine POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy 
+            "${CMAKE_CURRENT_BINARY_DIR}/RenderCoreEngine.wasm"
+            "${CMAKE_CURRENT_SOURCE_DIR}/JsProject/RenderCoreEngine.wasm"
+    COMMAND ${CMAKE_COMMAND} -E copy 
+            "${CMAKE_CURRENT_BINARY_DIR}/RenderCoreEngine.js"
+            "${CMAKE_CURRENT_SOURCE_DIR}/JsProject/RenderCoreEngine.js"
+    COMMENT "Copying .wasm and .js files to destination directory"
+)
+
 endif()
 
 target_link_libraries(RenderCoreEngine PRIVATE module_interface)
