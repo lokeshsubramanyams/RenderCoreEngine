@@ -1,13 +1,11 @@
 #include "RenderCoreEngine.h"
-#include "RenderCoreEngine.h"
-#include "RenderCoreEngine.h"
 
 
 namespace RCEngine
 {
 	namespace RenderCore
 	{
-
+		using namespace RCEngine::Debugger;
 		void RenderCoreEngine::InitilizeEngine()
 		{
 			Rect surface{ 0,0,640,480 };
@@ -29,7 +27,7 @@ namespace RCEngine
 #endif
 			
 			graphicsEngine->InitilizeEngine();
-
+			fps = new FrameRateTracker();
 			Run();
 
 
@@ -37,17 +35,19 @@ namespace RCEngine
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
 			graphicsEngine->Render();
+			fps->CalculateFPS();
 		}
-		void RenderCoreEngine::Update(double deltaTime)
+		void RenderCoreEngine::Update()
 		{
-			graphicsEngine->Update(deltaTime);
+			Debug::Log("Fps:", fps->Fps());
+			graphicsEngine->Update(fps->DeltaTime());
 		}
 		void RenderCore::RenderCoreEngine::Run()
 		{
 			renderSurface->MakeContextCurrent();
 			
 			std::function<void()> renderFuncPtr = std::bind(&RenderCoreEngine::Renderer, this);
-			std::function<void(double)> updateFuncPtr = std::bind(&RenderCoreEngine::Update, this, std::placeholders::_1);
+			std::function<void()> updateFuncPtr = std::bind(&RenderCoreEngine::Update, this);
 
 			renderSurface->Run(renderFuncPtr, updateFuncPtr);
 

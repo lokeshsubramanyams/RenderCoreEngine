@@ -18,7 +18,8 @@
 #endif
 
 #include "IGraphicsEngine.h"
-
+#include "FrameRateTracker.h"
+#include "Debug.h"
 
 
 namespace RCEngine
@@ -30,12 +31,15 @@ namespace RCEngine
 		using namespace RCEngine::OpenGLEngine;
 		class RenderCoreEngine
 		{
+		private:
+			FrameRateTracker* fps;
+			
 		public:
 			std::unique_ptr<IRenderSurface> renderSurface;
 			std::unique_ptr<IGraphicsEngine> graphicsEngine;
 			void InitilizeEngine();
 			void Renderer();
-			void Update(double deltaTime);
+			void Update();
 			void Run();
 			
 		};

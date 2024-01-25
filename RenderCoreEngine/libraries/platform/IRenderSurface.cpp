@@ -8,7 +8,7 @@ namespace RCEngine
 		RCEngine::Platform::IRenderSurface::IRenderSurface(Rect _screen)
 			:screenRect(_screen)
 		{
-			fps = new FrameRateTracker();
+	
 		}
 
 		Rect IRenderSurface::GetSurfaceRect()

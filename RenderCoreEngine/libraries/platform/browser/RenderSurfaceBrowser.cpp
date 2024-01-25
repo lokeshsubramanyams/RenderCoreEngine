@@ -1,6 +1,6 @@
 #include "RenderSurfaceBrowser.h"
-#include "Debug.h"
 #include "rcEmscripten/RcEmscripten.h"
+
 
 namespace RCEngine
 {
@@ -9,8 +9,8 @@ namespace RCEngine
 		using namespace RCEngine::Debugger;
 		using namespace RCEngine::Platform::Browser;
 
-		RenderSurfaceBrowser::RenderSurfaceBrowser(Rect _viewport)
-			:IRenderSurface(_viewport)
+		RenderSurfaceBrowser::RenderSurfaceBrowser(Rect screenRect)
+			:IRenderSurface(screenRect)
 		{
 			EmscriptenWebGLContextAttributes attrs;
 			attrs.alpha = EM_TRUE;
@@ -33,11 +33,11 @@ namespace RCEngine
 			{
 				Debug::Log("canvas created successfully");
 
-				EMSCRIPTEN_RESULT result = emscripten_set_canvas_element_size("#canvas", viewport.width, viewport.height);
+				EMSCRIPTEN_RESULT result = emscripten_set_canvas_element_size("#canvas", screenRect.width, screenRect.height);
 				if (result != EMSCRIPTEN_RESULT_SUCCESS) {
 					Debug::LogError("error on setting the canvas size");
 				}
-				fps = new FramesPerSecond();
+				
 			}
 
 			
@@ -83,21 +83,13 @@ namespace RCEngine
 		{
 
 		}
-		void RenderSurfaceBrowser::RenderLoop()
-		{
-			Debug::Log("RenderLoop called!");
-			if (ShouldClose())
-			{
-				emscripten_cancel_main_loop();
-			}
-			fps->calculateFPS();
-		}
 
-		void RenderSurfaceBrowser::Run(std::function<void()>renderFunction)
+		void RenderSurfaceBrowser::Run(std::function<void()>renderFunction, std::function<void()>updateFunction)
 		{
-			RcEmscriptenRenderFunctionPtr1 = renderFunction;
-			RcEmscriptenRenderFunctionPtr2 = std::bind(&RenderSurfaceBrowser::RenderLoop, this);
-			Debug::Log("Render loop set");
+			RcEmscriptenRenderFunctionPtr = renderFunction;
+			RcEmscriptenUpdateFunctionPtr = updateFunction;
+			
+			Debug::Log("Run loop set");
 			emscripten_set_main_loop(RcEmscriptenRenderFunction, 0, 1);
 		}
 	

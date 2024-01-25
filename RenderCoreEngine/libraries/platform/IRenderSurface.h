@@ -2,8 +2,6 @@
 #include "MathLib.h"
 #include <functional>
 
-#include "FrameRateTracker.h"
-
 namespace RCEngine
 {
 	namespace Platform
@@ -15,7 +13,7 @@ namespace RCEngine
 		{
 		protected:
 			const Rect screenRect;
-			FrameRateTracker* fps;
+			
 		public:
 
 			 IRenderSurface(Rect surfaceInfo);
@@ -26,7 +24,7 @@ namespace RCEngine
 			 virtual void SwapBuffers() = 0;
 			 virtual bool IsValid() const = 0;
 			 virtual void DestroySurface() = 0;
-			 virtual void Run(std::function<void()>renderFunction,std::function<void(double)>updateFunction) = 0;
+			 virtual void Run(std::function<void()>renderFunction,std::function<void()>updateFunction) = 0;
        virtual void PollEvents();
 			 
 			 

@@ -13,8 +13,8 @@ namespace RCEngine
 		{
 			extern "C"
 			{
-				std::function<void()> RcEmscriptenRenderFunctionPtr1;
-				std::function<void()> RcEmscriptenRenderFunctionPtr2;
+				std::function<void()> RcEmscriptenRenderFunctionPtr;
+				std::function<void()> RcEmscriptenUpdateFunctionPtr;
 				
 				bool shouldClose = false;
 
@@ -25,13 +25,20 @@ namespace RCEngine
 				}
 				void RcEmscriptenRenderFunction() 
 				{
-					if (RcEmscriptenRenderFunctionPtr1)
+
+					if (RcEmscriptenUpdateFunctionPtr)
 					{
-						RcEmscriptenRenderFunctionPtr1();
+						RcEmscriptenUpdateFunctionPtr();
 					}
-					if (RcEmscriptenRenderFunctionPtr2)
+
+					if (shouldClose)
 					{
-						RcEmscriptenRenderFunctionPtr2();
+						emscripten_cancel_main_loop();
+					}
+
+					if (RcEmscriptenRenderFunctionPtr)
+					{
+						RcEmscriptenRenderFunctionPtr();
 					}
 				}
 

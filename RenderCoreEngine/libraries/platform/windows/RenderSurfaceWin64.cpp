@@ -73,16 +73,15 @@ namespace RCEngine
 			return window != nullptr;
 		}
 
-		void RenderSurfaceWin64::Run(std::function<void()>renderFunction, std::function<void(double)>updateFunction)
+		void RenderSurfaceWin64::Run(std::function<void()>renderFunction, std::function<void()>updateFunction)
 		{
 			while (!ShouldClose())
 			{
 				PollEvents();
+				updateFunction();
 				renderFunction();
 				SwapBuffers();
-				fps->CalculateFPS();
-				Debug::Log("Fps:",fps->Fps());
-				updateFunction(fps->DeltaTime());
+				
 			}
 		}
 	}

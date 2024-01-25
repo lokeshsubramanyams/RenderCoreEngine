@@ -1,7 +1,7 @@
 #include "IRenderSurface.h"
 #include <emscripten/emscripten.h>
 #include<emscripten/html5.h>
-#include "FramesPerSecond.h"
+#include "Debug.h"
 namespace RCEngine
 {
 	namespace Platform
@@ -12,7 +12,7 @@ namespace RCEngine
 		{
 		private:
 			EMSCRIPTEN_WEBGL_CONTEXT_HANDLE canvas;
-			FramesPerSecond *fps;
+			
 		public:
 			RenderSurfaceBrowser(Rect _viewport);
 			~RenderSurfaceBrowser();
@@ -21,8 +21,8 @@ namespace RCEngine
 			void SwapBuffers()  override;
 			void DestroySurface()  override;
 			bool IsValid()const  override;
-			void Run(std::function<void()>renderFunction) override;
-			void RenderLoop();// void* arg);
+			void Run(std::function<void()>renderFunction, std::function<void()>updateFunction) override;
+			
 		
 		};
 	}
