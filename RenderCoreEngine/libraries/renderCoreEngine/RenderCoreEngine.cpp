@@ -1,5 +1,6 @@
 #include "RenderCoreEngine.h"
 #include "RenderCoreEngine.h"
+#include "RenderCoreEngine.h"
 
 
 namespace RCEngine
@@ -37,13 +38,18 @@ namespace RCEngine
 		{
 			graphicsEngine->Render();
 		}
+		void RenderCoreEngine::Update(double deltaTime)
+		{
+			graphicsEngine->Update(deltaTime);
+		}
 		void RenderCore::RenderCoreEngine::Run()
 		{
 			renderSurface->MakeContextCurrent();
 			
 			std::function<void()> renderFuncPtr = std::bind(&RenderCoreEngine::Renderer, this);
+			std::function<void(double)> updateFuncPtr = std::bind(&RenderCoreEngine::Update, this, std::placeholders::_1);
 
-			renderSurface->Run(renderFuncPtr);
+			renderSurface->Run(renderFuncPtr, updateFuncPtr);
 
 		}
 	}

@@ -5,15 +5,15 @@ namespace RCEngine
 {
 	namespace Platform
 	{
-		RCEngine::Platform::IRenderSurface::IRenderSurface(Rect _viewport)
-			:viewport(_viewport)
+		RCEngine::Platform::IRenderSurface::IRenderSurface(Rect _screen)
+			:screenRect(_screen)
 		{
-
+			fps = new FrameRateTracker();
 		}
 
 		Rect IRenderSurface::GetSurfaceRect()
 		{
-			return { viewport.x, viewport.y, viewport.width, viewport.height };
+			return { screenRect.x, screenRect.y, screenRect.width, screenRect.height };
 		}
 
 		void IRenderSurface::PollEvents()

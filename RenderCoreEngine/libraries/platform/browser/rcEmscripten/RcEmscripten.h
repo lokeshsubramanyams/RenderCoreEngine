@@ -4,6 +4,7 @@
 #include<emscripten/console.h>
 #include<emscripten/fetch.h>
 
+
 namespace RCEngine
 {
 	namespace Platform
@@ -16,7 +17,8 @@ namespace RCEngine
 				std::function<void()> RcEmscriptenRenderFunctionPtr2;
 				
 				bool shouldClose = false;
-		
+
+			
 				void InitializeRcEmscripten()
 				{
 					//emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW,nullptr, 1, key_callback);

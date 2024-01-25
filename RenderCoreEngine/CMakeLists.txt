@@ -182,6 +182,29 @@ if(WINX64)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE} appicon.rc)
 elseif(WEBASSEMBLY)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE})
+
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_PTHREADS=1")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s ALLOW_MEMORY_GROWTH=1")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SHARED_MEMORY=1")
+
+    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s USE_PTHREADS=1")
+    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s USE_PTHREADS=1")
+  
+    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s ALLOW_MEMORY_GROWTH=1")
+    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s ALLOW_MEMORY_GROWTH=1")
+
+    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s SHARED_MEMORY=1")
+    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s SHARED_MEMORY=1")
+
+    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s USE_PTHREADS=1")
+    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s  USE_PTHREADS=1")
+
+    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s PTHREAD_POOL_SIZE=4")
+    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s  PTHREAD_POOL_SIZE=4")
+    
+    #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+
   add_custom_command(TARGET RenderCoreEngine POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy 
             "${CMAKE_CURRENT_BINARY_DIR}/RenderCoreEngine.wasm"

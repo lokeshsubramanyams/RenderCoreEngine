@@ -1,6 +1,7 @@
 #include "RenderSurfaceBrowser.h"
 #include "Debug.h"
 #include "rcEmscripten/RcEmscripten.h"
+
 namespace RCEngine
 {
 	namespace Platform
@@ -36,14 +37,13 @@ namespace RCEngine
 				if (result != EMSCRIPTEN_RESULT_SUCCESS) {
 					Debug::LogError("error on setting the canvas size");
 				}
-				
+				fps = new FramesPerSecond();
 			}
 
 			
-
 		}
 
-
+		
 
 		void RenderSurfaceBrowser::MakeContextCurrent()
 		{
@@ -90,6 +90,7 @@ namespace RCEngine
 			{
 				emscripten_cancel_main_loop();
 			}
+			fps->calculateFPS();
 		}
 
 		void RenderSurfaceBrowser::Run(std::function<void()>renderFunction)

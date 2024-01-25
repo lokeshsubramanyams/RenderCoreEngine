@@ -35,6 +35,7 @@ namespace RCEngine
 			std::unique_ptr<IGraphicsEngine> graphicsEngine;
 			void InitilizeEngine();
 			void Renderer();
+			void Update(double deltaTime);
 			void Run();
 			
 		};

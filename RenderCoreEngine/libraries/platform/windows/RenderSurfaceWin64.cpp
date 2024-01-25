@@ -20,7 +20,7 @@ namespace RCEngine
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-			window = glfwCreateWindow(viewport.width, viewport.height, "RCEngine", NULL, NULL);
+			window = glfwCreateWindow(screenRect.width, screenRect.height, "RCEngine", NULL, NULL);
 
 
 			if (!window) {
@@ -33,11 +33,7 @@ namespace RCEngine
 				Debug::Log("glfw Window or OpenGL context created");
 
 			glfwMakeContextCurrent(window);
-
-			/*while (!glfwWindowShouldClose(window)) {
-				// Check and call events
-				glfwPollEvents();
-			}*/
+			
 		}
 
 		RenderSurfaceWin64::~RenderSurfaceWin64()
@@ -77,13 +73,16 @@ namespace RCEngine
 			return window != nullptr;
 		}
 
-		void RenderSurfaceWin64::Run(std::function<void()>renderFunction)
+		void RenderSurfaceWin64::Run(std::function<void()>renderFunction, std::function<void(double)>updateFunction)
 		{
 			while (!ShouldClose())
 			{
 				PollEvents();
 				renderFunction();
 				SwapBuffers();
+				fps->CalculateFPS();
+				Debug::Log("Fps:",fps->Fps());
+				updateFunction(fps->DeltaTime());
 			}
 		}
 	}
