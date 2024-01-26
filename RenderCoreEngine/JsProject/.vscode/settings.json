@@ -1,3 +1,5 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.AdvanceCustomBrowserCmdLine": "--user-data-dir=./tmp --unsafely-treat-insecure-origin-as-secure=http://127.0.0.1:5501",
+  
 }
