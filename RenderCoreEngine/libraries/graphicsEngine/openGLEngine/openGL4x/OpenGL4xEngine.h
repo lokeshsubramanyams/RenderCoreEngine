@@ -1,8 +1,9 @@
 #pragma once
 #include "../IOpenGLEngine.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
+
+#include "Debug.h"
 
 namespace RCEngine
 {
@@ -12,8 +13,9 @@ namespace RCEngine
 		class OpenGL4xEngine : public IOpenGLEngine
 		{
 		public:
-			void  InitilizeEngine()const override;
-			void  Render() override;
+
+  		void  Render() override;
+			
 		};
 
 	}

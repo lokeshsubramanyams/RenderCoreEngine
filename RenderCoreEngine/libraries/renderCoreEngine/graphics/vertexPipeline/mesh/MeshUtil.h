@@ -1,4 +1,7 @@
+#pragma once
+
 #include "MathLib.h"
+#include "Mesh.h"
 namespace RCEngine
 {
 	namespace RenderCore
@@ -7,17 +10,13 @@ namespace RCEngine
 		{
 
 			using namespace RCEngine::MathLib;
-			class Mesh
+			class MeshUtil
 			{
 			public:
-				Vector3* vertices;
-				int* indices;
-
-				Mesh(Vector3 verts[], int indices[]);
-				~Mesh();
+				static Mesh *ClipperTriangle();
 
 			};
 		}
-		
+
 	}
 }

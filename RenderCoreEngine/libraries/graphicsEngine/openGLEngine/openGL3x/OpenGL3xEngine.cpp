@@ -4,10 +4,10 @@ namespace RCEngine
 {
 	namespace OpenGLEngine
 	{
-		void OpenGL3xEngine::InitilizeEngine() const
+		/*void OpenGL3xEngine::InitilizeEngine() const
 		{
 
-		}
+		}*/
 		void OpenGL3xEngine::Render()
 		{
 			glClear(GL_COLOR_BUFFER_BIT);

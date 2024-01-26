@@ -22,6 +22,7 @@ target_include_directories(openGLEngine_module PUBLIC  ${VCPKG_INSTALL_INCLUDE_D
 target_include_directories(openGLEngine_module PUBLIC  ${CMAKE_CURRENT_BINARY_DIR}/shaders)
 
  target_link_libraries(openGLEngine_module PRIVATE ${VCPKG_INSTALL_DIR}/lib/OpenGL32.lib)
+ target_link_libraries(openGLEngine_module PRIVATE ${VCPKG_INSTALL_DIR}/lib/glew32.lib)
 
 # Debugging: Print out all found source files
 foreach(SOURCE_FILE IN LISTS ${ALL_SOURCE_FILES})

@@ -41,16 +41,16 @@ void signalHandler(int signum)
 
 int main()
 {
-	std::signal(SIGINT, signalHandler);
+	//std::signal(SIGINT, signalHandler);
 
-	std::thread threadObj(ThreadFunction);
+	//std::thread threadObj(ThreadFunction);
 
 
 	Debug::Log("main");
 	RenderCoreEngine* engine = new RenderCoreEngine();
 	engine->InitilizeEngine();
-	signalHandler(SIGINT);
-	threadObj.join();
+	//signalHandler(SIGINT);
+	//threadObj.join();
 
 
 	return 0;

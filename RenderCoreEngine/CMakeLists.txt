@@ -44,6 +44,8 @@ else()
   set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/cache/sysroot/include")
 endif()
 
+option(PTHREADS "Threads enable" OFF)
+
 
 option(DEBUG "Enable or Disable debug"        ON)
 
@@ -116,7 +118,8 @@ OPENGL=${OPENGL},
 VULKAN=${VULKAN}, 
 EMSCRIPTEN=${EMSCRIPTEN}, 
 WEBGPU=${WEBGPU},
-DEBUG=${DEBUG}")
+DEBUG=${DEBUG}
+THREADS=${PTHREADS}")
 
 remove_definitions(-DDEBUG)
 remove_definitions(-DPLATFORM_WEBASSEMBLY)
@@ -125,7 +128,11 @@ remove_definitions(-DOPENGL)
 remove_definitions(-DEMSCRIPTEN)
 remove_definitions(-DVULKAN)
 remove_definitions(-DWEBGPU)
+remove_definitions(-DPTHREADS)
 
+if(PTHREADS)
+  add_definitions(-DPTHREADS)
+endif()
 
 
 if(WINX64)
@@ -189,25 +196,18 @@ elseif(WEBASSEMBLY)
     set("WARNING_LEVEL" "-wall")
   endif()
     
+    ##################################FLAGS################################################
     #-s EXPORT_ES6=1 -s MODULARIZE=1 : causing errors on js 
     #-s USE_WEBGL2=1 : - RenderCoreEngine.js:1 WebGL: this extension has very low support on mobile devices; do not rely on it for rendering effects: WEBGL_polygon_mode
     
     set(EMSCRIPTEN_EXE_LINKER_FLAGS "-s FETCH=1 -s USE_WEBGL2=1 -s TOTAL_MEMORY=32MB -s ALLOW_MEMORY_GROWTH=1 -s WASM_MEM_MAX=2130706432 -s RETAIN_COMPILER_SETTINGS=1 -s EXPORTED_RUNTIME_METHODS=\"['ccall']\" --memory-init-file 0 --no-heap-copy  --bind -lembind -s STACK_SIZE=5MB")
     
-   # set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} ${WARNING_LEVEL} -flto=thin")
-    #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${WARNING_LEVEL} -flto=thin")
-
-    #set(EMSCRIPTEN_EXE_LINKER_FLAGS_DEBUG "-s DEMANGLE_SUPPORT=1 -s ASSERTION=1 -g1")
-    
-    if(ENABLE_EMSCRIPTEN_PTHREADS)
-      # set(CMAKE_C_FLAGS_RELEASE   "${CMAKE_C_FLAGS_RELEASE}   -s USE_PTHREADS=1")
-       #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s USE_PTHREADS=1")
-      
-    endif()
-
+    ##############THREADS RELATED#########################################################
     set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s USE_PTHREADS=1")
     
     set_target_properties(RenderCoreEngine PROPERTIES  COMPILE_FLAGS "-matomics -mbulk-memory")
+
+    #################################################################################################
 
     set_target_properties(RenderCoreEngine PROPERTIES  LINK_FLAGS_RELEASE ${EMSCRIPTEN_EXE_LINKER_FLAGS})
     

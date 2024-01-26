@@ -6,10 +6,14 @@ namespace RCEngine
 	{
 		namespace Graphics
 		{
-			Mesh::Mesh(Vector3 verts[], int indices[])
+			Mesh::Mesh(Vector3 *verts, int *indices)
 			{
 				this->vertices = verts;
 				this->indices = indices;
+			}
+			Mesh::Mesh(Vector3 *verts)
+			{
+				this->vertices = verts;
 			}
 			Mesh::~Mesh()
 			{

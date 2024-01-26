@@ -1,4 +1,8 @@
 #include "RenderCoreEngine.h"
+#include "MeshUtil.h"
+#include "Mesh.h"
+
+
 
 
 namespace RCEngine
@@ -6,6 +10,7 @@ namespace RCEngine
 	namespace RenderCore
 	{
 		using namespace RCEngine::Debugger;
+		using namespace Graphics;
 		void RenderCoreEngine::InitilizeEngine()
 		{
 			Rect surface{ 0,0,640,480 };
@@ -27,9 +32,15 @@ namespace RCEngine
 #endif
 			
 			graphicsEngine->InitilizeEngine();
+		
+			Mesh* mesh = MeshUtil::ClipperTriangle();
+			graphicsEngine->Renderable(mesh);
+
 			fps = new FrameRateTracker();
+
 			Run();
 
+		
 
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
@@ -39,7 +50,7 @@ namespace RCEngine
 		}
 		void RenderCoreEngine::Update()
 		{
-			Debug::Log("Fps:", fps->Fps());
+			//Debug::Log("Fps:", fps->Fps());
 			graphicsEngine->Update(fps->DeltaTime());
 		}
 		void RenderCore::RenderCoreEngine::Run()
