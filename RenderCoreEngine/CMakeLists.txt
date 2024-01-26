@@ -183,27 +183,31 @@ if(WINX64)
 elseif(WEBASSEMBLY)
   add_executable (RenderCoreEngine ${SRC_SOURCE_EXECUTABLE})
 
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_PTHREADS=1")
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s ALLOW_MEMORY_GROWTH=1")
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s SHARED_MEMORY=1")
-
-    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s USE_PTHREADS=1")
-    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s USE_PTHREADS=1")
-  
-    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s ALLOW_MEMORY_GROWTH=1")
-    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s ALLOW_MEMORY_GROWTH=1")
-
-    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s SHARED_MEMORY=1")
-    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s SHARED_MEMORY=1")
-
-    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s USE_PTHREADS=1")
-    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s  USE_PTHREADS=1")
-
-    #target_compile_options(${PROJECT_NAME} PUBLIC "SHELL:-s PTHREAD_POOL_SIZE=4")
-    #target_link_options(${PROJECT_NAME} PUBLIC "SHELL:-s  PTHREAD_POOL_SIZE=4")
+  if(ENABLE_QUIET_BUILD)
+    set("WARNING_LEVEL" "-w")
+  else()
+    set("WARNING_LEVEL" "-wall")
+  endif()
     
-    #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+    #-s EXPORT_ES6=1 -s MODULARIZE=1 : causing errors on js 
+    #-s USE_WEBGL2=1 : - RenderCoreEngine.js:1 WebGL: this extension has very low support on mobile devices; do not rely on it for rendering effects: WEBGL_polygon_mode
+    
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "-s FETCH=1 -s USE_WEBGL2=1 -s TOTAL_MEMORY=32MB -s ALLOW_MEMORY_GROWTH=1 -s WASM_MEM_MAX=2130706432 -s RETAIN_COMPILER_SETTINGS=1 -s EXPORTED_RUNTIME_METHODS=\"['ccall']\" --memory-init-file 0 --no-heap-copy  --bind -lembind -s STACK_SIZE=5MB")
+    
+   # set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} ${WARNING_LEVEL} -flto=thin")
+    #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${WARNING_LEVEL} -flto=thin")
+
+    #set(EMSCRIPTEN_EXE_LINKER_FLAGS_DEBUG "-s DEMANGLE_SUPPORT=1 -s ASSERTION=1 -g1")
+    
+    if(ENABLE_EMSCRIPTEN_PTHREADS)
+      # set(CMAKE_C_FLAGS_RELEASE   "${CMAKE_C_FLAGS_RELEASE}   -s USE_PTHREADS=1")
+       #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s USE_PTHREADS=1")
+      
+    endif()
+
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s USE_PTHREADS=1")
+    set_target_properties(RenderCoreEngine PROPERTIES  LINK_FLAGS_RELEASE ${EMSCRIPTEN_EXE_LINKER_FLAGS})
+    
 
   add_custom_command(TARGET RenderCoreEngine POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy 
@@ -212,6 +216,9 @@ elseif(WEBASSEMBLY)
     COMMAND ${CMAKE_COMMAND} -E copy 
             "${CMAKE_CURRENT_BINARY_DIR}/RenderCoreEngine.js"
             "${CMAKE_CURRENT_SOURCE_DIR}/JsProject/RenderCoreEngine.js"
+    COMMAND ${CMAKE_COMMAND} -E copy 
+            "${CMAKE_CURRENT_BINARY_DIR}/RenderCoreEngine.worker.js"
+            "${CMAKE_CURRENT_SOURCE_DIR}/JsProject/RenderCoreEngine.worker.js"
     COMMENT "Copying .wasm and .js files to destination directory"
 )
 
