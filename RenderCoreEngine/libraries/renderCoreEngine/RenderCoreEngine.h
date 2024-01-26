@@ -28,7 +28,6 @@ namespace RCEngine
 	{
 		using namespace RCEngine::Platform;
 		using namespace RCEngine::GraphicsEngine;
-		using namespace RCEngine::OpenGLEngine;
 		class RenderCoreEngine
 		{
 		private:

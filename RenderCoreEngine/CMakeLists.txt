@@ -206,6 +206,9 @@ elseif(WEBASSEMBLY)
     endif()
 
     set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s USE_PTHREADS=1")
+    
+    set_target_properties(RenderCoreEngine PROPERTIES  COMPILE_FLAGS "-matomics -mbulk-memory")
+
     set_target_properties(RenderCoreEngine PROPERTIES  LINK_FLAGS_RELEASE ${EMSCRIPTEN_EXE_LINKER_FLAGS})
     
 

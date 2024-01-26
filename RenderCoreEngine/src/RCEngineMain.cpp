@@ -6,30 +6,52 @@
 
 #include "Debug.h"
 
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include<csignal>
+
 using namespace RCEngine;
 using namespace RCEngine::Debugger;
 using namespace RCEngine::RenderCore;
 
+std::mutex logMutex;
+
+std::atomic<bool> running(true);
+
+void ThreadFunction()
+{
+	while (running)
+	{
+		std::lock_guard<std::mutex> guard(logMutex);
+		Debug::Log("threadFunction called!");
+	}
+
+}
+void signalHandler(int signum) 
+{
+	Debug::Log("signalHandler:",signum);
+	if (signum == SIGINT) 
+	{
+		running = false;
+	}
+}
+
+
 int main()
 {
-	/*PlatformType pType = PlatformType::WINDOWS;
-	GraphicsEngine ge3  = GraphicsEngine::OPENGL_3x_ENGINE;//for browser
-	GraphicsEngine ge4 = GraphicsEngine::OPENGL_4x_ENGINE;//for windows
+	std::signal(SIGINT, signalHandler);
 
-	Vector3 vert[3];
-	vert[0] = { 0,0,0 };
-	vert[1] = { 1,0,0 };
-	vert[2] = { 0.5,1,0 };
-	int indices[3] = { 0,1,2 };
+	std::thread threadObj(ThreadFunction);
 
-	Mesh* mesh = new Mesh(vert, indices);
 
-	delete mesh;
-	*/
-	int x;
 	Debug::Log("main");
 	RenderCoreEngine* engine = new RenderCoreEngine();
 	engine->InitilizeEngine();
+	signalHandler(SIGINT);
+	threadObj.join();
+
 
 	return 0;
 }

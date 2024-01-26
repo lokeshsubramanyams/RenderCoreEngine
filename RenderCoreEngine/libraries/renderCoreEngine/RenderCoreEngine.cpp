@@ -14,14 +14,14 @@ namespace RCEngine
 			
 			renderSurface = std::make_unique<RenderSurfaceWin64>(surface);
 #if (OPENGL)
-			graphicsEngine = std::make_unique<OpenGL4xEngine>();
+			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL4xEngine>();
 #endif
 
 #elif PLATFORM_WEBASSEMBLY
 			
 			renderSurface = std::make_unique<RenderSurfaceBrowser>(surface);
 #if (OPENGL)
-			graphicsEngine = std::make_unique<OpenGL3xEngine>();
+			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL3xEngine>();
 #endif
 
 #endif
