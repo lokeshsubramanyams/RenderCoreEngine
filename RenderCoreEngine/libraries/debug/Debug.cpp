@@ -31,7 +31,7 @@ void RCEngine::Debugger::Debug::Log(const char* msg, const T& message) {
 #ifdef DEBUG
 	std::ostringstream oss;
 	oss << message;
-	std::cout << msg << oss.str() << std::endl;
+	std::cout << msg <<" , " << oss.str() << std::endl;
 #endif
 }
 

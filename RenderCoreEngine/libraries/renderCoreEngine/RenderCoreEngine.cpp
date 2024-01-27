@@ -30,28 +30,37 @@ namespace RCEngine
 #endif
 
 #endif
-			
+			///////////////////////////////////////////////////////////
 			graphicsEngine->InitilizeEngine();
-		
-			Mesh* mesh = MeshUtil::ClipperTriangle();
-			graphicsEngine->Renderable(mesh);
+			std::vector<ShaderMetaData> shadersMeta =  graphicsEngine->GetShaderMetaData();
+		  std::vector<Shader> shaders =  graphicsEngine->CompileShaders(shadersMeta);
+			////////////////////////////////////////////////////////////
 
+			Debug::Log("compiled:");
+			for (int i = 0; i < shaders.size(); i++)
+			{
+				Debug::Log(shaders[i].key.c_str(), std::to_string(shaders[i].shaderObject));
+			}
+
+			///////////////////////////////////////////////////////////////
+			Mesh* mesh = MeshUtil::ClipperTriangle();
+			graphicsEngine->Renderable(mesh, shaders[0],shaders[1]);
 			fps = new FrameRateTracker();
+			//////////////////////////////////////////////////////////////
+
 
 			Run();
-
-		
 
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
-			graphicsEngine->Render();
+			graphicsEngine->RenderLoop();
 			fps->CalculateFPS();
 		}
 		void RenderCoreEngine::Update()
 		{
 			//Debug::Log("Fps:", fps->Fps());
-			graphicsEngine->Update(fps->DeltaTime());
+			graphicsEngine->UpdateLoop(fps->DeltaTime());
 		}
 		void RenderCore::RenderCoreEngine::Run()
 		{

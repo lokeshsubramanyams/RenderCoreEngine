@@ -1,8 +1,6 @@
 #pragma once
-#include "../IOpenGLEngine.h"
-
 //#include <GLFW/glfw3.h>
-
+#include "../IOpenGLEngine.h"
 #include "Debug.h"
 
 namespace RCEngine
@@ -13,8 +11,9 @@ namespace RCEngine
 		class OpenGL4xEngine : public IOpenGLEngine
 		{
 		public:
-
-  		void  Render() override;
+			void InitilizeEngine() const override;
+  		void  RenderLoop() override;
+			std::vector<ShaderMetaData> GetShaderMetaData()override;
 			
 		};
 

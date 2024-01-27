@@ -1,4 +1,6 @@
 #pragma once
+
+#include <string>
 namespace RCEngine
 {
 
@@ -16,14 +18,20 @@ namespace RCEngine
 			WEBGPU_ENGINE
 		};
 
-		enum VertexShaderType
+		enum ShaderType
 		{
-			default_vert
+			VERTEX,
+			FRAGMENT
 		};
 
-		enum FragmentShaderType
+
+		namespace SHADERCONST
 		{
-			default_frag
+			 constexpr char DEFAULT_VERTEX[] = "DEFAULT_VERTEX";
+			 constexpr char DEFAULT_FRAGMENT[] = "DEFAULT_FRAGMENT";
+
 		};
+
+
 	
 }

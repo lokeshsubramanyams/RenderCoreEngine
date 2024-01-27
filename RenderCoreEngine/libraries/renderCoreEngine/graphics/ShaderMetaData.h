@@ -1,12 +1,17 @@
-#ifndef SHADER_META_DATA_H
-#define SHADER_META_DATA_H
+#pragma once 
 
-#include <GL/glew.h>
+#include "RenderCore.h"
+#include <string>
 
-struct ShaderMetaData 
+namespace RCEngine
 {
-	const GLchar* source;
-	GLint length;
-};
+	struct ShaderMetaData
+	{
+		const char* source;
+		int  length;
+		RCEngine::ShaderType shaderType;
+		const std::string shaderKey;
 
-#endif
+	};
+}
+

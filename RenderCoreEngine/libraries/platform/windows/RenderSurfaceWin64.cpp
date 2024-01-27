@@ -79,8 +79,8 @@ namespace RCEngine
 			{
 				PollEvents();
 				updateFunction();
-				renderFunction();
-				SwapBuffers();
+				renderFunction();//Debug::Log("renderBuffer");
+				SwapBuffers();// Debug::Log("swapBuffer");
 				
 			}
 		}

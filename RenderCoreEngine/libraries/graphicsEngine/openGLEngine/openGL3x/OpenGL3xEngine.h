@@ -9,8 +9,7 @@ namespace RCEngine
 		class OpenGL3xEngine : public IOpenGLEngine
 		{
 		public:
-			//void  InitilizeEngine()const override;
-			void  Render() override;
+			void  RenderLoop() override;
 			
 		};
 
