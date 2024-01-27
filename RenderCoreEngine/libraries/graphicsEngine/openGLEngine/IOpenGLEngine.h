@@ -11,22 +11,25 @@ namespace  RCEngine
 		class IOpenGLEngine : public IGraphicsEngine
 		{
 		public:
-			virtual void InitilizeEngine() const;
+			virtual void InitilizeEngine(Rect viewport) const;
 			virtual void  RenderLoop() = 0;
 
-			std::vector<Shader> CompileShaders(std::vector<ShaderMetaData> shadersMeta)const override;
+			ShaderProgram CompileShader(ShaderMetaData vertex, ShaderMetaData fragment)const override;
+			
 			void RegisterCustomShader(ShaderMetaData customShader)const override;
 						
 
 			void UpdateLoop(double delta) override;
 			void Renderable(Mesh* mesh)override;
-			void Renderable(Mesh* mesh, Shader vertex, Shader fragment)override;
+			void Renderable(Mesh* mesh, ShaderProgram program)override;
 		
 
 		protected:
 			int vBufferCount = 1;
 			GLuint vb[1] = { 0 };
-			
+		private:
+			GLuint CompileToShaderProgram(ShaderMetaData mData)const;
+
 		
 		};
 

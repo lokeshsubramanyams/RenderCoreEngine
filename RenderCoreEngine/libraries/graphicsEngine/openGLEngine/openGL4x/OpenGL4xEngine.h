@@ -11,9 +11,9 @@ namespace RCEngine
 		class OpenGL4xEngine : public IOpenGLEngine
 		{
 		public:
-			void InitilizeEngine() const override;
+			void InitilizeEngine(Rect viewport) const override;
   		void  RenderLoop() override;
-			std::vector<ShaderMetaData> GetShaderMetaData()override;
+			std::unordered_map<std::string, ShaderMetaData> GetShaderMetaData()override;
 			
 		};
 

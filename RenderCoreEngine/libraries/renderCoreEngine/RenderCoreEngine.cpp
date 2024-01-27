@@ -31,20 +31,17 @@ namespace RCEngine
 
 #endif
 			///////////////////////////////////////////////////////////
-			graphicsEngine->InitilizeEngine();
-			std::vector<ShaderMetaData> shadersMeta =  graphicsEngine->GetShaderMetaData();
-		  std::vector<Shader> shaders =  graphicsEngine->CompileShaders(shadersMeta);
+			graphicsEngine->InitilizeEngine(surface);
+			std::unordered_map<std::string,ShaderMetaData> shadersMeta =  graphicsEngine->GetShaderMetaData();
+			
+			ShaderProgram program = graphicsEngine->CompileShader(shadersMeta[SHADERCONST::DEFAULT_VERTEX], shadersMeta[SHADERCONST::DEFAULT_FRAGMENT]);
 			////////////////////////////////////////////////////////////
 
-			Debug::Log("compiled:");
-			for (int i = 0; i < shaders.size(); i++)
-			{
-				Debug::Log(shaders[i].key.c_str(), std::to_string(shaders[i].shaderObject));
-			}
+			Debug::Log(std::string("ShaderProgram:_" + program.vertexkey + "_" + program.fragmentkey).c_str(), std::to_string(program.shaderProgram));
 
 			///////////////////////////////////////////////////////////////
 			Mesh* mesh = MeshUtil::ClipperTriangle();
-			graphicsEngine->Renderable(mesh, shaders[0],shaders[1]);
+			graphicsEngine->Renderable(mesh, program);
 			fps = new FrameRateTracker();
 			//////////////////////////////////////////////////////////////
 
