@@ -44,3 +44,12 @@ void RCEngine::Debugger::Debug::Log(const char* msg,const char* message) {
 	std::cout << msg << message << std::endl;
 #endif
 }
+
+void RCEngine::Debugger::Debug::Log(Vector3 vector)
+{
+#ifdef DEBUG
+	string vecStr = string("{" + std::to_string(vector.x) +" , " + std::to_string(vector.y) + " , " + std::to_string(vector.x) + "}");
+	std::cout << vecStr << std::endl;
+#endif
+}
+

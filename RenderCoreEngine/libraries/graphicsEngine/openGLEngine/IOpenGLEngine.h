@@ -27,6 +27,8 @@ namespace  RCEngine
 		protected:
 			int vBufferCount = 1;
 			GLuint vb[1] = { 0 };
+			GLuint VAO;
+			GLuint shaderProgram;
 		private:
 			GLuint CompileToShaderProgram(ShaderMetaData mData)const;
 

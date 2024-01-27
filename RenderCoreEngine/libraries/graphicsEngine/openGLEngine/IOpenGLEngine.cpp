@@ -52,23 +52,34 @@ namespace RCEngine
 
 		void IOpenGLEngine::Renderable(Mesh* mesh, ShaderProgram program)
 		{
-			glUseProgram(program.shaderProgram);
+			shaderProgram = program.shaderProgram;
 			this->Renderable(mesh);
 		}
 
     void IOpenGLEngine::Renderable(Mesh* mesh)
     {
-			glGenBuffers(1, &vb[0]);
-			glBindBuffer(GL_ARRAY_BUFFER, vb[0]);
-
 			Vector3 vertices[3];
-			vertices[0] = Vector3(-1.0, -1.0, 0.0);
-			vertices[1] = Vector3(1.0, -1.0, 0.0);
-			vertices[2] = Vector3(0.0, 1.0, 0.0);
+			vertices[0] = mesh->vertices[0];
+			vertices[1] = mesh->vertices[1];
+			vertices[2] = mesh->vertices[2];
 
-			Debug::Log("size of mesh vertices:", std::to_string(sizeof(vertices)));
+			GLuint VBO;
+			glGenVertexArrays(1, &VAO);
+			glGenBuffers(1, &VBO);
+						
+			glBindVertexArray(VAO);
 
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+			glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, sizeof(Vector3), (void*)0);
+			glEnableVertexAttribArray(0);
+
+			
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			
+			glBindVertexArray(0);
     }
 
 		GLuint IOpenGLEngine::CompileToShaderProgram(ShaderMetaData mData)const

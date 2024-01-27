@@ -2,13 +2,15 @@
 #include<string>
 #include<iostream>
 #include <sstream>
+#include "MathLib.h"
+
 namespace RCEngine
 {
 	
 	namespace Debugger
 	{
 		using namespace std;
-
+		using namespace RCEngine::MathLib;
 		class Debug
 		{
 		public:
@@ -19,6 +21,7 @@ namespace RCEngine
 			static void Log(const char* msg, const char* message);
 			static void Log(const char* message);
 			static void LogError(string str);
+			static void Log(Vector3 vector);
 			
 		};
 	}
