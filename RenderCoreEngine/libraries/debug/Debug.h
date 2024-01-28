@@ -22,6 +22,7 @@ namespace RCEngine
 			static void Log(const char* message);
 			static void LogError(string str);
 			static void Log(Vector3 vector);
+			static void Log(Rect rect);
 			
 		};
 	}

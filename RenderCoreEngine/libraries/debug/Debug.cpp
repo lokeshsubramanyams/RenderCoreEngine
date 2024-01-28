@@ -53,3 +53,10 @@ void RCEngine::Debugger::Debug::Log(Vector3 vector)
 #endif
 }
 
+void RCEngine::Debugger::Debug::Log(Rect rect)
+{
+#ifdef DEBUG
+	string vecStr = string("{" + std::to_string(rect.x) + " , " + std::to_string(rect.y) + " , " + std::to_string(rect.width) + " , " + std::to_string(rect.height) + "}");
+	std::cout << vecStr << std::endl;
+#endif
+}
