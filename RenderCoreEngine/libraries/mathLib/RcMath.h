@@ -14,5 +14,7 @@ namespace RCEngine
 		typedef highp_dvec4 Vector4;
 		typedef highp_dquat Quaternion;
 		typedef highp_dmat4 Matrix44;
+
+		typedef mediump_dvec3 Vector3f;
 	}
 }

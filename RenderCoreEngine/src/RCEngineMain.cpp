@@ -47,11 +47,22 @@ int main()
 
 
 	Debug::Log("main");
-	RenderCoreEngine* engine = new RenderCoreEngine();
-	engine->InitilizeEngine();
+	//RenderCoreEngine* engine = new RenderCoreEngine();
+	//engine->InitilizeEngine();
 	//signalHandler(SIGINT);
 	//threadObj.join();
 
 
 	return 0;
+}
+
+extern "C"
+{
+	EMSCRIPTEN_KEEPALIVE
+	void igniteEngine(const char* canvas)
+	{
+		Debug::Log("igniteEngine->", canvas);
+		RenderCoreEngine* engine = new RenderCoreEngine();
+		engine->InitilizeEngine();
+	}
 }

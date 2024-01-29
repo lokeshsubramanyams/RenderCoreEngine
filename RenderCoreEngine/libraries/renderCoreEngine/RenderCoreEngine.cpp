@@ -30,6 +30,7 @@ namespace RCEngine
 #endif
 
 #endif
+			
 			///////////////////////////////////////////////////////////
 			graphicsEngine->InitilizeEngine(surface);
 			std::unordered_map<std::string,ShaderMetaData> shadersMeta =  graphicsEngine->GetShaderMetaData();
@@ -38,25 +39,22 @@ namespace RCEngine
 			////////////////////////////////////////////////////////////
 
 			Debug::Log(std::string("ShaderProgram:_" + program.vertexkey + "_" + program.fragmentkey).c_str(), std::to_string(program.shaderProgram));
-
+			
 			///////////////////////////////////////////////////////////////
 			Mesh* mesh = MeshUtil::ClipperTriangle();
 			graphicsEngine->Renderable(mesh, program);
 			fps = new FrameRateTracker();
 			//////////////////////////////////////////////////////////////
-
-
-			Run();
-
+			//Renderer();
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
-			graphicsEngine->RenderLoop();
+		  graphicsEngine->RenderLoop();
 			fps->CalculateFPS();
 		}
 		void RenderCoreEngine::Update()
 		{
-			//Debug::Log("Fps:", fps->Fps());
+			Debug::Log("Fps:", fps->Fps());
 			graphicsEngine->UpdateLoop(fps->DeltaTime());
 		}
 		void RenderCore::RenderCoreEngine::Run()
@@ -64,7 +62,7 @@ namespace RCEngine
 			renderSurface->MakeContextCurrent();
 			
 			std::function<void()> renderFuncPtr = std::bind(&RenderCoreEngine::Renderer, this);
-			std::function<void()> updateFuncPtr = std::bind(&RenderCoreEngine::Update, this);
+		 	std::function<void()> updateFuncPtr = std::bind(&RenderCoreEngine::Update, this);
 
 			renderSurface->Run(renderFuncPtr, updateFuncPtr);
 

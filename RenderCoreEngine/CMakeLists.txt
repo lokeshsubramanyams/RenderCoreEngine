@@ -200,14 +200,33 @@ elseif(WEBASSEMBLY)
     #-s EXPORT_ES6=1 -s MODULARIZE=1 : causing errors on js 
     #-s USE_WEBGL2=1 : - RenderCoreEngine.js:1 WebGL: this extension has very low support on mobile devices; do not rely on it for rendering effects: WEBGL_polygon_mode
     
-    set(EMSCRIPTEN_EXE_LINKER_FLAGS "-s FETCH=1 -s USE_WEBGL2=1 -s TOTAL_MEMORY=32MB -s ALLOW_MEMORY_GROWTH=1 -s WASM_MEM_MAX=2130706432 -s RETAIN_COMPILER_SETTINGS=1 -s EXPORTED_RUNTIME_METHODS=\"['ccall']\" --memory-init-file 0 --no-heap-copy  --bind -lembind -s STACK_SIZE=5MB")
+    #set(EMSCRIPTEN_EXE_LINKER_FLAGS "")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s FETCH=1")
+
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s USE_WEBGL2=1")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s FULL_ES3=1")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s WASM=1")
+
     
+    
+
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s TOTAL_MEMORY=32MB")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s ALLOW_MEMORY_GROWTH=1")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s WASM_MEM_MAX=2130706432")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s RETAIN_COMPILER_SETTINGS=1")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s EXPORTED_RUNTIME_METHODS=\"['ccall']\"")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s EXPORTED_FUNCTIONS=\"['_igniteEngine']\"")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} --memory-init-file 0 --no-heap-copy  --bind -lembind -s STACK_SIZE=5MB")
+        
     ##############THREADS RELATED#########################################################
     set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s USE_PTHREADS=1")
     
     set_target_properties(RenderCoreEngine PROPERTIES  COMPILE_FLAGS "-matomics -mbulk-memory")
 
     #################################################################################################
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s ASSERTIONS=1")
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s DISABLE_EXCEPTION_CATCHING=0")
+
 
     set_target_properties(RenderCoreEngine PROPERTIES  LINK_FLAGS_RELEASE ${EMSCRIPTEN_EXE_LINKER_FLAGS})
     

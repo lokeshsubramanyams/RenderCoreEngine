@@ -13,17 +13,15 @@ namespace RCEngine
 			:IRenderSurface(screenRect)
 		{
 			EmscriptenWebGLContextAttributes attrs;
-			attrs.alpha = EM_TRUE;
-			attrs.depth = EM_TRUE;
-			attrs.stencil = EM_FALSE;
-			attrs.antialias = EM_TRUE;
-			attrs.preserveDrawingBuffer = EM_FALSE;
-			attrs.powerPreference = EM_WEBGL_POWER_PREFERENCE_HIGH_PERFORMANCE;
-			attrs.enableExtensionsByDefault = EM_TRUE;
-			attrs.failIfMajorPerformanceCaveat = EM_FALSE;
-			attrs.majorVersion = 3; // Use WebGL 2.0
-			attrs.minorVersion = 0;
 			emscripten_webgl_init_context_attributes(&attrs);
+
+			attrs.alpha = true;
+			attrs.depth = true;
+			attrs.stencil = true;
+			attrs.antialias = true;
+			attrs.majorVersion = 2; // Use WebGL 2.0
+			attrs.minorVersion = 0;
+			
 			canvas = emscripten_webgl_create_context("#canvas", &attrs);
 			if (!canvas)
 			{
@@ -39,7 +37,7 @@ namespace RCEngine
 				}
 				
 			}
-
+			MakeContextCurrent();
 			
 		}
 

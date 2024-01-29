@@ -13,7 +13,7 @@ add_subdirectory( ${CMAKE_CURRENT_SOURCE_DIR}/shaders)
 message(STATUS "libraries/openglEngine/openGL3x-->:${CMAKE_CURRENT_BINARY_DIR}")
 
 target_include_directories(openGLEngine_module PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/" )
-target_link_libraries(openGLEngine_module PUBLIC  graphicEngine_module )
+target_link_libraries(openGLEngine_module PUBLIC  graphicEngine_module debugg_module )
 
 
 target_include_directories(openGLEngine_module PUBLIC  ${EMSCRIPTEN_INCLUDE_DIR})

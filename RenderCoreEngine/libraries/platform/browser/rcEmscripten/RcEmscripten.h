@@ -4,6 +4,8 @@
 #include<emscripten/console.h>
 #include<emscripten/fetch.h>
 
+#include <iostream>
+#include <stdexcept>
 
 namespace RCEngine
 {
@@ -25,21 +27,21 @@ namespace RCEngine
 				}
 				void RcEmscriptenRenderFunction() 
 				{
+				
+						if (RcEmscriptenUpdateFunctionPtr)
+						{
+							RcEmscriptenUpdateFunctionPtr();
+						}
 
-					if (RcEmscriptenUpdateFunctionPtr)
-					{
-						RcEmscriptenUpdateFunctionPtr();
-					}
+						if (shouldClose)
+						{
+							emscripten_cancel_main_loop();
+						}
 
-					if (shouldClose)
-					{
-						emscripten_cancel_main_loop();
-					}
-
-					if (RcEmscriptenRenderFunctionPtr)
-					{
-						RcEmscriptenRenderFunctionPtr();
-					}
+						if (RcEmscriptenRenderFunctionPtr)
+						{
+							RcEmscriptenRenderFunctionPtr();
+						}
 				}
 
 				EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent * e, void* userData) 
@@ -51,6 +53,7 @@ namespace RCEngine
 					}
 					return 0;
 				}
+				
 				
 			}
 		}
