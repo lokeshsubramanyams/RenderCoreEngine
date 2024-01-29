@@ -45,7 +45,7 @@ namespace RCEngine
 			graphicsEngine->Renderable(mesh, program);
 			fps = new FrameRateTracker();
 			//////////////////////////////////////////////////////////////
-			//Renderer();
+			
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
@@ -70,11 +70,3 @@ namespace RCEngine
 	}
 }
 
-
-/*while (!renderSurface->ShouldClose())
-{
-	renderSurface->PollEvents();
-	graphicsEngine->Render();
-	renderSurface->SwapBuffers();
-}
-*/

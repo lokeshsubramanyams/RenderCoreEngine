@@ -14,7 +14,7 @@ namespace RCEngine
 			void InitilizeEngine(Rect viewport) const override;
   		void  RenderLoop() override;
 			std::unordered_map<std::string, ShaderMetaData> GetShaderMetaData()override;
-			
+		
 		};
 
 	}

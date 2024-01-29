@@ -1,6 +1,4 @@
-﻿
 
-#include "RCEngineMain.h"
 #include "RenderCore.h"
 #include "RenderCoreEngine.h"
 
@@ -29,10 +27,10 @@ void ThreadFunction()
 	}
 
 }
-void signalHandler(int signum) 
+void signalHandler(int signum)
 {
-	Debug::Log("signalHandler:",signum);
-	if (signum == SIGINT) 
+	Debug::Log("signalHandler:", signum);
+	if (signum == SIGINT)
 	{
 		running = false;
 	}
@@ -47,22 +45,12 @@ int main()
 
 
 	Debug::Log("main");
-	//RenderCoreEngine* engine = new RenderCoreEngine();
-	//engine->InitilizeEngine();
+	RenderCoreEngine* engine = new RenderCoreEngine();
+	engine->InitilizeEngine();
+	engine->Run();
 	//signalHandler(SIGINT);
 	//threadObj.join();
 
 
 	return 0;
-}
-
-extern "C"
-{
-	EMSCRIPTEN_KEEPALIVE
-	void igniteEngine(const char* canvas)
-	{
-		Debug::Log("igniteEngine->", canvas);
-		RenderCoreEngine* engine = new RenderCoreEngine();
-		engine->InitilizeEngine();
-	}
 }

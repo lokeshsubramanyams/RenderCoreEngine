@@ -59,15 +59,11 @@ namespace RCEngine
 
     void IOpenGLEngine::Renderable(Mesh* mesh)
     {
-			Vector3f vertices[3];
-			vertices[0] = Vector3f(-1.0f, -1.0f, 0.0f);
-			vertices[1] = Vector3f(1.0f, -1.0f, 0.0f);
-			vertices[2] = Vector3f(0.0f, 1.0f, 0.0f);
-
-			float floatVertex[] = { -1.0f, -1.0f, 0.0f ,
-			1.0f, -1.0f, 0.0f ,
-				0.0f, 1.0f, 0.0f
-			};
+			Vector3 vertices[3];
+			vertices[0] = mesh->vertices[0];
+			vertices[1] = mesh->vertices[1];
+			vertices[2] = mesh->vertices[2];
+						
 
 			GLuint VBO;
 			glGenVertexArrays(1, &VAO);
@@ -75,23 +71,10 @@ namespace RCEngine
 					
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(floatVertex), floatVertex, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+			glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, sizeof(Vector3), (void*)0);
 			glEnableVertexAttribArray(0);
 		
-			
-			//glBindBuffer(GL_ARRAY_BUFFER, 0);
-			glBindVertexArray(0);
-
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			glUseProgram(shaderProgram);
-			glBindVertexArray(VAO);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
-
-			glBindVertexArray(0);
-
     }
 
 		GLuint IOpenGLEngine::CompileToShaderProgram(ShaderMetaData mData)const

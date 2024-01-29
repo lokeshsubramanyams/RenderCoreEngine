@@ -20,8 +20,8 @@ namespace  RCEngine
 						
 
 			void UpdateLoop(double delta) override;
-			void Renderable(Mesh* mesh)override;
-			void Renderable(Mesh* mesh, ShaderProgram program)override;
+			virtual void Renderable(Mesh* mesh);
+			virtual void Renderable(Mesh* mesh, ShaderProgram program);
 		
 
 		protected:

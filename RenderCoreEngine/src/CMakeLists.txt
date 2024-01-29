@@ -1,9 +1,15 @@
 #RenderCoreEngine/src/CMakeLists.txt
 
-file(GLOB_RECURSE CppSource "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
-file(GLOB_RECURSE HppSource "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
+set(cppSource "")
+if(WINX64)
+set(CppSource "${CMAKE_CURRENT_SOURCE_DIR}/AppMainWin64.cpp")
+else()
+set(CppSource "${CMAKE_CURRENT_SOURCE_DIR}/AppMainBrowser.cpp")
+endif()
+#file(GLOB_RECURSE HppSource "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 
-set(SRC_SOURCE_EXECUTABLE ${CppSource} ${HppSource} PARENT_SCOPE)
+#set(SRC_SOURCE_EXECUTABLE ${CppSource} ${HppSource} PARENT_SCOPE)
+set(SRC_SOURCE_EXECUTABLE ${CppSource} PARENT_SCOPE)
 
 add_library(main_module INTERFACE)
 
