@@ -29,6 +29,11 @@ namespace  RCEngine
 			GLuint vb[1] = { 0 };
 			GLuint VAO;
 			GLuint shaderProgram;
+		#if PRECISION_DOUBLE
+		#define GL_PRECISION GL_DOUBLE
+		#else
+		#define GL_PRECISION GL_FLOAT
+		#endif
 		private:
 			GLuint CompileToShaderProgram(ShaderMetaData mData)const;
 

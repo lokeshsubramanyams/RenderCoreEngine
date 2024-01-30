@@ -57,6 +57,9 @@ option(EMSCRIPTEN   "WebGL2.0 Graphics Pipeline" OFF)#WEBGL2.0-->OpenGLES3.0-->O
 option(VULKAN  "Vulkan Graphics Pipeline"    OFF)#this is only to Windows
 option(WEBGPU  "WebGPU Graphics Pipeline"    OFF)#this is for platforms webassembly and windows
 
+option(PRECISION_DOUBLE_SUPPORT "option to use double precision in math calculations" OFF)
+
+
  
 if(PRESET_NAME STREQUAL "windows-x64-openGL")
 
@@ -67,6 +70,8 @@ if(PRESET_NAME STREQUAL "windows-x64-openGL")
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
      set(EMSCRIPTEN OFF CACHE BOOL "webgl" FORCE) 
+
+     set(PRECISION_DOUBLE_SUPPORT ON CACHE BOOL "precision" FORCE)
      
 elseif(PRESET_NAME STREQUAL "windows-x64-vulkan")
 
@@ -77,6 +82,7 @@ elseif(PRESET_NAME STREQUAL "windows-x64-vulkan")
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
      set(EMSCRIPTEN OFF CACHE BOOL "webgl" FORCE)
+     set(PRECISION_DOUBLE_SUPPORT ON CACHE BOOL "precision" FORCE)
      
 elseif(PRESET_NAME STREQUAL "windows-x64-webgpu")
 
@@ -87,6 +93,7 @@ elseif(PRESET_NAME STREQUAL "windows-x64-webgpu")
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
      set(WEBASSEMBLY OFF CACHE BOOL "webassembly" FORCE)
+     set(PRECISION_DOUBLE_SUPPORT ON CACHE BOOL "precision" FORCE)
     
 elseif(PRESET_NAME STREQUAL "emscripten-openGL")
 
@@ -97,6 +104,7 @@ elseif(PRESET_NAME STREQUAL "emscripten-openGL")
      set(WINX64 OFF CACHE BOOL "windows" FORCE)
      set(WEBGPU OFF CACHE BOOL "webgpu" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
+     set(PRECISION_DOUBLE_SUPPORT OFF CACHE BOOL "precision" FORCE)
 
 elseif(PRESET_NAME STREQUAL "emscripten-webgpu")
 
@@ -107,6 +115,7 @@ elseif(PRESET_NAME STREQUAL "emscripten-webgpu")
      set(WINX64 OFF CACHE BOOL "windows" FORCE)
      set(OPENGL OFF CACHE BOOL "opengl" FORCE)
      set(VULKAN OFF CACHE BOOL "vulkan" FORCE)
+     set(PRECISION_DOUBLE_SUPPORT OFF CACHE BOOL "precision" FORCE)
 
 endif()
 
@@ -129,6 +138,12 @@ remove_definitions(-DEMSCRIPTEN)
 remove_definitions(-DVULKAN)
 remove_definitions(-DWEBGPU)
 remove_definitions(-DPTHREADS)
+remove_definitions(-DPRECISION_DOUBLE)
+
+if(PRECISION_DOUBLE_SUPPORT)
+  add_definitions(-DPRECISION_DOUBLE)
+endif()
+
 
 if(PTHREADS)
   add_definitions(-DPTHREADS)

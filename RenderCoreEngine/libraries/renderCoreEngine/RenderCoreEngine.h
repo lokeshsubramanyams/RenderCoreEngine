@@ -41,6 +41,8 @@ namespace RCEngine
 			void Renderer();
 			void Update();
 			void Run();
+
+			~RenderCoreEngine();
 			
 		};
 

@@ -59,20 +59,13 @@ namespace RCEngine
 
     void IOpenGLEngine::Renderable(Mesh* mesh)
     {
-			Vector3 vertices[3];
-			vertices[0] = mesh->vertices[0];
-			vertices[1] = mesh->vertices[1];
-			vertices[2] = mesh->vertices[2];
-						
-
 			GLuint VBO;
 			glGenVertexArrays(1, &VAO);
 			glGenBuffers(1, &VBO);
-					
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, sizeof(Vector3), (void*)0);
+			glBufferData(GL_ARRAY_BUFFER, mesh->SizeOfVertices(), mesh->vertices, GL_STATIC_DRAW);
+			glVertexAttribPointer(0, 3,GL_PRECISION,GL_FALSE, mesh->SizeOfVertexDataStructure(), (void*)0);
 			glEnableVertexAttribArray(0);
 		
     }

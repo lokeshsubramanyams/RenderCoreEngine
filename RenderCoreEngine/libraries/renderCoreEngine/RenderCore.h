@@ -32,6 +32,14 @@ namespace RCEngine
 
 		};
 
+		enum GeometryShapes
+		{
+			Cube,
+			Sphere,
+			Cylinder,
+			Cone,
+			Torus
+		};
 
 	
 }

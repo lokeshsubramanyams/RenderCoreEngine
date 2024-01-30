@@ -67,6 +67,11 @@ namespace RCEngine
 			renderSurface->Run(renderFuncPtr, updateFuncPtr);
 
 		}
+		RenderCoreEngine::~RenderCoreEngine()
+		{
+			delete fps;
+		
+		}
 	}
 }
 

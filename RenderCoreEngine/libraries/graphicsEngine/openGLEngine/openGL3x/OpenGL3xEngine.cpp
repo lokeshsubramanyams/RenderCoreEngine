@@ -31,40 +31,5 @@ namespace RCEngine
 			return data;
 		}
 
-		void OpenGL3xEngine::Renderable(Mesh* mesh, ShaderProgram program)
-		{
-			shaderProgram = program.shaderProgram;
-			this->Renderable(mesh);
-		}
-
-		void OpenGL3xEngine::Renderable(Mesh* mesh)
-		{
-			Vector3f vertices[3];
-			vertices[0] = Vector3f(-1.0f, -1.0f, 0.0f);
-			vertices[1] = Vector3f(1.0f, -1.0f, 0.0f);
-			vertices[2] = Vector3f(0.0f, 1.0f, 0.0f);
-
-			float floatVertex[] = { -1.0f, -1.0f, 0.0f ,
-			1.0f, -1.0f, 0.0f ,
-				0.0f, 1.0f, 0.0f
-			};
-
-			GLuint VBO;
-			glGenVertexArrays(1, &VAO);
-			glGenBuffers(1, &VBO);
-
-			glBindVertexArray(VAO);
-			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(floatVertex), floatVertex, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-			glEnableVertexAttribArray(0);
-
-
-			//glBindBuffer(GL_ARRAY_BUFFER, 0);
-			glBindVertexArray(0);
-
-
-
-		}
 	}
 }
