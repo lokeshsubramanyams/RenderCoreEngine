@@ -37,6 +37,7 @@ void RCEngine::Debugger::Debug::Log(const char* msg, const T& message) {
 
 template void RCEngine::Debugger::Debug::Log<int>(const char* msg, const int& message);
 template void RCEngine::Debugger::Debug::Log<double>(const char* msg, const double& message);
+template void RCEngine::Debugger::Debug::Log<float>(const char* msg, const float& message);
 template void RCEngine::Debugger::Debug::Log<std::string>(const char* msg, const std::string& message);
 
 void RCEngine::Debugger::Debug::Log(const char* msg,const char* message) {

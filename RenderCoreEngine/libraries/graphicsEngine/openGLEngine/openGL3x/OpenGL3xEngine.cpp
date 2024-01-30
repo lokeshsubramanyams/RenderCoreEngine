@@ -17,7 +17,10 @@ namespace RCEngine
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glUseProgram(shaderProgram);
+			glUseProgram(shaderProgram.shaderProgram);
+
+			glUniformMatrix4fv(shaderProgram.uniformTransformationMatrix, 1, GL_FALSE, glm::value_ptr(transformation));
+
 			glBindVertexArray(VAO);
 			glDrawArrays(GL_TRIANGLES, 0, 3);
 

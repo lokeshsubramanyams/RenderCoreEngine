@@ -12,7 +12,8 @@ RCEngine::ShaderMetaData defaultVertShader = {
 		reinterpret_cast<const char*>(D__2024_Git_Repos_RenderCoreEngine_RenderCoreEngine_libraries_graphicsEngine_openGLEngine_openGL4x_shaders_default_vert),
 		static_cast<int>(D__2024_Git_Repos_RenderCoreEngine_RenderCoreEngine_libraries_graphicsEngine_openGLEngine_openGL4x_shaders_default_vert_len),
 		RCEngine::ShaderType::VERTEX,
-		RCEngine::SHADERCONST::DEFAULT_VERTEX
+		RCEngine::SHADERCONST::DEFAULT_VERTEX,
+		"transformationMatrix"
 
 };
 

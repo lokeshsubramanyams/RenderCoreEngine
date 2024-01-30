@@ -7,5 +7,6 @@ namespace RCEngine
 		std::string vertexkey;
 		std::string fragmentkey;
 		unsigned int shaderProgram;
+		unsigned int uniformTransformationMatrix;
 	};
 }

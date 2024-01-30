@@ -54,7 +54,7 @@ namespace RCEngine
 		}
 		void RenderCoreEngine::Update()
 		{
-			Debug::Log("Fps:", fps->Fps());
+			Debug::Log("DeltaTime:", fps->DeltaTime());
 			graphicsEngine->UpdateLoop(fps->DeltaTime());
 		}
 		void RenderCore::RenderCoreEngine::Run()

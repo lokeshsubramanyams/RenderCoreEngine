@@ -14,6 +14,7 @@ namespace RCEngine
 		steady_clock::time_point currentTime = startTime;
 		steady_clock::time_point lastTime = startTime;
 		double fps = 0.0;
+		double deltaTime = 0.0;
 		duration<double> frameDelta;
 	public:
 		FrameRateTracker();

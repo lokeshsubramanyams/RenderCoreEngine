@@ -11,7 +11,7 @@ namespace RCEngine
 		int  length;
 		RCEngine::ShaderType shaderType;
 		const std::string shaderKey;
-
+		const char* unifromKey;
 	};
 }
 

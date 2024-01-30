@@ -48,12 +48,15 @@ namespace RCEngine
 			}
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
-			return { vertex.shaderKey,fragment.shaderKey,shaderProgram };
+			 
+			GLuint uniformKey = glGetUniformLocation(shaderProgram, vertex.unifromKey);
+			Debug::Log("uniformKey:",std::to_string(uniformKey));
+			return { vertex.shaderKey,fragment.shaderKey,shaderProgram,uniformKey };
 		}
 
 		void IOpenGLEngine::Renderable(Mesh* mesh, ShaderProgram program)
 		{
-			shaderProgram = program.shaderProgram;
+			shaderProgram = program;
 			this->Renderable(mesh);
 		}
 
@@ -65,7 +68,7 @@ namespace RCEngine
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, mesh->SizeOfVertices(), mesh->vertices, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3,GL_PRECISION,GL_FALSE, mesh->SizeOfVertexDataStructure(), (void*)0);
+			glVertexAttribPointer(0, 3,GL_FLOAT,GL_FALSE, mesh->SizeOfVertexDataStructure(), (void*)0);
 			glEnableVertexAttribArray(0);
 		
     }
@@ -105,7 +108,11 @@ namespace RCEngine
 
 		void IOpenGLEngine::UpdateLoop(double delta)
 		{
+			testVariable += delta * direction*0.1;
+			if (testVariable > 1.0 || testVariable < -1.0)direction *= -1.0;
 
+			transformation = glm::scale(glm::mat4(1.0f), glm::vec3(testVariable, testVariable, testVariable));
+		
 		}
 	
 		void IOpenGLEngine::RegisterCustomShader(ShaderMetaData customShader) const

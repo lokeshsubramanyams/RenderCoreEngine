@@ -5,7 +5,7 @@ namespace RCEngine
 
 	FrameRateTracker::FrameRateTracker()
 	{
-
+		deltaTime = 0.001;//dont change this it works fine until first delta determined
 	}
 	void FrameRateTracker::CalculateFPS()
 	{
@@ -15,6 +15,7 @@ namespace RCEngine
 
 		if (frameDelta.count() >= 1.0) {
 			fps = frameCount / frameDelta.count();
+			deltaTime = 1.0 / fps;
 			frameCount = 0;
 			lastTime = currentTime;
 			//std::cout << "FPS: " << fps << std::endl;
@@ -27,6 +28,6 @@ namespace RCEngine
 	}
 	double FrameRateTracker::DeltaTime()
 	{
-		return frameDelta.count();
+		return deltaTime;
 	}
 }

@@ -2,25 +2,19 @@
 
 #include<glm.hpp>
 #include<gtc/quaternion.hpp>
+#include<gtc/type_ptr.hpp>
 
 namespace RCEngine
 {
 	namespace MathLib
 	{
 		using namespace glm;
-#if PRECISION_DOUBLE
-		typedef highp_dvec2 Vector2;
-		typedef highp_dvec3 Vector3;
-		typedef highp_dvec4 Vector4;
-		typedef highp_dquat Quaternion;
-		typedef highp_dmat4 Matrix44;
-#else				
+	
+		typedef vec2 Vector2;
+		typedef vec3 Vector3;
+		typedef vec4 Vector4;
+		typedef quat Quaternion;
+		typedef mat4 Matrix44;
 
-		typedef highp_f32vec2 Vector2;
-		typedef highp_f32vec3 Vector3;
-		typedef highp_f32vec4 Vector4;
-		typedef highp_f32quat Quaternion;
-		typedef highp_f32mat4 Matrix44;
-#endif
 	}
 }

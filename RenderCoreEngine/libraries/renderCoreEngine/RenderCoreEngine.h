@@ -33,7 +33,6 @@ namespace RCEngine
 		{
 		private:
 			FrameRateTracker* fps;
-			
 		public:
 			std::unique_ptr<IRenderSurface> renderSurface;
 			std::unique_ptr<IGraphicsEngine> graphicsEngine;

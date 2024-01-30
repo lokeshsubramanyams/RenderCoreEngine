@@ -28,12 +28,12 @@ namespace  RCEngine
 			int vBufferCount = 1;
 			GLuint vb[1] = { 0 };
 			GLuint VAO;
-			GLuint shaderProgram;
-		#if PRECISION_DOUBLE
-		#define GL_PRECISION GL_DOUBLE
-		#else
-		#define GL_PRECISION GL_FLOAT
-		#endif
+			ShaderProgram shaderProgram;
+
+			double testVariable = 1.0;
+			double direction = 1.0;
+			Matrix44 transformation;
+
 		private:
 			GLuint CompileToShaderProgram(ShaderMetaData mData)const;
 
