@@ -2,6 +2,7 @@
 
 #include "MathLib.h"
 #include "Mesh.h"
+#include "RenderCore.h"
 namespace RCEngine
 {
 	namespace RenderCore
@@ -14,6 +15,13 @@ namespace RCEngine
 			{
 			public:
 				static Mesh *ClipperTriangle();
+				static Mesh* GeometricalShapes(GeometryShapes shape);
+
+				static Mesh* GetCubeMesh();
+				static Mesh* GetSphereMesh();
+				static Mesh* GetCylinderMesh();
+				static Mesh* GetMeshCone();
+				static Mesh* GetMeshTorus();
 
 			};
 		}
