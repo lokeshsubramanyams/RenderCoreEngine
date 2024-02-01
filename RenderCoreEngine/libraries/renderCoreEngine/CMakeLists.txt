@@ -8,7 +8,8 @@ target_include_directories(renderCore_module PUBLIC
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/vertexPipeline/mesh/"
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/vertexPipeline/camera/"
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/fragmentPipeline/light/"
-"${CMAKE_CURRENT_SOURCE_DIR}/Updaters/") 
+"${CMAKE_CURRENT_SOURCE_DIR}/Updaters/",
+"${CMAKE_CURRENT_SOURCE_DIR}/Scene/") 
 
 target_link_libraries(renderCore_module PUBLIC mathLib_interface platform_module graphicEngine_module  )
 

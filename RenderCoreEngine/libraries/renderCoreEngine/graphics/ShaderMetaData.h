@@ -10,8 +10,9 @@ namespace RCEngine
 		const char* source;
 		int  length;
 		RCEngine::ShaderType shaderType;
-		const std::string shaderKey;
+		const char* shaderKey;
 		const char* unifromKey;
 	};
+
 }
 

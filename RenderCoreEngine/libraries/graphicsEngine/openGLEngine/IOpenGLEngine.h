@@ -1,7 +1,10 @@
 #pragma once 
 #include "IGraphicsEngine.h"
 #include <vector>
+#include <memory>
 #include <GL/glew.h>//this is there in vcpkg and emsdk
+
+#include "OpenGLShaderBuilder.h"
 
 namespace  RCEngine
 {
@@ -11,20 +14,24 @@ namespace  RCEngine
 		class IOpenGLEngine : public IGraphicsEngine
 		{
 		public:
-			virtual void InitilizeEngine(Rect viewport) const;
+			virtual void InitilizeEngine(Rect viewport);
 			virtual void  RenderLoop() = 0;
 
-			ShaderProgram CompileShader(ShaderMetaData vertex, ShaderMetaData fragment)const override;
+
+			void LoadShaderBatch(std::vector<ShaderProgram> programs)override;
+
+
 			
 			void RegisterCustomShader(ShaderMetaData customShader)const override;
 						
-
 			void UpdateLoop(double delta) override;
-			virtual void Renderable(Mesh* mesh);
-			virtual void Renderable(Mesh* mesh, ShaderProgram program);
+
 		
 
 		protected:
+		
+			std::unique_ptr<IShaderBuilder> shaderBuilder;
+
 			int vBufferCount = 1;
 			GLuint vb[1] = { 0 };
 			GLuint VAO;
@@ -33,9 +40,6 @@ namespace  RCEngine
 			double testVariable = 1.0;
 			double direction = 1.0;
 			Matrix44 transformation;
-
-		private:
-			GLuint CompileToShaderProgram(ShaderMetaData mData)const;
 
 		
 		};

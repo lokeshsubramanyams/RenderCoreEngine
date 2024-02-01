@@ -11,7 +11,7 @@ namespace RCEngine
 		class OpenGL3xEngine : public IOpenGLEngine
 		{
 		public:
-			void InitilizeEngine(Rect viewport) const override;
+			void InitilizeEngine(Rect viewport) override;
 			void  RenderLoop() override;
 			std::unordered_map<std::string, ShaderMetaData> GetShaderMetaData()override;
 		};

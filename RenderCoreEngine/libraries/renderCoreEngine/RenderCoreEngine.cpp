@@ -30,32 +30,37 @@ namespace RCEngine
 #endif
 
 #endif
+
+			ShaderProgram defaultShaderProgram =
+			{
+				CONST::SHADERFILE::DEFAULT_VERTEX,
+				CONST::SHADERFILE::DEFAULT_FRAGMENT,
+				CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX,
+				CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLORVEC4,
+				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT
+
+			};
+		
+
 			
 			///////////////////////////////////////////////////////////
 			graphicsEngine->InitilizeEngine(surface);
-			std::unordered_map<std::string,ShaderMetaData> shadersMeta =  graphicsEngine->GetShaderMetaData();
-			
-			ShaderProgram program = graphicsEngine->CompileShader(shadersMeta[SHADERCONST::DEFAULT_VERTEX], shadersMeta[SHADERCONST::DEFAULT_FRAGMENT]);
-			////////////////////////////////////////////////////////////
 
-			Debug::Log(std::string("ShaderProgram:_" + program.vertexkey + "_" + program.fragmentkey).c_str(), std::to_string(program.shaderProgram));
-			
-			///////////////////////////////////////////////////////////////
-			Mesh* mesh = MeshUtil::ClipperTriangle();
-			graphicsEngine->Renderable(mesh, program);
+		//std::unordered_map<std::string,ShaderMetaData> shadersMeta =  graphicsEngine->GetShaderMetaData();
+
 			fps = new FrameRateTracker();
 			//////////////////////////////////////////////////////////////
 			
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
-		  graphicsEngine->RenderLoop();
-			fps->CalculateFPS();
+		// graphicsEngine->RenderLoop();
+			//fps->CalculateFPS();
 		}
 		void RenderCoreEngine::Update()
 		{
-			Debug::Log("DeltaTime:", fps->DeltaTime());
-			graphicsEngine->UpdateLoop(fps->DeltaTime());
+			//Debug::Log("DeltaTime:", fps->DeltaTime());
+			//graphicsEngine->UpdateLoop(fps->DeltaTime());
 		}
 		void RenderCore::RenderCoreEngine::Run()
 		{

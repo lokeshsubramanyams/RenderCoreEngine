@@ -6,7 +6,7 @@ namespace RCEngine
 	namespace OpenGLEngine
 	{
 		using namespace RCEngine::Debugger;
-		void OpenGL4xEngine::InitilizeEngine(Rect viewport) const
+		void OpenGL4xEngine::InitilizeEngine(Rect viewport)
 		{
 			IOpenGLEngine::InitilizeEngine(viewport);
 		}
@@ -16,7 +16,7 @@ namespace RCEngine
 
 			
 
-			glBindVertexArray(0);
+		/*	glBindVertexArray(0);
 
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -32,7 +32,7 @@ namespace RCEngine
 
 			glBindVertexArray(0);
 
-			
+			*/
 				
 		}
 
