@@ -13,7 +13,9 @@ namespace RCEngine
 		class IShaderBuilder
 		{
 		public:
-			virtual std::unordered_map<std::string, std::unique_ptr<RCEngine::RenderCore::IShader>> PreLoadShaderBatch(std::vector<ShaderProgram>programsToLoad, std::unordered_map<std::string, ShaderMetaData> engineMetaData) = 0;
+			virtual void PreLoadShaderBatch(std::vector<ShaderProgram>programsToLoad, std::unordered_map<std::string, ShaderMetaData> engineMetaData) = 0;
+
+			virtual RCEngine::RenderCore::IShader* GetShader(std::string generatedShaderKey) = 0;
 
 		};
 	}

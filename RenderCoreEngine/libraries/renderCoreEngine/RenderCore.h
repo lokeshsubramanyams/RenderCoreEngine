@@ -52,5 +52,11 @@ namespace RCEngine
 			Torus
 		};
 
+		enum ComponentType
+		{
+			MeshRendererComp,
+			LineRendererComp
+		};
+
 	
 }

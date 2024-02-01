@@ -33,6 +33,11 @@ namespace RCEngine
 			glBindVertexArray(0);
 
 			*/
+
+			for (int i = 0; i < renderers.size(); i++)
+			{
+				renderers[i]->Render();
+			}
 				
 		}
 

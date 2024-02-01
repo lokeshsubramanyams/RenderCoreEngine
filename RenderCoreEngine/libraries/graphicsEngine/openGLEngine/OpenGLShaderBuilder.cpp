@@ -1,5 +1,4 @@
 #include "OpenGLShaderBuilder.h"
-#include "ShaderMetaData.h"
 #include "OpenGLShader.h"
 
 namespace RCEngine
@@ -7,22 +6,23 @@ namespace RCEngine
 	namespace OpenGLEngine
 	{
 		
-		std::unordered_map<std::string, std::unique_ptr<RCEngine::RenderCore::IShader>> OpenGLShaderBuilder::PreLoadShaderBatch(std::vector<ShaderProgram>programsToLoad
+		void OpenGLShaderBuilder::PreLoadShaderBatch(std::vector<ShaderProgram>programsToLoad
 			, std::unordered_map<std::string, ShaderMetaData> engineMetaData)
 		{
 			
-			std::unordered_map<std::string, std::unique_ptr<RCEngine::RenderCore::IShader>> shaders;
 			for (int index = 0; index < programsToLoad.size(); index++)
 			{
+				if (shaders.count(programsToLoad[index].generatedShaderKey) > 0)continue;
+
 				std::string vkey = programsToLoad[index].vertexkey;
 				std::string fkey = programsToLoad[index].fragmentkey;
 
-				if (engineMetaData.count(vkey) < 0)
+				if (engineMetaData.count(vkey) <=0)
 				{
 					Debug::LogError("ShaderMetaData not exists:"+vkey);
 					continue;
 				}
-				if(engineMetaData.count(fkey) < 0)
+				if(engineMetaData.count(fkey) <=0)
 				{
 					Debug::LogError("ShaderMetaData not exists:" + fkey);
 					continue;
@@ -31,23 +31,28 @@ namespace RCEngine
 				{
 					GLuint shaderProgram = this->LoadShader(engineMetaData[vkey], engineMetaData[fkey]);
 					
-					GLuint uniformKey = glGetUniformLocation(shaderProgram, programsToLoad[index].uniformTransformationMatrix.c_str());
+					if (shaderProgram != -1)
+					{
+						shaders.insert({ programsToLoad[index].generatedShaderKey,std::make_unique<RCEngine::OpenGLEngine::OpenGLShader>(shaderProgram, programsToLoad[index].uniformKeys) });
+						
+					}
 
 				}
 
 				
 			}
 			
-			return shaders;
 		}
 
-		GLuint OpenGLShaderBuilder::Compile(ShaderProgram program)
+		RCEngine::RenderCore::IShader* OpenGLShaderBuilder::GetShader(std::string generatedShaderKey)
 		{
+			if (shaders.count(generatedShaderKey) > 0)
+			{
+				return shaders[generatedShaderKey].get();
+			}
 
-
-			return GLuint();
+			return nullptr;
 		}
-
 
 		GLuint OpenGLShaderBuilder::Compile(ShaderMetaData mData)
 		{
@@ -114,9 +119,6 @@ namespace RCEngine
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
 
-			//GLuint uniformKey = glGetUniformLocation(shaderProgram, vertex.unifromKey);
-		//	Debug::Log("uniformKey:", std::to_string(uniformKey));
-			//return { vertex.shaderKey,fragment.shaderKey,shaderProgram,uniformKey };
 			return shaderProgram;
 		}
 	}

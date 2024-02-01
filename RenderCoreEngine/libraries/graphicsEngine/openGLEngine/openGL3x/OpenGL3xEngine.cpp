@@ -5,16 +5,18 @@ namespace RCEngine
 {
 	namespace OpenGLEngine
 	{
-		void OpenGL3xEngine::InitilizeEngine(Rect viewport) const
+		void OpenGL3xEngine::InitilizeEngine(Rect viewport)
 		{
 			Debug::Log(viewport);
 			glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			
+			shaderBuilder = std::make_unique<OpenGLShaderBuilder>();
+			componentFactory = std::make_unique<OpenGLComponentFactory>();
 		}
 
 		void OpenGL3xEngine::RenderLoop()
 		{
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		/*	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			glUseProgram(shaderProgram.shaderProgram);
@@ -25,6 +27,12 @@ namespace RCEngine
 			glDrawArrays(GL_TRIANGLES, 0, 3);
 
 			glBindVertexArray(0);
+			*/
+			for (int i = 0; i < renderers.size(); i++)
+			{
+				renderers[i]->Render();
+			}
+
 		}
 		std::unordered_map<std::string, ShaderMetaData> OpenGL3xEngine::GetShaderMetaData()
 		{

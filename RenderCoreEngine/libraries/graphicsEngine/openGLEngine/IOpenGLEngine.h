@@ -5,6 +5,8 @@
 #include <GL/glew.h>//this is there in vcpkg and emsdk
 
 #include "OpenGLShaderBuilder.h"
+#include "OpenGLComponentFactory.h"
+#include "IRenderer.h"
 
 namespace  RCEngine
 {
@@ -19,18 +21,20 @@ namespace  RCEngine
 
 
 			void LoadShaderBatch(std::vector<ShaderProgram> programs)override;
-
-
+			IShader* GetLoadedShader(std::string shader)override;
+			IComponentFactory* GetFactory()override;
+			void Render(RCEngine::RenderCore::IRenderer* renderer)override;
 			
-			void RegisterCustomShader(ShaderMetaData customShader)const override;
-						
 			void UpdateLoop(double delta) override;
-
+			void RegisterCustomShader(ShaderMetaData customShader)const override;
 		
 
 		protected:
 		
 			std::unique_ptr<IShaderBuilder> shaderBuilder;
+			std::unique_ptr<IComponentFactory>componentFactory;
+
+			std::vector<IRenderer*> renderers;
 
 			int vBufferCount = 1;
 			GLuint vb[1] = { 0 };

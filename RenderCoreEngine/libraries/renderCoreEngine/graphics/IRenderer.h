@@ -5,10 +5,20 @@ namespace RCEngine
 {
 	namespace RenderCore
 	{
+		
 		class IRenderer : public IComponent
 		{
-		protected:
-			IShader shader;
+		public:
+
+			explicit IRenderer(ComponentType t) :IComponent(t) {}
+
+			virtual void Load() = 0;
+
+			virtual void LoadInBatch() = 0;
+
+			virtual void Render() = 0;
+
+
 		};
 	}
 }

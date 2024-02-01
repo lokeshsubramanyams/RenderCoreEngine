@@ -39,21 +39,28 @@ namespace RCEngine
 			uniformLocations.insert({ uniformKey, id });
 		}
 
-		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Matrix44& value)
+		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Matrix44 value)
 		{
 			glUniformMatrix4fv(GetUniform(uniformKey), 1, GL_FALSE, glm::value_ptr(value));
 		}
-		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Vector4& value)
+		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Vector4 value)
 		{
 			glUniform4fv(GetUniform(uniformKey), 1, glm::value_ptr(value));
 		}
-		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Vector3& value)
+		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Vector3 value)
 		{
 			glUniform3fv(GetUniform(uniformKey), 1, glm::value_ptr(value));
 		}
-		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Vector2& value)
+		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Vector2 value)
 		{
 			glUniform2fv(GetUniform(uniformKey), 1, glm::value_ptr(value));
+		}
+		void OpenGLShader::Log()
+		{
+			Debug::Log("thisShaderProgram:",std::to_string(thisShaderProgram));
+			for (const auto& pair : uniformLocations) {
+				Debug::Log(pair.first.c_str(), std::to_string(pair.second));
+			}
 		}
 	}
 }

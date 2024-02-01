@@ -1,7 +1,7 @@
 #include "RenderCoreEngine.h"
 #include "MeshUtil.h"
 #include "Mesh.h"
-
+#include "GraphicsObject.h"
 
 
 
@@ -35,9 +35,10 @@ namespace RCEngine
 			{
 				CONST::SHADERFILE::DEFAULT_VERTEX,
 				CONST::SHADERFILE::DEFAULT_FRAGMENT,
-				CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX,
-				CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLORVEC4,
-				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT
+				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT,
+
+				{CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX,
+				CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLORVEC4}
 
 			};
 		
@@ -46,7 +47,19 @@ namespace RCEngine
 			///////////////////////////////////////////////////////////
 			graphicsEngine->InitilizeEngine(surface);
 
-		//std::unordered_map<std::string,ShaderMetaData> shadersMeta =  graphicsEngine->GetShaderMetaData();
+			graphicsEngine->LoadShaderBatch({ defaultShaderProgram });
+
+			IShader *defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
+
+			defaultShader->Log();
+
+			GraphicsObject* triangle = new GraphicsObject("TestTriangle");
+			Mesh* mesh = MeshUtil::ClipperTriangle();
+			IComponent* component =  graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
+			triangle->AttachComponent(*component);
+
+
+			graphicsEngine->Render(static_cast<IRenderer*>(component));
 
 			fps = new FrameRateTracker();
 			//////////////////////////////////////////////////////////////
@@ -54,13 +67,13 @@ namespace RCEngine
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
-		// graphicsEngine->RenderLoop();
-			//fps->CalculateFPS();
+		  graphicsEngine->RenderLoop();
+			fps->CalculateFPS();
 		}
 		void RenderCoreEngine::Update()
 		{
 			//Debug::Log("DeltaTime:", fps->DeltaTime());
-			//graphicsEngine->UpdateLoop(fps->DeltaTime());
+			graphicsEngine->UpdateLoop(fps->DeltaTime());
 		}
 		void RenderCore::RenderCoreEngine::Run()
 		{

@@ -17,15 +17,31 @@ namespace RCEngine
 			glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 
 			shaderBuilder = std::make_unique<OpenGLShaderBuilder>();
+			componentFactory = std::make_unique<OpenGLComponentFactory>();
 			
    	}
 
     void IOpenGLEngine::LoadShaderBatch(std::vector<ShaderProgram> programs)
     {
-			
 			shaderBuilder->PreLoadShaderBatch(programs, this->GetShaderMetaData());
     }
-		
+
+		IShader* IOpenGLEngine::GetLoadedShader(std::string shader)
+		{
+			return shaderBuilder->GetShader(shader);
+		}
+
+		IComponentFactory* IOpenGLEngine::GetFactory()
+		{
+			return componentFactory.get();
+		}
+
+		void IOpenGLEngine::Render(RCEngine::RenderCore::IRenderer* renderer)
+		{
+			renderer->Load();
+			renderers.push_back(renderer);
+		}
+
 		void IOpenGLEngine::UpdateLoop(double delta)
 		{
 			testVariable += delta * direction*0.1;

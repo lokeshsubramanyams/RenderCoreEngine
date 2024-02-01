@@ -1,7 +1,9 @@
 #pragma once
-#include "RcMath.h"
+#include "MathLib.h"
 #include "Transform.h"
 #include "IComponent.h"
+#include <string>
+#include <vector>
 namespace RCEngine
 {
   namespace RenderCore
@@ -9,11 +11,16 @@ namespace RCEngine
     using namespace MathLib;
     class GraphicsObject
     {
-      
+		public:
+			std::string name;
+			GraphicsObject();
+			GraphicsObject(std::string name);
+			void AttachComponent(IComponent &component);
     private:
-      Transform transform;
+      Transform *transform;
+      std::vector<IComponent*> components;
 
-      IComponent components[];
+			
       
     };
   }
