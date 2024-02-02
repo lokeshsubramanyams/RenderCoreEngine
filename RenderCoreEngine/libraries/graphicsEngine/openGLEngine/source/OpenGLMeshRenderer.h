@@ -1,19 +1,20 @@
 #pragma once 
 #include "IMeshRenderer.h"
+#include "MeshFilter.h"
+#include "OpenGLMaterial.h"
 #include <GL/glew.h>
 namespace RCEngine
 {
 	namespace RenderCore
 	{
 		using namespace RCEngine::RenderCore;
-		using namespace RCEngine::RenderCore::Graphics;
-
+	
 		class OpenGLMeshRenderer : public IMeshRenderer
 		{
 		private:
 			GLuint VAO;
 		public:
-			OpenGLMeshRenderer(Mesh &mesh, IShader& shader);
+			OpenGLMeshRenderer(MeshFilter *filter,IMaterial *material);
 
 			void Load()override;
 			void LoadInBatch()override;

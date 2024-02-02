@@ -3,7 +3,7 @@
 
 add_library(graphicEngine_module INTERFACE)#${SOURCE_FILES})
 
-target_include_directories(graphicEngine_module INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/" )
+target_include_directories(graphicEngine_module INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/interface/" )
 target_link_libraries(graphicEngine_module INTERFACE  platform_module mathLib_interface renderCore_module )
 
 if(OPENGL)

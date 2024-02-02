@@ -7,10 +7,11 @@ namespace RCEngine
 	namespace OpenGLEngine
 	{
 		using namespace RCEngine::GraphicsEngine;
+		using namespace RCEngine::RenderCore::Graphics;
 		class OpenGLComponentFactory:public IComponentFactory
 		{
 		public:
-			RCEngine::RenderCore::IComponent* CreateMeshRendererComp(RCEngine::RenderCore::Graphics::Mesh& mesh, IShader& shader) override;
+			RCEngine::RenderCore::IComponent *CreateMeshRendererComp(Mesh& mesh, IShader& shader) override;
 
 		};
 	}

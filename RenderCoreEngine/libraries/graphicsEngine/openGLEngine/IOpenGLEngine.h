@@ -1,11 +1,12 @@
 #pragma once 
-#include "IGraphicsEngine.h"
+
 #include <vector>
 #include <memory>
 #include <GL/glew.h>//this is there in vcpkg and emsdk
 
-#include "OpenGLShaderBuilder.h"
-#include "OpenGLComponentFactory.h"
+#include "IGraphicsEngine.h"
+#include "Source/OpenGLShaderBuilder.h"
+#include "Source/OpenGLComponentFactory.h"
 #include "IRenderer.h"
 
 namespace  RCEngine
@@ -25,7 +26,6 @@ namespace  RCEngine
 			IComponentFactory* GetFactory()override;
 			void Render(RCEngine::RenderCore::IRenderer* renderer)override;
 			
-			void UpdateLoop(double delta) override;
 			void RegisterCustomShader(ShaderMetaData customShader)const override;
 		
 
@@ -36,14 +36,8 @@ namespace  RCEngine
 
 			std::vector<IRenderer*> renderers;
 
-			int vBufferCount = 1;
-			GLuint vb[1] = { 0 };
-			GLuint VAO;
-			ShaderProgram shaderProgram;
 
-			double testVariable = 1.0;
-			double direction = 1.0;
-			Matrix44 transformation;
+
 
 		
 		};

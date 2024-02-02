@@ -10,8 +10,8 @@ namespace RCEngine
 
 		class ILineRenderer:public IRenderer
 		{
-		protected:
-			Vector3[] linePoints;
+		
+			
 		};
 	}
 }

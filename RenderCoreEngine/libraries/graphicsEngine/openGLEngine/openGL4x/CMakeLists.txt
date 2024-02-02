@@ -1,10 +1,10 @@
 #libraries/openglEngine/openGL4x/CMakeLists.txt
 
-file(GLOB PARENT_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/../*.h ${CMAKE_CURRENT_SOURCE_DIR}/../*.cpp)
+#file(GLOB PARENT_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/../*.h ${CMAKE_CURRENT_SOURCE_DIR}/../*.cpp)
 
 file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
-set(ALL_SOURCE_FILES ${SOURCE_FILES} ${PARENT_SOURCE_FILES})
+set(ALL_SOURCE_FILES ${SOURCE_FILES} ${OpenGL_Common_source})
 
 message(STATUS "ALL_SOURCE_FILES-->:${ALL_SOURCE_FILES}")
 
@@ -15,7 +15,7 @@ add_subdirectory( ${CMAKE_CURRENT_SOURCE_DIR}/shaders)
 message(STATUS "libraries/openglEngine/openGL4x-->:${CMAKE_CURRENT_BINARY_DIR}")
 
 
-target_include_directories(openGLEngine_module PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/" "${CMAKE_CURRENT_LIST_DIR}/")
+target_include_directories(openGLEngine_module PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/" "${CMAKE_CURRENT_LIST_DIR}/" )
 target_link_libraries(openGLEngine_module PUBLIC graphicEngine_module  )
 
 target_include_directories(openGLEngine_module PUBLIC  ${VCPKG_INSTALL_INCLUDE_DIR})

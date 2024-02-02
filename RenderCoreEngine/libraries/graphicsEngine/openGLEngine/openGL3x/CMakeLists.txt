@@ -1,9 +1,9 @@
 #libraries/openglEngine/openGL3x/CMakeLists.txt
-file(GLOB PARENT_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/../*.h ${CMAKE_CURRENT_SOURCE_DIR}/../*.cpp)
+#file(GLOB PARENT_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/../*.h ${CMAKE_CURRENT_SOURCE_DIR}/../*.cpp)
 
 file(GLOB_RECURSE SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
-set(ALL_SOURCE_FILES ${SOURCE_FILES} ${PARENT_SOURCE_FILES})
+set(ALL_SOURCE_FILES ${SOURCE_FILES} ${OpenGL_Common_source})
 
 message(STATUS "ALL_SOURCE_FILES-->:${ALL_SOURCE_FILES}")
 
@@ -22,6 +22,6 @@ target_include_directories(openGLEngine_module PUBLIC  ${CMAKE_CURRENT_BINARY_DI
 add_definitions(-DEMSCRIPTEN)
 
 # Debugging: Print out all found source files
-foreach(SOURCE_FILE IN LISTS ${ALL_SOURCE_FILES})
-    message(STATUS "Found source file: ${SOURCE_FILE}")
+foreach(SOURCE_FILE IN LISTS SOURCE_FILES)
+    message(STATUS "source file: ${SOURCE_FILE}")
 endforeach()

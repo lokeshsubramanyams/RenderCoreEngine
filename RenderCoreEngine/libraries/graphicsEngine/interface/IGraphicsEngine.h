@@ -29,7 +29,7 @@ namespace RCEngine
 
 			virtual void RegisterCustomShader(ShaderMetaData customShader)const = 0;
 			virtual void RenderLoop() = 0;
-			virtual void UpdateLoop(double delta) = 0;
+			
 
 		protected:
 			virtual std::unordered_map<std::string, ShaderMetaData> GetShaderMetaData() = 0;

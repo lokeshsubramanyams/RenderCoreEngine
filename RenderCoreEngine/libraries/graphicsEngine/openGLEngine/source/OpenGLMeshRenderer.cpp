@@ -7,10 +7,9 @@ namespace RCEngine
 	namespace RenderCore
 	{
 		using namespace Debugger;
-		OpenGLMeshRenderer::OpenGLMeshRenderer(Mesh &_mesh, IShader &_shader):IMeshRenderer(_mesh,_shader)
+		OpenGLMeshRenderer::OpenGLMeshRenderer(MeshFilter* filter, IMaterial* material):IMeshRenderer(filter,material)
 		{
-			mesh = &_mesh;
-			shader = &_shader;
+			
 		}
 
 		void OpenGLMeshRenderer::Load()
@@ -20,8 +19,8 @@ namespace RCEngine
 			glGenBuffers(1, &VBO);
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER, mesh->SizeOfVertices(), mesh->vertices, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, mesh->SizeOfVertexDataStructure(), (void*)0);
+			glBufferData(GL_ARRAY_BUFFER, meshFilter->mesh->SizeOfVertices(), meshFilter->mesh->vertices, GL_STATIC_DRAW);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertexDataStructure(), (void*)0);
 			glEnableVertexAttribArray(0);
 		}
 
@@ -37,10 +36,10 @@ namespace RCEngine
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 			glClear(GL_COLOR_BUFFER_BIT);
-
-			shader->UseProgram();
-
-			shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, glm::mat4(1.0f));
+			
+			material->shader->UseProgram();
+			
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, thisTransform->GetMatrix());
 
 			glBindVertexArray(VAO);
 

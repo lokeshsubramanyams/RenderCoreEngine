@@ -54,8 +54,13 @@ namespace RCEngine
 
 		enum ComponentType
 		{
+			TransformComp,
+			CameraComp,
+			MeshFilterComp,
+			MaterialComp,
 			MeshRendererComp,
-			LineRendererComp
+			LineRendererComp,
+			BehaviourComp
 		};
 
 	

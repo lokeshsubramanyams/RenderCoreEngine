@@ -2,7 +2,7 @@
 #include "MeshUtil.h"
 #include "Mesh.h"
 #include "GraphicsObject.h"
-
+#include "Behaviour.h"
 
 
 namespace RCEngine
@@ -58,6 +58,7 @@ namespace RCEngine
 			IComponent* component =  graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
 			triangle->AttachComponent(*component);
 
+			triangle->AttachComponent(new Behaviour());
 
 			graphicsEngine->Render(static_cast<IRenderer*>(component));
 
@@ -73,7 +74,7 @@ namespace RCEngine
 		void RenderCoreEngine::Update()
 		{
 			//Debug::Log("DeltaTime:", fps->DeltaTime());
-			graphicsEngine->UpdateLoop(fps->DeltaTime());
+			//graphicsEngine->UpdateLoop(fps->DeltaTime());
 		}
 		void RenderCore::RenderCoreEngine::Run()
 		{

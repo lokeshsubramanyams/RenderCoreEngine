@@ -3,12 +3,14 @@
 #include "Transform.h"
 #include "IComponent.h"
 #include <string>
-#include <vector>
+#include <unordered_map>
+#include "Debug.h"
 namespace RCEngine
 {
   namespace RenderCore
   {
     using namespace MathLib;
+    using namespace Debugger;
     class GraphicsObject
     {
 		public:
@@ -17,9 +19,9 @@ namespace RCEngine
 			GraphicsObject(std::string name);
 			void AttachComponent(IComponent &component);
     private:
-      Transform *transform;
-      std::vector<IComponent*> components;
-
+      //default and required
+      RCEngine::RenderCore::Transform* transform;
+      std::unordered_map<ComponentType, IComponent*> components;
 			
       
     };

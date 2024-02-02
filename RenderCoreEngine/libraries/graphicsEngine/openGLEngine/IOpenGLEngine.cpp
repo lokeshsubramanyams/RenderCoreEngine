@@ -41,15 +41,6 @@ namespace RCEngine
 			renderer->Load();
 			renderers.push_back(renderer);
 		}
-
-		void IOpenGLEngine::UpdateLoop(double delta)
-		{
-			testVariable += delta * direction*0.1;
-			if (testVariable > 1.0 || testVariable < -1.0)direction *= -1.0;
-
-			transformation = glm::scale(glm::mat4(1.0f), glm::vec3(testVariable, testVariable, testVariable));
-		
-		}
 	
 		void IOpenGLEngine::RegisterCustomShader(ShaderMetaData customShader) const
 		{
