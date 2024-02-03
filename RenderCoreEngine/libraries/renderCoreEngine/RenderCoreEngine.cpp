@@ -1,7 +1,7 @@
 #include "RenderCoreEngine.h"
 #include "MeshUtil.h"
 #include "Mesh.h"
-#include "GraphicsObject.h"
+
 #include "Behaviour.h"
 
 
@@ -53,12 +53,12 @@ namespace RCEngine
 
 			defaultShader->Log();
 
-			GraphicsObject* triangle = new GraphicsObject("TestTriangle");
+			triangle = new GraphicsObject("TestTriangle");
 			Mesh* mesh = MeshUtil::ClipperTriangle();
 			IComponent* component =  graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
-			triangle->AttachComponent(*component);
-
-			triangle->AttachComponent(new Behaviour());
+			triangle->AttachComponent(component);
+			IBehaviour *behaviour = new Behaviour();
+			triangle->AttachComponent(behaviour);
 
 			graphicsEngine->Render(static_cast<IRenderer*>(component));
 
@@ -75,6 +75,8 @@ namespace RCEngine
 		{
 			//Debug::Log("DeltaTime:", fps->DeltaTime());
 			//graphicsEngine->UpdateLoop(fps->DeltaTime());
+			triangle->Update(fps->DeltaTime());
+			
 		}
 		void RenderCore::RenderCoreEngine::Run()
 		{

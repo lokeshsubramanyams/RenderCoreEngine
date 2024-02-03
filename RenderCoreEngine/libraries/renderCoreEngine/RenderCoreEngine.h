@@ -20,6 +20,7 @@
 #include "IGraphicsEngine.h"
 #include "FrameRateTracker.h"
 #include "Debug.h"
+#include "GraphicsObject.h"
 
 
 namespace RCEngine
@@ -33,6 +34,8 @@ namespace RCEngine
 		{
 		private:
 			FrameRateTracker* fps;
+			GraphicsObject* triangle;
+
 		public:
 			std::unique_ptr<IRenderSurface> renderSurface;
 			std::unique_ptr<IGraphicsEngine> graphicsEngine;

@@ -10,7 +10,6 @@ namespace RCEngine
 		public:
 			const ComponentType type;
 			explicit IComponent(ComponentType t) : type(t) {};
-			virtual void LinkTransform(IComponent *component) {};
 		};
 	}
 }

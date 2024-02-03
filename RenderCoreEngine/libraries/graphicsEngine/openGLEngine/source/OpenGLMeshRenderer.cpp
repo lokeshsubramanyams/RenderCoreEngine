@@ -39,7 +39,7 @@ namespace RCEngine
 			
 			material->shader->UseProgram();
 			
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, thisTransform->GetMatrix());
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, transform->GetMatrix());
 
 			glBindVertexArray(VAO);
 

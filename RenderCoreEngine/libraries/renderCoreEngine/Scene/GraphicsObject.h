@@ -1,10 +1,15 @@
 #pragma once
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 #include "MathLib.h"
 #include "Transform.h"
 #include "IComponent.h"
-#include <string>
-#include <unordered_map>
+#include "IBehaviour.h"
 #include "Debug.h"
+
+
 namespace RCEngine
 {
   namespace RenderCore
@@ -17,13 +22,22 @@ namespace RCEngine
 			std::string name;
 			GraphicsObject();
 			GraphicsObject(std::string name);
-			void AttachComponent(IComponent &component);
+			void AttachComponent(IComponent *component);
+			void Update(float deltaTime);
     private:
       //default and required
       RCEngine::RenderCore::Transform* transform;
       std::unordered_map<ComponentType, IComponent*> components;
 			
+			
+			template<typename CompType>
+			CompType GetComponent(ComponentType type);
+
+			void BindComponents(IComponent* component);
+
+			IBehaviour* behaviour;
       
     };
-  }
+		
+	}
 }

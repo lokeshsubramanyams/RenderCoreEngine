@@ -7,7 +7,7 @@ namespace RCEngine
 		class Behaviour : public IBehaviour
 		{
 		public:
-			void Update(float deltaTime)override;
+			void Update(float deltaTime) override;
 		};
 	}
 } 
