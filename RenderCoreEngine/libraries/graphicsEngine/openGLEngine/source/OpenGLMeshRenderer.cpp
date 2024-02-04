@@ -14,14 +14,19 @@ namespace RCEngine
 
 		void OpenGLMeshRenderer::Load()
 		{
-			GLuint VBO;
 			glGenVertexArrays(1, &VAO);
 			glGenBuffers(1, &VBO);
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, meshFilter->mesh->SizeOfVertices(), meshFilter->mesh->vertices, GL_STATIC_DRAW);
+
+			glGenBuffers(1, &EBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshFilter->mesh->SizeOfIndices(), meshFilter->mesh->indices, GL_STATIC_DRAW);
+
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertexDataStructure(), (void*)0);
 			glEnableVertexAttribArray(0);
+
 		}
 
 		void OpenGLMeshRenderer::LoadInBatch()
@@ -33,19 +38,23 @@ namespace RCEngine
 		{
 			glBindVertexArray(0);
 
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
-			glClear(GL_COLOR_BUFFER_BIT);
-			
 			material->shader->UseProgram();
 			
 			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, transform->GetMatrix());
 
 			glBindVertexArray(VAO);
 
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDrawElements(GL_TRIANGLES, meshFilter->mesh->indicesCount, GL_UNSIGNED_INT, 0);
 
 			glBindVertexArray(0);
+
+		
+		}
+		void OpenGLMeshRenderer::UnLoad()
+		{
+			glDeleteVertexArrays(1, &VAO);
+			glDeleteBuffers(1, &VBO);
+			glDeleteBuffers(1, &EBO);
 		}
 	}
 }

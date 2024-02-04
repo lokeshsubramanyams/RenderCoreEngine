@@ -54,13 +54,27 @@ namespace RCEngine
 			defaultShader->Log();
 
 			triangle = new GraphicsObject("TestTriangle");
-			Mesh* mesh = MeshUtil::ClipperTriangle();
+			Mesh* mesh = MeshUtil::Triangle();
 			IComponent* component =  graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
 			triangle->AttachComponent(component);
-			IBehaviour *behaviour = new Behaviour();
+			IBehaviour *behaviour = new Behaviour(0.1f);
 			triangle->AttachComponent(behaviour);
+			triangle->transform->scale = Vector3(0.5f, 0.5f, 0.5f);
 
 			graphicsEngine->Render(static_cast<IRenderer*>(component));
+
+			quad = new GraphicsObject("TestQuad");
+			Mesh* mesh1 = MeshUtil::Quad();
+			IComponent* component1 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh1, *defaultShader);
+			quad->AttachComponent(component1);
+			IBehaviour* behaviour1 = new Behaviour(0.5f);
+			quad->AttachComponent(behaviour1);
+
+			quad->transform->scale = Vector3(0.5f, 0.5f, 0.5f);
+
+			graphicsEngine->Render(static_cast<IRenderer*>(component1));
+
+
 
 			fps = new FrameRateTracker();
 			//////////////////////////////////////////////////////////////
@@ -76,6 +90,7 @@ namespace RCEngine
 			//Debug::Log("DeltaTime:", fps->DeltaTime());
 			//graphicsEngine->UpdateLoop(fps->DeltaTime());
 			triangle->Update(fps->DeltaTime());
+			quad->Update(fps->DeltaTime());
 			
 		}
 		void RenderCore::RenderCoreEngine::Run()

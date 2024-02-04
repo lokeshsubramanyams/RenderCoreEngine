@@ -7,13 +7,31 @@ namespace RCEngine
 		using namespace RCEngine::Debugger;
 		namespace Graphics
 		{
-			Mesh *MeshUtil::ClipperTriangle()
+			Mesh *MeshUtil::Triangle()
 			{
 				Vector3 *vertices = new Vector3[3];
 				vertices[0] = Vector3(-1.0, -1.0, 0.0);
 				vertices[1] = Vector3(1.0, -1.0, 0.0);
 				vertices[2] = Vector3(0.0, 1.0, 0.0);
-				Mesh* mesh = new Mesh(vertices,3);
+
+				int* indices = new int[3] {0, 1, 2};
+
+				Mesh* mesh = new Mesh(vertices,3, indices,3);
+
+				return mesh;
+			}
+
+			Mesh* MeshUtil::Quad()
+			{
+				Vector3* vertices = new Vector3[4];
+				vertices[0] = Vector3(-1.0, -1.0, 0.0);//bottom left
+				vertices[1] = Vector3(1.0, -1.0, 0.0);//bottom right
+				vertices[2] = Vector3(1.0, 1.0, 0.0);//top right
+				vertices[3] = Vector3(-1.0, 1.0, 0.0);//top left
+
+				int* indices = new int[6] {0, 1, 2, 0, 2, 3};
+
+				Mesh* mesh = new Mesh(vertices, 4, indices, 6);
 
 				return mesh;
 			}

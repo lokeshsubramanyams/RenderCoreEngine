@@ -19,9 +19,10 @@ namespace RCEngine
 
 
 				Mesh(Vector3 *verts,int vLength, int *indices,int iLength);
-				Mesh(Vector3 *verts,int vLength);
 				int SizeOfVertices();
 				int SizeOfVertexDataStructure();
+				int SizeOfIndices();
+
 				~Mesh();
 
 			};

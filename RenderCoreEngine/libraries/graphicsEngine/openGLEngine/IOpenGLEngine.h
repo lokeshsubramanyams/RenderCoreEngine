@@ -25,7 +25,6 @@ namespace  RCEngine
 			IShader* GetLoadedShader(std::string shader)override;
 			IComponentFactory* GetFactory()override;
 			void Render(RCEngine::RenderCore::IRenderer* renderer)override;
-			
 			void RegisterCustomShader(ShaderMetaData customShader)const override;
 		
 
@@ -33,12 +32,7 @@ namespace  RCEngine
 		
 			std::unique_ptr<IShaderBuilder> shaderBuilder;
 			std::unique_ptr<IComponentFactory>componentFactory;
-
 			std::vector<IRenderer*> renderers;
-
-
-
-
 		
 		};
 

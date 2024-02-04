@@ -24,6 +24,8 @@ namespace RCEngine
 
 			virtual void Render() = 0;
 
+			virtual void UnLoad() = 0;
+
 			void RequiredComponent(Transform* trans)override { transform = trans; }
 
 		};

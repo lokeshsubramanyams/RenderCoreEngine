@@ -24,9 +24,9 @@ namespace RCEngine
 			GraphicsObject(std::string name);
 			void AttachComponent(IComponent *component);
 			void Update(float deltaTime);
+			RCEngine::RenderCore::Transform* transform;
     private:
       //default and required
-      RCEngine::RenderCore::Transform* transform;
       std::unordered_map<ComponentType, IComponent*> components;
 			
 			

@@ -34,6 +34,7 @@ namespace RCEngine
 			}
 			namespace SHADERUNIFORM
 			{
+				
 				constexpr char DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX[] =  "transformationMatrix";
 				constexpr char DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLORVEC4[] = "uniformFragmentColor";
 			}

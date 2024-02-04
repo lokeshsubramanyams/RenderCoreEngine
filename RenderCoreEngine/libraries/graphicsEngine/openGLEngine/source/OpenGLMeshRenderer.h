@@ -12,13 +12,14 @@ namespace RCEngine
 		class OpenGLMeshRenderer : public IMeshRenderer
 		{
 		private:
-			GLuint VAO;
+			GLuint VAO,VBO,EBO;
 		public:
 			OpenGLMeshRenderer(MeshFilter *filter,IMaterial *material);
 
 			void Load()override;
 			void LoadInBatch()override;
 			void Render()override;
+			void UnLoad()override;
 
 		};
 	}

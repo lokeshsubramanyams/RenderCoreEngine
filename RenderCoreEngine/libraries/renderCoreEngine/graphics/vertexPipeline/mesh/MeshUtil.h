@@ -14,7 +14,9 @@ namespace RCEngine
 			class MeshUtil
 			{
 			public:
-				static Mesh *ClipperTriangle();
+				static Mesh *Triangle();
+				static Mesh* Quad();
+
 				static Mesh* GeometricalShapes(GeometryShapes shape);
 
 				static Mesh* GetCubeMesh();

@@ -5,17 +5,20 @@ namespace RCEngine
 	using namespace Debugger;
   namespace RenderCore
   {
-		float testVariable = 1.0f;
-		float direction = 1.0f;
+	
 		
-    void Behaviour::Update(float deltaTime)
-    {
-			Debug::Log("Behaviour::Update:", deltaTime);
+		Behaviour::Behaviour(float _speed)
+		{
+			speed = _speed;
+		}
 
-			testVariable += deltaTime * direction * 0.1;
+		void Behaviour::Update(float deltaTime)
+    {
+			testVariable += deltaTime * direction * speed;
+
 			if (testVariable > 1.0 || testVariable < -1.0)direction *= -1.0;
 			
-			transform->scale = Vector3(testVariable, testVariable, testVariable);
+			//transform->scale = Vector3(testVariable, testVariable, testVariable);
 
 			transform->rotation = Quaternion(Vector3(0,0,testVariable*10));
 			

@@ -13,12 +13,7 @@ namespace RCEngine
 				this->indices = indices;
 				this->indicesCount = iLength;
 			}
-			Mesh::Mesh(Vector3 *verts,int vLength)
-			{
-				this->vertices = verts;
-				this->verticesCount = vLength;
-			}
-
+		
 			int Mesh::SizeOfVertices()
 			{
 				return sizeof(Vector3) * this->verticesCount;
@@ -28,6 +23,11 @@ namespace RCEngine
       {
           return sizeof(Vector3);
       }
+			int Mesh::SizeOfIndices()
+			{
+				return sizeof(int) *  this->indicesCount;
+			}
+
 
 			Mesh::~Mesh()
 			{
