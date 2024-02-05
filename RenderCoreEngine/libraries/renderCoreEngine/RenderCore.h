@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include "MathLib.h"
+
 namespace RCEngine
 {
 
@@ -24,26 +26,6 @@ namespace RCEngine
 			FRAGMENT
 		};
 
-
-		namespace CONST
-		{
-			namespace SHADERFILE
-			{
-				constexpr char DEFAULT_VERTEX[] = "DEFAULT_VERTEX";
-				constexpr char DEFAULT_FRAGMENT[] = "DEFAULT_FRAGMENT";
-			}
-			namespace SHADERUNIFORM
-			{
-				
-				constexpr char DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX[] =  "transformationMatrix";
-				constexpr char DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLORVEC4[] = "uniformFragmentColor";
-			}
-			namespace SHADERKEY
-			{
-				constexpr char DEFAULT_VERTEX_FRAGMENT[] = "DEFAULT_VERTEX_FRAGMENT";
-			}
-		};
-
 		enum GeometryShapes
 		{
 			Cube,
@@ -63,6 +45,49 @@ namespace RCEngine
 			LineRendererComp,
 			BehaviourComp
 		};
+
+		enum CameraType
+		{
+			Perspective,
+			Orthographic
+		};
+
+		struct CameraSetting
+		{
+			CameraType cameraType;
+			float fieldOfView;
+			float nearZ;
+			float farZ;
+		};
+		struct Settings
+		{
+			MathLib::Rect screen;
+			CameraSetting cameraSettings;
+		};
+
+	
+		namespace CONST
+		{
+			namespace SHADERFILE
+			{
+				constexpr char DEFAULT_VERTEX[] = "DEFAULT_VERTEX";
+				constexpr char DEFAULT_FRAGMENT[] = "DEFAULT_FRAGMENT";
+			}
+			namespace SHADERUNIFORM
+			{
+				
+				constexpr char VIEW_PROJECTION_MATRIX_KEY[] = "viewProjectionMatrix";
+
+				constexpr char DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX[] =  "transformationMatrix";
+				constexpr char DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLORVEC4[] = "uniformFragmentColor";
+			}
+			namespace SHADERKEY
+			{
+				constexpr char DEFAULT_VERTEX_FRAGMENT[] = "DEFAULT_VERTEX_FRAGMENT";
+			}
+		};
+
+		
 
 	
 }

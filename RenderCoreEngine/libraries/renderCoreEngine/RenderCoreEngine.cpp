@@ -1,8 +1,11 @@
+
 #include "RenderCoreEngine.h"
 #include "MeshUtil.h"
 #include "Mesh.h"
 
 #include "Behaviour.h"
+#include "Screen.h"
+#include "Camera.h"
 
 
 namespace RCEngine
@@ -13,7 +16,9 @@ namespace RCEngine
 		using namespace Graphics;
 		void RenderCoreEngine::InitilizeEngine()
 		{
-			Rect surface{ 0,0,640,480 };
+			Rect surface{ 0,0,1024,760 };
+
+			
 			
 #if  PLATFORM_WINDOWS
 			
@@ -45,6 +50,7 @@ namespace RCEngine
 
 			
 			///////////////////////////////////////////////////////////
+
 			graphicsEngine->InitilizeEngine(surface);
 
 			graphicsEngine->LoadShaderBatch({ defaultShaderProgram });
@@ -52,6 +58,29 @@ namespace RCEngine
 			IShader *defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
 
 			defaultShader->Log();
+
+			///////////////////////////////////////////////////////////////
+
+			RCEngine::CameraSetting  cameraSetting = {
+				CameraType::Perspective,
+				45.0f,
+				0.1f,
+				1000.0f
+			};
+
+			RCEngine::Settings settings = {
+				surface,
+				cameraSetting
+			};
+
+			GraphicsObject* cameraObject = new GraphicsObject("MainCamera");
+			Camera* camera = new Camera(settings);
+			cameraObject->AttachComponent(camera);
+
+			cameraObject->transform->position = Vector3(0.0f, 0.0f, 0.0f);
+
+			graphicsEngine->SetCamera(camera);
+			/////////////////////////////////////////////////////////////
 
 			triangle = new GraphicsObject("TestTriangle");
 			Mesh* mesh = MeshUtil::Triangle();
@@ -61,19 +90,30 @@ namespace RCEngine
 			triangle->AttachComponent(behaviour);
 			triangle->transform->scale = Vector3(0.5f, 0.5f, 0.5f);
 
-			graphicsEngine->Render(static_cast<IRenderer*>(component));
+			//graphicsEngine->Render(static_cast<IRenderer*>(component));
 
 			quad = new GraphicsObject("TestQuad");
 			Mesh* mesh1 = MeshUtil::Quad();
 			IComponent* component1 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh1, *defaultShader);
 			quad->AttachComponent(component1);
-			IBehaviour* behaviour1 = new Behaviour(0.5f);
+			IBehaviour* behaviour1 = new Behaviour(5.0f);
 			quad->AttachComponent(behaviour1);
 
 			quad->transform->scale = Vector3(0.5f, 0.5f, 0.5f);
 
-			graphicsEngine->Render(static_cast<IRenderer*>(component1));
+			//graphicsEngine->Render(static_cast<IRenderer*>(component1));
 
+
+			cube = new GraphicsObject("TestCube");
+			Mesh* mesh2 = MeshUtil::GeometricalShapes(GeometryShapes::Cube);
+			IComponent* component2 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh2, *defaultShader);
+			cube->AttachComponent(component2);
+			IBehaviour* behaviour2 = new Behaviour(5.0f);
+			cube->AttachComponent(behaviour2);
+
+			cube->transform->scale = Vector3(5.0f,5.0f, 5.0f);
+
+			graphicsEngine->Render(static_cast<IRenderer*>(component2));
 
 
 			fps = new FrameRateTracker();
@@ -89,8 +129,11 @@ namespace RCEngine
 		{
 			//Debug::Log("DeltaTime:", fps->DeltaTime());
 			//graphicsEngine->UpdateLoop(fps->DeltaTime());
-			triangle->Update(fps->DeltaTime());
-			quad->Update(fps->DeltaTime());
+			//triangle->Update(fps->DeltaTime());
+			//quad->Update(fps->DeltaTime());
+			
+			cube->Update(fps->DeltaTime());
+
 			
 		}
 		void RenderCore::RenderCoreEngine::Run()
@@ -106,7 +149,9 @@ namespace RCEngine
 		RenderCoreEngine::~RenderCoreEngine()
 		{
 			delete fps;
-		
+			delete cube;
+			delete quad;
+			delete triangle;
 		}
 	}
 }

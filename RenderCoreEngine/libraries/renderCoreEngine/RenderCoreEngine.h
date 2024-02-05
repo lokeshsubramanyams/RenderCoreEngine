@@ -21,6 +21,7 @@
 #include "FrameRateTracker.h"
 #include "Debug.h"
 #include "GraphicsObject.h"
+#include "Camera.h"
 
 
 namespace RCEngine
@@ -34,7 +35,7 @@ namespace RCEngine
 		{
 		private:
 			FrameRateTracker* fps;
-			GraphicsObject *triangle,*quad;
+			GraphicsObject *triangle,*quad,*cube;
 
 		public:
 			std::unique_ptr<IRenderSurface> renderSurface;

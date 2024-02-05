@@ -10,6 +10,7 @@ namespace RCEngine
 		public:
 			const ComponentType type;
 			explicit IComponent(ComponentType t) : type(t) {};
+			virtual ~IComponent() = default;
 		};
 	}
 }

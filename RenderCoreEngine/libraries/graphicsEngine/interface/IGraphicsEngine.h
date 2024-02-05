@@ -9,7 +9,7 @@
 #include "MathLib.h"
 #include "IComponentFactory.h"
 #include "IRenderer.h"
-
+#include "ICamera.h"
 namespace RCEngine
 {
 	namespace GraphicsEngine
@@ -29,10 +29,14 @@ namespace RCEngine
 
 			virtual void RegisterCustomShader(ShaderMetaData customShader)const = 0;
 			virtual void RenderLoop() = 0;
+
+			virtual void SetCamera(ICamera *camera)= 0;
 			
 
 		protected:
 			virtual std::unordered_map<std::string, ShaderMetaData> GetShaderMetaData() = 0;
+
+			virtual Matrix44 GetProjectionViewMatrix() = 0;
 
 		};
 

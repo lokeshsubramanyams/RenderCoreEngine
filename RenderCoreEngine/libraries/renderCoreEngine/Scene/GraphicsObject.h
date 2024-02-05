@@ -32,6 +32,8 @@ namespace RCEngine
 			
 			template<typename CompType>
 			CompType GetComponent(ComponentType type);
+			template<typename CompType>
+			CompType* GetComponent(IComponent *pointer);
 
 			void BindComponents(IComponent* component);
 

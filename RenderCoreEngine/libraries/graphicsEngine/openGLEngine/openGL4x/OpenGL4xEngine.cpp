@@ -19,7 +19,7 @@ namespace RCEngine
 
 			for (int i = 0; i < renderers.size(); i++)
 			{
-				renderers[i]->Render();
+				renderers[i]->Render(GetProjectionViewMatrix());
 			}
 				
 		}

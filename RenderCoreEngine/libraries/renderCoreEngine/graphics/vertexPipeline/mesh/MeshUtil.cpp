@@ -59,8 +59,42 @@ namespace RCEngine
 
 			Mesh* MeshUtil::GetCubeMesh()
 			{
-				Debug::LogError("Cube is not implemented:");
-				return nullptr;
+				Vector3* vertices = new Vector3[8];
+
+				vertices[0] = Vector3(0.5f, 0.5f, 0.5f);
+				vertices[1] = Vector3(-0.5f, 0.5f, -0.5f);
+				vertices[2] = Vector3(-0.5f, 0.5f, 0.5f);
+				vertices[3] = Vector3(0.5f, -0.5f, -0.5f);
+				vertices[4] = Vector3(-0.5f, -0.5f, -0.5f);
+				vertices[5] = Vector3(0.5f, 0.5f, -0.5f);
+				vertices[6] = Vector3(0.5f, -0.5f, 0.5f);
+				vertices[7] = Vector3(-0.5f, -0.5f, 0.5f);
+
+				//12*3 = 36
+				int *indices = new int[36] {
+					
+					0, 1, 2,
+					1, 3, 4,
+					
+					5, 6, 3,
+					7, 3, 6,
+					
+					2, 4, 7,
+					0, 7, 6,
+					
+					0, 5, 1,
+					1, 5, 3,
+					
+					5, 0, 6,
+					7, 4, 3,
+					
+					2, 1, 4,
+					0, 2, 7
+				};
+				
+				Mesh* mesh = new Mesh(vertices, 8, indices, 36);
+
+				return mesh;
 			}
 
 			Mesh* MeshUtil::GetSphereMesh()

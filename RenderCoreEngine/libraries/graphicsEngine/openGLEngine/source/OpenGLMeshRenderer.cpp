@@ -50,6 +50,20 @@ namespace RCEngine
 
 		
 		}
+		void OpenGLMeshRenderer::Render(Matrix44 projectView)
+		{
+			glBindVertexArray(0);
+
+			material->shader->UseProgram();
+
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, projectView*transform->GetMatrix());
+
+			glBindVertexArray(VAO);
+
+			glDrawElements(GL_TRIANGLES, meshFilter->mesh->indicesCount, GL_UNSIGNED_INT, 0);
+
+			glBindVertexArray(0);
+		}
 		void OpenGLMeshRenderer::UnLoad()
 		{
 			glDeleteVertexArrays(1, &VAO);

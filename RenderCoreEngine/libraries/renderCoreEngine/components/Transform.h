@@ -16,6 +16,12 @@ namespace RCEngine
 			Transform();
 			Transform(Vector3 _pos, Quaternion _rot, Vector3 _scale);
 			Matrix44 GetMatrix();
+
+			Vector3 forward();
+			Vector3 up();
+			Vector3 right();
+
+			Vector3 EularAngles();
 			
 		};
 	}

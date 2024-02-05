@@ -21,6 +21,13 @@ namespace RCEngine
 			
    	}
 
+    
+
+		void IOpenGLEngine::SetCamera(ICamera *camera)
+		{
+			this->camera = camera;
+		}
+
     void IOpenGLEngine::LoadShaderBatch(std::vector<ShaderProgram> programs)
     {
 			shaderBuilder->PreLoadShaderBatch(programs, this->GetShaderMetaData());
@@ -46,6 +53,10 @@ namespace RCEngine
 		{
 
 		}
+		Matrix44 IOpenGLEngine::GetProjectionViewMatrix()
+		{
+			return camera->GetProjectionMatrix() * camera->GetViewMatrix();
+	  }
 	}
 }
 

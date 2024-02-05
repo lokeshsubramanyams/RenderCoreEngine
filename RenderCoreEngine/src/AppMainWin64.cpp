@@ -50,7 +50,7 @@ int main()
 	engine->Run();
 	//signalHandler(SIGINT);
 	//threadObj.join();
-
+	engine->~RenderCoreEngine();
 
 	return 0;
 }

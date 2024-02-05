@@ -19,6 +19,7 @@ namespace RCEngine
 			void Load()override;
 			void LoadInBatch()override;
 			void Render()override;
+			void Render(Matrix44 matrix)override;
 			void UnLoad()override;
 
 		};

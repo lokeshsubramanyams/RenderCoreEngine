@@ -1,6 +1,5 @@
 #include "GraphicsObject.h"
-#include "GraphicsObject.h"
-#include<typeinfo>
+#include "Camera.h"
 
 
 namespace RCEngine
@@ -44,6 +43,10 @@ namespace RCEngine
 			{
 				GetComponent<IBehaviour*>(ComponentType::MeshRendererComp)->RequiredComponent(transform);
 			}
+			else if (component->type == ComponentType::CameraComp)
+			{
+				GetComponent<Camera*>(ComponentType::CameraComp)->RequiredComponent(transform);
+			}
 		}
 
 
@@ -51,6 +54,11 @@ namespace RCEngine
 		inline CompType GraphicsObject::GetComponent(ComponentType type)
 		{
 			return static_cast<CompType>(components[type]);
+		}
+		template<typename CompType>
+		inline CompType* GraphicsObject::GetComponent(IComponent *pointer)
+		{
+			return dynamic_cast<CompType*>(pointer);
 		}
 	}
 }

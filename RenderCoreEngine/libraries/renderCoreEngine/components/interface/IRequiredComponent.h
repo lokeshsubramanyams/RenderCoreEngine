@@ -9,8 +9,9 @@ namespace RCEngine
 		template<typename CompType>
 		class IRequiredComponent
 		{
-		protected:
+		public:
 			virtual void RequiredComponent(CompType* _component)=0;
+			virtual ~IRequiredComponent() = default;
 		};
 	}
 	
