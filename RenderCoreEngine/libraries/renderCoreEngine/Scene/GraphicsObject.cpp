@@ -1,5 +1,6 @@
 #include "GraphicsObject.h"
 #include "Camera.h"
+#include "IMeshRenderer.h"
 
 
 namespace RCEngine
@@ -41,7 +42,7 @@ namespace RCEngine
 			}
 			else if (component->type == ComponentType::MeshRendererComp)
 			{
-				GetComponent<IBehaviour*>(ComponentType::MeshRendererComp)->RequiredComponent(transform);
+				GetComponent<IMeshRenderer*>(ComponentType::MeshRendererComp)->RequiredComponent(transform);
 			}
 			else if (component->type == ComponentType::CameraComp)
 			{
