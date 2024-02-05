@@ -42,8 +42,7 @@ namespace RCEngine
 				CONST::SHADERFILE::DEFAULT_FRAGMENT,
 				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT,
 
-				{CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX,
-				CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLORVEC4}
+				{CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX}
 
 			};
 		
@@ -77,11 +76,12 @@ namespace RCEngine
 			Camera* camera = new Camera(settings);
 			cameraObject->AttachComponent(camera);
 
-			cameraObject->transform->position = Vector3(0.0f, 0.0f, 0.0f);
+			cameraObject->transform->position = Vector3(0.0f, 0.3f, -1.0f);
 
 			graphicsEngine->SetCamera(camera);
 			/////////////////////////////////////////////////////////////
 
+			
 			triangle = new GraphicsObject("TestTriangle");
 			Mesh* mesh = MeshUtil::Triangle();
 			IComponent* component =  graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
@@ -89,36 +89,34 @@ namespace RCEngine
 			IBehaviour *behaviour = new Behaviour(0.1f);
 			triangle->AttachComponent(behaviour);
 			triangle->transform->scale = Vector3(0.5f, 0.5f, 0.5f);
-
-			//graphicsEngine->Render(static_cast<IRenderer*>(component));
-
+			graphicsEngine->Render(static_cast<IRenderer*>(component));
+			
 			quad = new GraphicsObject("TestQuad");
 			Mesh* mesh1 = MeshUtil::Quad();
 			IComponent* component1 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh1, *defaultShader);
 			quad->AttachComponent(component1);
 			IBehaviour* behaviour1 = new Behaviour(5.0f);
 			quad->AttachComponent(behaviour1);
-
 			quad->transform->scale = Vector3(0.5f, 0.5f, 0.5f);
 
-			//graphicsEngine->Render(static_cast<IRenderer*>(component1));
+			graphicsEngine->Render(static_cast<IRenderer*>(component1));
 
 
 			cube = new GraphicsObject("TestCube");
 			Mesh* mesh2 = MeshUtil::GeometricalShapes(GeometryShapes::Cube);
 			IComponent* component2 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh2, *defaultShader);
 			cube->AttachComponent(component2);
-			IBehaviour* behaviour2 = new Behaviour(5.0f);
+			IBehaviour* behaviour2 = new Behaviour(10.0f);
 			cube->AttachComponent(behaviour2);
 
-			cube->transform->scale = Vector3(5.0f,5.0f, 5.0f);
+			cube->transform->scale = Vector3(0.5f,0.5f, 0.5f);
 
 			graphicsEngine->Render(static_cast<IRenderer*>(component2));
 
-
-			fps = new FrameRateTracker();
-			//////////////////////////////////////////////////////////////
 			
+			
+			//////////////////////////////////////////////////////////////
+			fps = new FrameRateTracker();
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{

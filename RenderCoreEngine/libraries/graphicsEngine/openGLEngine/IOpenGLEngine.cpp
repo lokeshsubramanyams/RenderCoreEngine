@@ -55,7 +55,11 @@ namespace RCEngine
 		}
 		Matrix44 IOpenGLEngine::GetProjectionViewMatrix()
 		{
-			return camera->GetProjectionMatrix() * camera->GetViewMatrix();
+			if (this->camera != nullptr)
+			{
+				return camera->GetProjectionMatrix() * camera->GetViewMatrix();
+			}
+			return Matrix44(1.0f);
 	  }
 	}
 }

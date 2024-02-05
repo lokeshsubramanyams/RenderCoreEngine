@@ -7,7 +7,7 @@ namespace RCEngine
 	{
 		void OpenGL3xEngine::InitilizeEngine(Rect viewport)
 		{
-			Debug::Log(viewport);
+			Debug::Log("Viewport:",viewport);
 			glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 			
 			shaderBuilder = std::make_unique<OpenGLShaderBuilder>();
@@ -21,7 +21,7 @@ namespace RCEngine
 
 			for (int i = 0; i < renderers.size(); i++)
 			{
-				renderers[i]->Render();
+				renderers[i]->Render(GetProjectionViewMatrix());
 			}
 
 		}

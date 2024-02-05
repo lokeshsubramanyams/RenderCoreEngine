@@ -57,11 +57,6 @@ namespace RCEngine
 				float nearPlane = setting.cameraSettings.nearZ;
 				float farPlane = setting.cameraSettings.farZ;
 
-				Debug::Log("Camera:fov", fov);
-				Debug::Log("Camera:aspectRatio", aspectRatio);
-				Debug::Log("Camera:nearPlane", nearPlane);
-				Debug::Log("Camera:farPlane", farPlane);
-
 				return glm::perspective(fov, aspectRatio, nearPlane, farPlane);
 			}
 			else if(setting.cameraSettings.cameraType == CameraType::Orthographic)
