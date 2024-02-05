@@ -21,8 +21,9 @@ namespace RCEngine
 			static void Log(const char* msg, const char* message);
 			static void Log(const char* message);
 			static void LogError(string str);
-			static void Log(Vector3 vector);
-			static void Log(Rect rect);
+			static void Log(const char* log,Vector3 vector);
+			static void Log(const char* log, Rect rect);
+			static void Log(const char* log, Quaternion quaternion);
 			
 		};
 	}
