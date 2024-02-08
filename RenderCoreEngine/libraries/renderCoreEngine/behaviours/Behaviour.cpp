@@ -5,8 +5,6 @@ namespace RCEngine
 	using namespace Debugger;
   namespace RenderCore
   {
-	
-		
 		Behaviour::Behaviour(float _speed)
 		{
 			speed = _speed;
@@ -20,7 +18,7 @@ namespace RCEngine
 			
 			//transform->scale = Vector3(testVariable, testVariable, testVariable);
 
-			transform->rotation = Quaternion(Vector3(0, testVariable,0));
+			transform->rotation = Quaternion(Vector3(0, testVariable*3,0));
 			
 			transform->position = Vector3(0, testVariable, 1);
     }

@@ -14,6 +14,10 @@ namespace RCEngine
 
 		void OpenGLMeshRenderer::Load()
 		{
+			glEnable(GL_CULL_FACE);
+			glFrontFace(GL_CCW);
+			glCullFace(GL_BACK);
+
 			glGenVertexArrays(1, &VAO);
 			glGenBuffers(1, &VBO);
 			glBindVertexArray(VAO);
@@ -41,6 +45,7 @@ namespace RCEngine
 			material->shader->UseProgram();
 			
 			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, transform->GetMatrix());
+			material->ApplyDefaultColor();
 
 			glBindVertexArray(VAO);
 
@@ -56,13 +61,15 @@ namespace RCEngine
 
 			material->shader->UseProgram();
 
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, projectView*transform->GetMatrix());
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, projectView * transform->GetMatrix());
+			material->ApplyDefaultColor();
 
 			glBindVertexArray(VAO);
 
-			glDrawElements(GL_TRIANGLES, meshFilter->mesh->indicesCount, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_LINE, meshFilter->mesh->indicesCount, GL_UNSIGNED_INT, 0);
 
 			glBindVertexArray(0);
+
 		}
 		void OpenGLMeshRenderer::UnLoad()
 		{

@@ -7,11 +7,12 @@ namespace RCEngine
 {
 	namespace RenderCore
 	{
-		using namespace RCEngine::RenderCore;
+		
 		class OpenGLMaterial : public IMaterial
 		{
 		public:
 			OpenGLMaterial(IShader *shader);
+			void ApplyDefaultColor() override;
 
 		};
 	}

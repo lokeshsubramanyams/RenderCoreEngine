@@ -42,7 +42,8 @@ namespace RCEngine
 				CONST::SHADERFILE::DEFAULT_FRAGMENT,
 				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT,
 
-				{CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX}
+				{CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX,
+					CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLOR}
 
 			};
 		
@@ -82,7 +83,7 @@ namespace RCEngine
 			/////////////////////////////////////////////////////////////
 
 			
-			triangle = new GraphicsObject("TestTriangle");
+		/*	triangle = new GraphicsObject("TestTriangle");
 			Mesh* mesh = MeshUtil::Triangle();
 			IComponent* component =  graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
 			triangle->AttachComponent(component);
@@ -100,13 +101,13 @@ namespace RCEngine
 			quad->transform->scale = Vector3(0.5f, 0.5f, 0.5f);
 
 			graphicsEngine->Render(static_cast<IRenderer*>(component1));
-
+			*/
 
 			cube = new GraphicsObject("TestCube");
 			Mesh* mesh2 = MeshUtil::GeometricalShapes(GeometryShapes::Cube);
 			IComponent* component2 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh2, *defaultShader);
 			cube->AttachComponent(component2);
-			IBehaviour* behaviour2 = new Behaviour(10.0f);
+			IBehaviour* behaviour2 = new Behaviour(0.25f);
 			cube->AttachComponent(behaviour2);
 
 			cube->transform->scale = Vector3(0.5f,0.5f, 0.5f);

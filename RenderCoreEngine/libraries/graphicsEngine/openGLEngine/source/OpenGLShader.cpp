@@ -55,6 +55,7 @@ namespace RCEngine
 		{
 			glUniform2fv(GetUniform(uniformKey), 1, glm::value_ptr(value));
 		}
+		
 		void OpenGLShader::Log()
 		{
 			Debug::Log("thisShaderProgram:",std::to_string(thisShaderProgram));

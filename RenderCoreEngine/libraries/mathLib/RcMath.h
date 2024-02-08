@@ -15,6 +15,6 @@ namespace RCEngine
 		typedef vec4 Vector4;
 		typedef quat Quaternion;
 		typedef mat4 Matrix44;
-
+		typedef vec4 Color;
 	}
 }

@@ -19,6 +19,7 @@ namespace RCEngine
 			void ApplyProperty(const char* uniformKey, MathLib::Vector4 value)override;
 			void ApplyProperty(const char* uniformKey, MathLib::Vector3 value)override;
 			void ApplyProperty(const char* uniformKey, MathLib::Vector2 value)override;
+			
 			void Log()override;
 		private:
 			const GLuint thisShaderProgram;

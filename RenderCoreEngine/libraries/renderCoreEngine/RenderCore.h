@@ -79,11 +79,15 @@ namespace RCEngine
 				constexpr char VIEW_PROJECTION_MATRIX_KEY[] = "viewProjectionMatrix";
 
 				constexpr char DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX[] =  "transformationMatrix";
-				constexpr char DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLORVEC4[] = "uniformFragmentColor";
+				constexpr char DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLOR[] = "uniformFragmentColor";
 			}
 			namespace SHADERKEY
 			{
 				constexpr char DEFAULT_VERTEX_FRAGMENT[] = "DEFAULT_VERTEX_FRAGMENT";
+			}
+			namespace DEFAULTVALUE
+			{
+				const MathLib::Color defaultColor = MathLib::Color(1.0f, 1.0f, 1.0f, 1.0f);
 			}
 		};
 

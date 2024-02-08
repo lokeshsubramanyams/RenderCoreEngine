@@ -47,6 +47,7 @@ namespace RCEngine
 		{
 			renderer->Load();
 			renderers.push_back(renderer);
+
 		}
 	
 		void IOpenGLEngine::RegisterCustomShader(ShaderMetaData customShader) const
