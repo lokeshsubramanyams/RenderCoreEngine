@@ -36,7 +36,7 @@ set(EMSCRIPTEN_CACHE_INCLUDE_EMSCRIPTEN_DIR "C:/emsdk/upstream/emscripten/cache/
 
 set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
 
-option(OnDEVELOPMENT "Emscripten include change to cache dir while building"  ON)
+option(OnDEVELOPMENT "Emscripten include change to cache dir while building"  OFF)
 
 if(OnDEVELOPMENT)
   set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
@@ -179,10 +179,11 @@ add_library(module_interface INTERFACE)
 
 add_subdirectory(libraries/debug)
 add_subdirectory(libraries/mathLib)
+#add_subdirectory(libraries/userInterface)
 add_subdirectory(libraries/platform)
 add_subdirectory(libraries/renderCoreEngine)
 add_subdirectory(libraries/graphicsEngine)
-add_subdirectory(libraries/userInterface)
+
 
 add_subdirectory(resources)
 add_subdirectory(src)
@@ -224,7 +225,7 @@ elseif(WEBASSEMBLY)
     set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s USE_WEBGL2=1")
     set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s FULL_ES3=1")
     set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s WASM=1")
-
+    set(EMSCRIPTEN_EXE_LINKER_FLAGS "${EMSCRIPTEN_EXE_LINKER_FLAGS} -s USE_GLFW=3")
     
     
 

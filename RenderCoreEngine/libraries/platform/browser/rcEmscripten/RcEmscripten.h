@@ -17,6 +17,7 @@ namespace RCEngine
 			{
 				std::function<void()> RcEmscriptenRenderFunctionPtr;
 				std::function<void()> RcEmscriptenUpdateFunctionPtr;
+				std::function<void()> RcEmscriptenPollEventFunctionPtr;
 				
 				bool shouldClose = false;
 
@@ -27,6 +28,10 @@ namespace RCEngine
 				}
 				void RcEmscriptenRenderFunction() 
 				{
+					  if(RcEmscriptenPollEventFunctionPtr)
+						{
+							RcEmscriptenPollEventFunctionPtr();
+						}
 				
 						if (RcEmscriptenUpdateFunctionPtr)
 						{

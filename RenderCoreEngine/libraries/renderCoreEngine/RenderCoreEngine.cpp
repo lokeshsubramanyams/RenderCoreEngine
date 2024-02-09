@@ -29,10 +29,11 @@ namespace RCEngine
 
 #elif PLATFORM_WEBASSEMBLY
 			
-			renderSurface = std::make_unique<RenderSurfaceBrowser>(surface);
+			renderSurface = std::make_unique<RenderSurfaceGlfwBrowser>(surface);
 #if (OPENGL)
 			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL3xEngine>();
 #endif
+
 
 #endif
 

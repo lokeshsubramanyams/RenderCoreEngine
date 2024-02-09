@@ -13,7 +13,8 @@
 #if OPENGL
 #include "OpenGL3xEngine.h"
 #endif
-#include "RenderSurfaceBrowser.h"
+//#include "RenderSurfaceBrowser.h"
+#include "RenderSurfaceGlfwBrowser.h"
 
 #endif
 

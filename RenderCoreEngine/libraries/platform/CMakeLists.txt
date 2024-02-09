@@ -7,12 +7,16 @@ if(EMSCRIPTEN)
   #file(GLOB_RECURSE PLATFORM_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/browser/*.h ${CMAKE_CURRENT_SOURCE_DIR}/browser/*.cpp)
     set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.h 
                       ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.cpp
-                        ${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceBrowser.h 
-                        ${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceBrowser.cpp)
+                      ${CMAKE_CURRENT_SOURCE_DIR}/GlfwWindow.h 
+                        #${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceBrowser.h 
+                        #${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceBrowser.cpp
+                         ${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceGlfwBrowser.h 
+                        ${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceGlfwBrowser.cpp)
 else()
   #file(GLOB_RECURSE PLATFORM_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.h ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.cpp)
   set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.h 
                       ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.cpp
+                      ${CMAKE_CURRENT_SOURCE_DIR}/GlfwWindow.h 
                          ${CMAKE_CURRENT_SOURCE_DIR}/windows/RenderSurfaceWin64.h 
                         ${CMAKE_CURRENT_SOURCE_DIR}/windows/RenderSurfaceWin64.cpp)
                      
@@ -42,7 +46,7 @@ else()
   
 endif()
 
-target_link_libraries(platform_module PUBLIC mathLib_interface userInterface_module debugg_module)
+target_link_libraries(platform_module PUBLIC mathLib_interface  debugg_module)#userInterface_module
 
 target_link_libraries(platform_module INTERFACE renderCore_module )
 

@@ -10,28 +10,8 @@ namespace RCEngine
 
 		RenderSurfaceWin64::RenderSurfaceWin64(Rect _viewport) :IRenderSurface(_viewport)
 		{
-			if (!glfwInit())
-			{
-				Debug::LogError("glfw init failed with return code -1");
-				return;
-			}
-			else
-				Debug::Log("glfw init");
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-			window = glfwCreateWindow(screenRect.width, screenRect.height, "RCEngine", NULL, NULL);
-
-
-			if (!window) {
-				// Window or OpenGL context creation failed
-				glfwTerminate();
-				Debug::LogError("glfw Window or OpenGL context creation failed with return code -1");
-				return;
-			}
-			else
-				Debug::Log("glfw Window or OpenGL context created");
+			
+		  window = CreateGlfwWindow("RCEngine", screenRect.width, screenRect.height);
 
 			glfwMakeContextCurrent(window);
 

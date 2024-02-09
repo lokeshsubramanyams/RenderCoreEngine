@@ -1,29 +1,35 @@
 #include "IRenderSurface.h"
 #include "GlfwWindow.h"
-#include "Test.h"
+
+#include <emscripten/emscripten.h>
+#include<emscripten/html5.h>
+
+
+
+
 namespace RCEngine
 {
 	namespace Platform
 	{
 		using namespace RCEngine::MathLib;
-		
-		class RenderSurfaceWin64 :public IRenderSurface
+		using namespace RCEngine::Debugger;
+		class RenderSurfaceGlfwBrowser :public IRenderSurface
 		{
 		private:
-			 GLFWwindow* window;
-
-			 TestUI* UI;
-			 
+			GLFWwindow* glfwCanvas;
 		public:
-			RenderSurfaceWin64(Rect _viewport);
-			~RenderSurfaceWin64();
+			RenderSurfaceGlfwBrowser(Rect _viewport);
+			~RenderSurfaceGlfwBrowser();
 			void MakeContextCurrent()  override;
 			bool ShouldClose()  override;
 			void SwapBuffers()  override;
 			void DestroySurface()  override;
-			bool IsValid()const override;
-			void PollEvents() override;
+			bool IsValid()const  override;
 			void Run(std::function<void()>renderFunction, std::function<void()>updateFunction) override;
+			void PollEvents() override;
+
+			
+
 		};
 	}
 }
