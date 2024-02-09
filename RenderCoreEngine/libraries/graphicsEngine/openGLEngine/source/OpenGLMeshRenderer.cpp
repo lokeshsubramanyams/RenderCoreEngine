@@ -66,7 +66,7 @@ namespace RCEngine
 
 			glBindVertexArray(VAO);
 
-			glDrawElements(GL_LINE, meshFilter->mesh->indicesCount, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, meshFilter->mesh->indicesCount, GL_UNSIGNED_INT, 0);
 
 			glBindVertexArray(0);
 
