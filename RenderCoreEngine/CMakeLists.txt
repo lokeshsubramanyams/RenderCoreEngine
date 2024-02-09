@@ -36,7 +36,7 @@ set(EMSCRIPTEN_CACHE_INCLUDE_EMSCRIPTEN_DIR "C:/emsdk/upstream/emscripten/cache/
 
 set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
 
-option(OnDEVELOPMENT "Emscripten include change to cache dir while building"  OFF)
+option(OnDEVELOPMENT "Emscripten include change to cache dir while building"  ON)
 
 if(OnDEVELOPMENT)
   set(EMSCRIPTEN_INCLUDE_DIR "C:/emsdk/upstream/emscripten/system/include")
@@ -182,9 +182,12 @@ add_subdirectory(libraries/mathLib)
 add_subdirectory(libraries/platform)
 add_subdirectory(libraries/renderCoreEngine)
 add_subdirectory(libraries/graphicsEngine)
+add_subdirectory(libraries/userInterface)
 
 add_subdirectory(resources)
 add_subdirectory(src)
+
+
 
 target_link_libraries(module_interface INTERFACE main_module)
 target_link_libraries(module_interface INTERFACE mathLib_interface)#header only module so no need to add Private or public to the build

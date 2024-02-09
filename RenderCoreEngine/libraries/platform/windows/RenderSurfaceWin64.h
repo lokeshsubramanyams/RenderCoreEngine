@@ -1,5 +1,6 @@
 #include "IRenderSurface.h"
 #include<GLFW/glfw3.h>
+#include "Test.h"
 namespace RCEngine
 {
 	namespace Platform
@@ -10,6 +11,8 @@ namespace RCEngine
 		{
 		private:
 			 GLFWwindow* window;
+
+			 TestUI* UI;
 			 
 		public:
 			RenderSurfaceWin64(Rect _viewport);

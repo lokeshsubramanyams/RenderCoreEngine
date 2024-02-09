@@ -1,6 +1,7 @@
 #include "RenderSurfaceWin64.h"
 #include "Debug.h"
 
+
 namespace RCEngine
 {
 	using namespace RCEngine::Debugger;
@@ -33,6 +34,8 @@ namespace RCEngine
 				Debug::Log("glfw Window or OpenGL context created");
 
 			glfwMakeContextCurrent(window);
+
+			UI = new TestUI(window);
 			
 		}
 
@@ -78,11 +81,15 @@ namespace RCEngine
 			while (!ShouldClose())
 			{
 				PollEvents();
+				UI->StartUI();
+				UI->RenderText("Testdearimgui");
 				updateFunction();
 				renderFunction();//Debug::Log("renderBuffer");
+				UI->AfterRender();
 				SwapBuffers();// Debug::Log("swapBuffer");
 				
 			}
+			UI->ShutDown();
 		}
 	}
 }
