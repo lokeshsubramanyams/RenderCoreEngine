@@ -19,6 +19,8 @@ namespace RCEngine
 
 			MakeContextCurrent();
 
+			UI = new TestUI(glfwCanvas);
+
 		}
 
 		void RenderSurfaceGlfwBrowser::MakeContextCurrent()
@@ -47,6 +49,11 @@ namespace RCEngine
 			if (glfwCanvas)
 			{
 				glfwDestroyWindow(glfwCanvas);
+				
+			}
+			if (UI)
+			{
+				UI->ShutDown();
 			}
 		}
 
@@ -60,6 +67,7 @@ namespace RCEngine
 			RcEmscriptenRenderFunctionPtr = renderFunction;
 			RcEmscriptenUpdateFunctionPtr = updateFunction;
 			RcEmscriptenPollEventFunctionPtr = std::bind(&RenderSurfaceGlfwBrowser::PollEvents, this);
+			RcEmscriptenUIFunctionPtr = std::bind(&RenderSurfaceGlfwBrowser::UIRender, this);
 			Debug::Log("Run loop set");
 			emscripten_set_main_loop(RcEmscriptenRenderFunction, 0, 1);
 		}
@@ -67,6 +75,13 @@ namespace RCEngine
 		void RenderSurfaceGlfwBrowser::PollEvents()
 		{
 			glfwPollEvents();
+			UI->StartUI();
+			UI->RenderText("Testdearimgui");
+		}
+
+		void RenderSurfaceGlfwBrowser::UIRender()
+		{
+			UI->AfterRender();
 		}
 
 

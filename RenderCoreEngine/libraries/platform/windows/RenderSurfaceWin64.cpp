@@ -15,7 +15,7 @@ namespace RCEngine
 
 			glfwMakeContextCurrent(window);
 
-			UI = new TestUI(window);
+		//	testUI = new NuklearTest(window);
 			
 		}
 
@@ -61,15 +61,16 @@ namespace RCEngine
 			while (!ShouldClose())
 			{
 				PollEvents();
-				UI->StartUI();
-				UI->RenderText("Testdearimgui");
+				
+			//	testUI->RenderTestUI();
 				updateFunction();
 				renderFunction();//Debug::Log("renderBuffer");
-				UI->AfterRender();
+				
 				SwapBuffers();// Debug::Log("swapBuffer");
 				
 			}
-			UI->ShutDown();
+			//testUI->ShutDown();
+			
 		}
 	}
 }

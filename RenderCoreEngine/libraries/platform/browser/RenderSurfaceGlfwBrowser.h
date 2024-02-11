@@ -5,7 +5,7 @@
 #include<emscripten/html5.h>
 
 
-
+#include "Test.h"
 
 namespace RCEngine
 {
@@ -17,6 +17,8 @@ namespace RCEngine
 		{
 		private:
 			GLFWwindow* glfwCanvas;
+
+			TestUI* UI;
 		public:
 			RenderSurfaceGlfwBrowser(Rect _viewport);
 			~RenderSurfaceGlfwBrowser();
@@ -28,7 +30,7 @@ namespace RCEngine
 			void Run(std::function<void()>renderFunction, std::function<void()>updateFunction) override;
 			void PollEvents() override;
 
-			
+			void UIRender();
 
 		};
 	}

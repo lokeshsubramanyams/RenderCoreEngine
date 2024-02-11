@@ -179,7 +179,7 @@ add_library(module_interface INTERFACE)
 
 add_subdirectory(libraries/debug)
 add_subdirectory(libraries/mathLib)
-#add_subdirectory(libraries/userInterface)
+add_subdirectory(libraries/userInterface)
 add_subdirectory(libraries/platform)
 add_subdirectory(libraries/renderCoreEngine)
 add_subdirectory(libraries/graphicsEngine)
@@ -201,7 +201,8 @@ target_link_libraries(module_interface PRIVATE ${graphicEngine_module})
 target_link_libraries(module_interface INTERFACE debugg_module)
 target_link_libraries(module_interface PRIVATE ${debugg_module})
 
-
+target_link_libraries(module_interface INTERFACE userInterface_module)
+target_link_libraries(module_interface PRIVATE ${userInterface_module})
 
 
 if(WINX64)

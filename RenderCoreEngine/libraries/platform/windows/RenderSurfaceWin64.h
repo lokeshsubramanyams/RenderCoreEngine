@@ -1,6 +1,9 @@
+
+#include "NuklearTest.h"
 #include "IRenderSurface.h"
 #include "GlfwWindow.h"
-#include "Test.h"
+
+
 namespace RCEngine
 {
 	namespace Platform
@@ -12,7 +15,8 @@ namespace RCEngine
 		private:
 			 GLFWwindow* window;
 
-			 TestUI* UI;
+			// NuklearTest* testUI;
+			
 			 
 		public:
 			RenderSurfaceWin64(Rect _viewport);

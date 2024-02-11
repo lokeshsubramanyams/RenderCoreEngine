@@ -15,9 +15,10 @@ namespace RCEngine
 		{
 			extern "C"
 			{
+				std::function<void()> RcEmscriptenPollEventFunctionPtr;
 				std::function<void()> RcEmscriptenRenderFunctionPtr;
 				std::function<void()> RcEmscriptenUpdateFunctionPtr;
-				std::function<void()> RcEmscriptenPollEventFunctionPtr;
+				std::function<void()> RcEmscriptenUIFunctionPtr;
 				
 				bool shouldClose = false;
 
@@ -46,6 +47,10 @@ namespace RCEngine
 						if (RcEmscriptenRenderFunctionPtr)
 						{
 							RcEmscriptenRenderFunctionPtr();
+						}
+						if (RcEmscriptenUIFunctionPtr)
+						{
+							RcEmscriptenUIFunctionPtr();
 						}
 				}
 

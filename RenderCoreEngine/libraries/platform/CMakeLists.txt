@@ -46,7 +46,7 @@ else()
   
 endif()
 
-target_link_libraries(platform_module PUBLIC mathLib_interface  debugg_module)#userInterface_module
+target_link_libraries(platform_module PUBLIC mathLib_interface  debugg_module userInterface_module)
 
 target_link_libraries(platform_module INTERFACE renderCore_module )
 
