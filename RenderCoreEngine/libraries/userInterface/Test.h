@@ -1,7 +1,7 @@
 #pragma once
 
-#include <imgui.h>
-
+#include "imgui.h"
+#define STB_TEXTEDIT_IMPLEMENTATION
 #include <string>
 #include <GLFW/glfw3.h>
 
