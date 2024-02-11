@@ -19,6 +19,9 @@ namespace RCEngine
 
 			MakeContextCurrent();
 
+			UI = new TestUI(glfwCanvas);
+			
+
 		}
 
 		void RenderSurfaceGlfwBrowser::MakeContextCurrent()
@@ -47,6 +50,7 @@ namespace RCEngine
 			if (glfwCanvas)
 			{
 				glfwDestroyWindow(glfwCanvas);
+				
 			}
 		}
 
@@ -67,9 +71,10 @@ namespace RCEngine
 		void RenderSurfaceGlfwBrowser::PollEvents()
 		{
 			glfwPollEvents();
+			Debug::Log("PollEvents");
+
 		}
 
-
-		
+	
 	}
 }

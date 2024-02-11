@@ -1,5 +1,7 @@
 #pragma once
-
+#if PLATFORM_WEBASSEMBLY
+#define __EMSCRIPTEN__
+#endif
 #include "imgui.h"
 #define STB_TEXTEDIT_IMPLEMENTATION
 #include <string>

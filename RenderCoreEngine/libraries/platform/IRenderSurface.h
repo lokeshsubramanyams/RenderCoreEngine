@@ -2,6 +2,8 @@
 #include "MathLib.h"
 #include <functional>
 
+#include "Test.h"
+
 namespace RCEngine
 {
 	namespace Platform
@@ -27,6 +29,8 @@ namespace RCEngine
 			 virtual void Run(std::function<void()>renderFunction,std::function<void()>updateFunction) = 0;
        virtual void PollEvents();
 			 
+			 TestUI* UI;
+
 			 
 		};
 

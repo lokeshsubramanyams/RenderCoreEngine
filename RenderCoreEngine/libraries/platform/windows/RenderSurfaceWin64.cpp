@@ -16,7 +16,7 @@ namespace RCEngine
 			glfwMakeContextCurrent(window);
 
 			UI = new TestUI(window);
-			
+
 		}
 
 		RenderSurfaceWin64::~RenderSurfaceWin64()
@@ -61,15 +61,14 @@ namespace RCEngine
 			while (!ShouldClose())
 			{
 				PollEvents();
-				UI->StartUI();
-				UI->RenderText("Testdearimgui");
+			 
 				updateFunction();
 				renderFunction();//Debug::Log("renderBuffer");
-				UI->AfterRender();
+			
 				SwapBuffers();// Debug::Log("swapBuffer");
 				
 			}
-			UI->ShutDown();
+			
 		}
 	}
 }

@@ -37,6 +37,8 @@ namespace RCEngine
 
 #endif
 
+			
+
 			ShaderProgram defaultShaderProgram =
 			{
 				CONST::SHADERFILE::DEFAULT_VERTEX,
@@ -119,11 +121,16 @@ namespace RCEngine
 			
 			//////////////////////////////////////////////////////////////
 			fps = new FrameRateTracker();
+
+			
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
+			renderSurface->UI->StartUI();
+			renderSurface->UI->RenderText("Testdearimgui");
 		  graphicsEngine->RenderLoop();
 			fps->CalculateFPS();
+			renderSurface->UI->AfterRender();
 		}
 		void RenderCoreEngine::Update()
 		{
@@ -139,6 +146,8 @@ namespace RCEngine
 		void RenderCore::RenderCoreEngine::Run()
 		{
 			renderSurface->MakeContextCurrent();
+
+			
 			
 			std::function<void()> renderFuncPtr = std::bind(&RenderCoreEngine::Renderer, this);
 		 	std::function<void()> updateFuncPtr = std::bind(&RenderCoreEngine::Update, this);

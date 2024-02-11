@@ -37,6 +37,7 @@ namespace RCEngine
 		private:
 			FrameRateTracker* fps;
 			GraphicsObject *triangle,*quad,*cube;
+			
 
 		public:
 			std::unique_ptr<IRenderSurface> renderSurface;

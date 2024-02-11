@@ -17,6 +17,7 @@ namespace RCEngine
 		{
 		private:
 			GLFWwindow* glfwCanvas;
+			
 		public:
 			RenderSurfaceGlfwBrowser(Rect _viewport);
 			~RenderSurfaceGlfwBrowser();
