@@ -1,6 +1,7 @@
 #pragma once
 #include "MathLib.h"
 #include <functional>
+#include<any>
 
 #include "Test.h"
 
@@ -29,7 +30,9 @@ namespace RCEngine
 			 virtual void Run(std::function<void()>renderFunction,std::function<void()>updateFunction) = 0;
        virtual void PollEvents();
 			 
-			 TestUI* UI;
+			 virtual std::any GetContext() = 0;
+			
+			 
 
 			 
 		};

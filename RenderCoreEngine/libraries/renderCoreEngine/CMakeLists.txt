@@ -14,7 +14,7 @@ target_include_directories(renderCore_module PUBLIC
 "${CMAKE_CURRENT_SOURCE_DIR}/source/",
 "${CMAKE_CURRENT_SOURCE_DIR}/scene/") 
 
-target_link_libraries(renderCore_module PUBLIC mathLib_interface platform_module graphicEngine_module  )
+target_link_libraries(renderCore_module PUBLIC mathLib_interface platform_module graphicEngine_module userInterface_module )
 
 # Debugging: Print out all found source files
 foreach(SOURCE_FILE IN LISTS SOURCE_FILES)

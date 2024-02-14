@@ -1,9 +1,5 @@
 #include "Test.h"
-#include "imgui_glfw/imgui_impl_glfw.h"
-#include "imgui_glfw/imgui_impl_opengl3.h"
-#include "Debug.h"
 
-using namespace RCEngine::Debugger;
 TestUI::TestUI(GLFWwindow* window)
 {
 	IMGUI_CHECKVERSION();
@@ -30,27 +26,26 @@ TestUI::TestUI(GLFWwindow* window)
 
 void TestUI::StartUI()
 {
-	// Start the Dear ImGui frame
-	Debug::Log("StartUI");
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
+	
+
 }
 
 void TestUI::RenderText(const char* str)
 {
-	Debug::Log("RenderText");
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
 	ImGui::Begin("Performance");
 	ImGui::Text(str);
 	ImGui::End();
 
 	ImGui::Render();
-
+	
 }
 
 void TestUI::AfterRender()
 {
-	Debug::Log("AfterRender");
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 

@@ -25,6 +25,8 @@ namespace RCEngine
 			renderSurface = std::make_unique<RenderSurfaceWin64>(surface);
 #if (OPENGL)
 			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL4xEngine>();
+
+			uiEngine = std::make_unique<RCEngine::UI::UserInterfaceEngine>(renderSurface->GetContext(), "#version 330 core");
 #endif
 
 #elif PLATFORM_WEBASSEMBLY
@@ -32,13 +34,14 @@ namespace RCEngine
 			renderSurface = std::make_unique<RenderSurfaceGlfwBrowser>(surface);
 #if (OPENGL)
 			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL3xEngine>();
+			uiEngine = std::make_unique<RCEngine::UI::UserInterfaceEngine>(renderSurface.get()->GetContext(), "#version 300 es");
 #endif
 
 
 #endif
 
 			
-
+			
 			ShaderProgram defaultShaderProgram =
 			{
 				CONST::SHADERFILE::DEFAULT_VERTEX,
@@ -126,11 +129,14 @@ namespace RCEngine
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
-			renderSurface->UI->StartUI();
-			renderSurface->UI->RenderText("Testdearimgui");
+			
+
 		  graphicsEngine->RenderLoop();
 			fps->CalculateFPS();
-			renderSurface->UI->AfterRender();
+
+			//uiEngine->UIRender(UIText{ { "Performance"}, string("fps:" + std::to_string(fps->Fps())).c_str() });
+
+			
 		}
 		void RenderCoreEngine::Update()
 		{
@@ -146,9 +152,7 @@ namespace RCEngine
 		void RenderCore::RenderCoreEngine::Run()
 		{
 			renderSurface->MakeContextCurrent();
-
-			
-			
+						
 			std::function<void()> renderFuncPtr = std::bind(&RenderCoreEngine::Renderer, this);
 		 	std::function<void()> updateFuncPtr = std::bind(&RenderCoreEngine::Update, this);
 

@@ -24,6 +24,7 @@
 #include "GraphicsObject.h"
 #include "Camera.h"
 
+#include "UserInterfaceEngine.h"
 
 namespace RCEngine
 {
@@ -31,6 +32,7 @@ namespace RCEngine
 	{
 		using namespace RCEngine::Platform;
 		using namespace RCEngine::GraphicsEngine;
+		using namespace RCEngine::UI;
 		
 		class RenderCoreEngine
 		{
@@ -42,6 +44,7 @@ namespace RCEngine
 		public:
 			std::unique_ptr<IRenderSurface> renderSurface;
 			std::unique_ptr<IGraphicsEngine> graphicsEngine;
+			std::unique_ptr<UserInterfaceEngine> uiEngine;
 			void InitilizeEngine();
 			void Renderer();
 			void Update();

@@ -19,8 +19,6 @@ namespace RCEngine
 
 			MakeContextCurrent();
 
-			UI = new TestUI(glfwCanvas);
-			
 
 		}
 
@@ -74,6 +72,11 @@ namespace RCEngine
 			Debug::Log("PollEvents");
 
 		}
+
+    std::any RenderSurfaceGlfwBrowser::GetContext()
+    {
+			return glfwCanvas;
+    }
 
 	
 	}

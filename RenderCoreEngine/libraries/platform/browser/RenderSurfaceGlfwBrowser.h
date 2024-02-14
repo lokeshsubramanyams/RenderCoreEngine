@@ -29,6 +29,7 @@ namespace RCEngine
 			void Run(std::function<void()>renderFunction, std::function<void()>updateFunction) override;
 			void PollEvents() override;
 
+			std::any GetContext()override;
 			
 
 		};

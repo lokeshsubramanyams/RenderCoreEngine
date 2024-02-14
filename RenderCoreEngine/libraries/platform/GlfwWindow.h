@@ -52,7 +52,6 @@ namespace RCEngine
 				else
 					Debug::Log("glfw Window or OpenGL context created");
 
-
 				return window;
 			}
 		

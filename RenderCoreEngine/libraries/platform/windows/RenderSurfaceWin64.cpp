@@ -15,8 +15,6 @@ namespace RCEngine
 
 			glfwMakeContextCurrent(window);
 
-			UI = new TestUI(window);
-
 		}
 
 		RenderSurfaceWin64::~RenderSurfaceWin64()
@@ -70,5 +68,9 @@ namespace RCEngine
 			}
 			
 		}
+    std::any RenderSurfaceWin64::GetContext()
+    {
+			return window;
+    }
 	}
 }

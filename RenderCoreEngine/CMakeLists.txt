@@ -72,6 +72,8 @@ if(PRESET_NAME STREQUAL "windows-x64-openGL")
      set(EMSCRIPTEN OFF CACHE BOOL "webgl" FORCE) 
 
      set(PRECISION_DOUBLE_SUPPORT ON CACHE BOOL "precision" FORCE)
+
+     
      
 elseif(PRESET_NAME STREQUAL "windows-x64-vulkan")
 
@@ -173,6 +175,10 @@ if(DEBUG)
 else()
   message(STATUS "DEBUG is not set")
 endif()
+
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 add_library(module_interface INTERFACE)
