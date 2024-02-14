@@ -39,6 +39,7 @@ namespace RCEngine
 		private:
 			FrameRateTracker* fps;
 			GraphicsObject *triangle,*quad,*cube;
+			GraphicsObject* cameraObject;
 			
 
 		public:

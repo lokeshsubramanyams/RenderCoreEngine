@@ -20,6 +20,8 @@ namespace RCEngine
 		 Matrix44 GetViewMatrix()override;
 		 Matrix44 GetProjectionMatrix()override;
 
+		 float orthographicScaleFactor = 20.0f;
+
 		protected:
 		
 			
@@ -28,7 +30,7 @@ namespace RCEngine
 			Vector3 cameraUp();
 
 			float aspectRatio;
-			float orthographicScaleFactor = 0.05f;
+			
 
 			Matrix44 CalculateProjectionMatrix()override;
 			Matrix44 CalculateViewMatrix()override;

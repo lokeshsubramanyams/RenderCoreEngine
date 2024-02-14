@@ -25,13 +25,13 @@ namespace RCEngine
 			void AttachComponent(IComponent *component);
 			void Update(float deltaTime);
 			RCEngine::RenderCore::Transform* transform;
-    private:
-      //default and required
+        
       std::unordered_map<ComponentType, IComponent*> components;
-			
-			
+					
 			template<typename CompType>
 			CompType GetComponent(ComponentType type);
+
+		private:
 			template<typename CompType>
 			CompType* GetComponent(IComponent *pointer);
 

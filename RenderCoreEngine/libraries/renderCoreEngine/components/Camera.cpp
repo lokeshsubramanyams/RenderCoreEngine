@@ -61,7 +61,7 @@ namespace RCEngine
 			}
 			else if(setting.cameraSettings.cameraType == CameraType::Orthographic)
 			{
-				float scaleFactor = orthographicScaleFactor;
+				float scaleFactor = 1.0f/orthographicScaleFactor;
 
 				float left = 0.0f;
 				float right = (float)setting.screen.width;

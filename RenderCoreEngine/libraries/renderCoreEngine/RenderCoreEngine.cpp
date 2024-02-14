@@ -79,7 +79,7 @@ namespace RCEngine
 				cameraSetting
 			};
 
-			GraphicsObject* cameraObject = new GraphicsObject("MainCamera");
+			cameraObject = new GraphicsObject("MainCamera");
 			Camera* camera = new Camera(settings);
 			cameraObject->AttachComponent(camera);
 
@@ -134,9 +134,7 @@ namespace RCEngine
 		  graphicsEngine->RenderLoop();
 			fps->CalculateFPS();
 
-			uiEngine->UIRender(UIText{ { "Performance"}, string("fps:" + std::to_string(fps->Fps())).c_str() });
-
-			
+			uiEngine->UIRender(cameraObject);
 		}
 		void RenderCoreEngine::Update()
 		{
@@ -165,6 +163,7 @@ namespace RCEngine
 			delete cube;
 			delete quad;
 			delete triangle;
+			delete cameraObject;
 		}
 	}
 }

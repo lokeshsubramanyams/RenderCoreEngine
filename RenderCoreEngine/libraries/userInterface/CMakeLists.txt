@@ -18,5 +18,5 @@ target_include_directories(userInterface_module PUBLIC "${CMAKE_CURRENT_SOURCE_D
 target_include_directories(userInterface_module PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/3rd-party/imgui/"
                                                               "${CMAKE_CURRENT_SOURCE_DIR}/3rd-party/")
 
-target_link_libraries(userInterface_module PUBLIC graphicEngine_module)
+target_link_libraries(userInterface_module PUBLIC renderCore_module)
 

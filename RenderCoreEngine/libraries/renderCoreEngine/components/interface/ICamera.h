@@ -17,9 +17,9 @@ namespace RCEngine
 			virtual Matrix44 GetViewProjectionMatrix() = 0;
 			virtual Matrix44 GetViewMatrix() = 0;
 			virtual Matrix44 GetProjectionMatrix() =0;
-
-		protected:
 			Settings setting;
+		protected:
+			
 			Transform* transform;
 			
 			virtual Matrix44 CalculateProjectionMatrix() = 0;

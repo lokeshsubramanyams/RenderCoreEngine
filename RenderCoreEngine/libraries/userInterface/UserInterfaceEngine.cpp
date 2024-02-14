@@ -1,4 +1,6 @@
 #include "UserInterfaceEngine.h"
+#include "UserInterfaceEngine.h"
+#include "UserInterfaceEngine.h"
 #include "ImguiLibraryOpenGL3.h"
 #include "Debug.h"
 namespace RCEngine
@@ -17,6 +19,11 @@ namespace RCEngine
 		{
 			uiLibraryImpl->UIRender(text.title, text.text);
 		}
+
+    void UserInterfaceEngine::UIRender(RenderCore::GraphicsObject *graphicsObject)
+    {
+			uiLibraryImpl->UIRender(graphicsObject);
+    }
 		
 		
 
