@@ -6,19 +6,11 @@ namespace RCEngine
 	using namespace Debugger;
 	namespace UI
 	{
-		ImguiLibraryOpenGL3::ImguiLibraryOpenGL3(std::any context, const char* shaderVersion)
+		ImguiLibraryOpenGL3::ImguiLibraryOpenGL3(unsigned int windowID,const char* shaderVersion)
 		{
-			GLFWwindow* retrievedWindow = nullptr;
-			try 
-			{
-				GLFWwindow* retrievedWindow = std::any_cast<GLFWwindow*>(context);
-				std::cout << "Window pointer retrieved successfully." << retrievedWindow <<std::endl;
-			}
-			catch (const std::bad_any_cast& e) 
-			{
-				std::cerr << "Failed to cast: " << e.what() << std::endl;
-				return;
-			}
+			
+			GLFWwindow* currentContext = glfwGetCurrentContext();
+
 		
 			IMGUI_CHECKVERSION();
 			ImGui::CreateContext();
@@ -27,13 +19,13 @@ namespace RCEngine
 
 			io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 			
-			Debug::Log("step1");
+			
 
 			ImGui::StyleColorsDark();
 
-			ImGui_ImplGlfw_InitForOpenGL(retrievedWindow, true);
+			ImGui_ImplGlfw_InitForOpenGL(currentContext, true);
 
-			Debug::Log("step2");
+			
 
 			ImGui_ImplOpenGL3_Init(shaderVersion);
 

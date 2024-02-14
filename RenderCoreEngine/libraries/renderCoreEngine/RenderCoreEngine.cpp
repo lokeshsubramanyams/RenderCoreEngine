@@ -26,7 +26,7 @@ namespace RCEngine
 #if (OPENGL)
 			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL4xEngine>();
 
-			uiEngine = std::make_unique<RCEngine::UI::UserInterfaceEngine>(renderSurface->GetContext(), "#version 330 core");
+			uiEngine = std::make_unique<RCEngine::UI::UserInterfaceEngine>(0, "#version 330 core");
 #endif
 
 #elif PLATFORM_WEBASSEMBLY
@@ -134,7 +134,7 @@ namespace RCEngine
 		  graphicsEngine->RenderLoop();
 			fps->CalculateFPS();
 
-			//uiEngine->UIRender(UIText{ { "Performance"}, string("fps:" + std::to_string(fps->Fps())).c_str() });
+			uiEngine->UIRender(UIText{ { "Performance"}, string("fps:" + std::to_string(fps->Fps())).c_str() });
 
 			
 		}

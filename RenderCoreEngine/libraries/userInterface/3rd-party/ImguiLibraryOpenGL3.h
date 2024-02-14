@@ -19,7 +19,7 @@ namespace RCEngine
 		class ImguiLibraryOpenGL3 :public IUILibrary
 		{
 		public:
-			ImguiLibraryOpenGL3(std::any context, const char* shaderVersion);
+			ImguiLibraryOpenGL3(unsigned int windowID, const char* shaderVersion);
 			
 			void UIRender()override;
 			void UIRender(const char* title,const char* str)override;

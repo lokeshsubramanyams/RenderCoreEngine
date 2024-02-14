@@ -10,7 +10,7 @@ namespace RCEngine
 		class UserInterfaceEngine
 		{
 		public:
-			UserInterfaceEngine(std::any context,const char* shaderVersion );
+			UserInterfaceEngine(unsigned int windowID, const char* shaderVersion );
 			~UserInterfaceEngine();
 			
 			void UIRender(UIText text);

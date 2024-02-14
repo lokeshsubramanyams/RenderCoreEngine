@@ -6,10 +6,10 @@ namespace RCEngine
 	using namespace RCEngine::Debugger;
 	namespace UI
 	{
-		UserInterfaceEngine::UserInterfaceEngine(std::any context, const char* shaderVersion)
+		UserInterfaceEngine::UserInterfaceEngine(unsigned int windowID, const char* shaderVersion)
 		{
 			Debug::Log("user interface engine");
-			uiLibraryImpl = std::make_unique<RCEngine::UI::ImguiLibraryOpenGL3>(context,shaderVersion);
+			uiLibraryImpl = std::make_unique<RCEngine::UI::ImguiLibraryOpenGL3>(windowID,shaderVersion);
 		}
 		
 
