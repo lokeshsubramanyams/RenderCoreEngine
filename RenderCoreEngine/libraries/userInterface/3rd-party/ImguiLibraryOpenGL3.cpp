@@ -105,10 +105,10 @@ namespace RCEngine
 				ImGui::InputFloat(":orthographicScaleFactor", &camera->orthographicScaleFactor);
 			}
 			
-			//ImGui::InputInt(":x", &camera->setting.screen.x);
-			//ImGui::InputInt(":y", &camera->setting.screen.y);
-			//ImGui::InputInt(":width", &camera->setting.screen.width);
-			//ImGui::InputInt(":height", &camera->setting.screen.height);
+			ImGui::InputFloat(":NearPlane", &camera->setting.cameraSettings.nearZ);
+			ImGui::InputFloat(":FarPlane", &camera->setting.cameraSettings.farZ);
+
+		
 		}
 		void ImguiLibraryOpenGL3::UIRender(RCEngine::RenderCore::Transform* transform)
 		{

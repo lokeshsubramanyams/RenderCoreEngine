@@ -1,20 +1,32 @@
 #pragma once
 #include<GLFW/glfw3.h>
 #include "Debug.h"
+#include "MathLib.h"
+#include <functional>
 namespace RCEngine
 {
 	using namespace Debugger;
 	namespace Platform
 	{
 
-			static void glfw_error_callback(int error, const char* description)
+			inline std::function<void(GLFWwindow*, MathLib::Rect)> resizeCallBack;
+
+			static void glfwErrorCallback(int error, const char* description)
 			{
 				fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 			}
-
+			inline void framebufferResizeCallback(GLFWwindow* window, int width,int height)
+			{
+				if (resizeCallBack)
+				{
+					Debug::Log("Resized");
+					resizeCallBack(window, Rect{ 0,0, width,height });
+				}
+			}
+			
 			inline GLFWwindow* CreateGlfwWindow(const char* title, int width, int height)
 			{
-				glfwSetErrorCallback(glfw_error_callback);
+				glfwSetErrorCallback(glfwErrorCallback);
 
 				if (!glfwInit())
 				{
@@ -52,8 +64,12 @@ namespace RCEngine
 				else
 					Debug::Log("glfw Window or OpenGL context created");
 
+				glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
+
 				return window;
 			}
+
+			
 		
 	}
 }

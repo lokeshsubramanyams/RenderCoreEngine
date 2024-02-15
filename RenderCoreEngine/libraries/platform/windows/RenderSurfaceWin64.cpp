@@ -14,9 +14,16 @@ namespace RCEngine
 		  window = CreateGlfwWindow("RCEngine", screenRect.width, screenRect.height);
 
 			glfwMakeContextCurrent(window);
-
+			
+			resizeCallBack = std::bind(&RenderSurfaceWin64::framebufferResizeCallback, this, std::placeholders::_1, std::placeholders::_2);
 		}
-
+		void RenderSurfaceWin64::framebufferResizeCallback(GLFWwindow *window, Rect newSurface)
+		{
+			if (windowResizeEventListenser)
+			{
+				windowResizeEventListenser(newSurface);
+			}
+		}
 		RenderSurfaceWin64::~RenderSurfaceWin64()
 		{
 			if (window)
@@ -61,9 +68,9 @@ namespace RCEngine
 				PollEvents();
 			 
 				updateFunction();
-				renderFunction();//Debug::Log("renderBuffer");
+				renderFunction();
 			
-				SwapBuffers();// Debug::Log("swapBuffer");
+				SwapBuffers();
 				
 			}
 			

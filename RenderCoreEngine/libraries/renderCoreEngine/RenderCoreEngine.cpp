@@ -1,3 +1,4 @@
+#include "RenderCoreEngine.h"
 
 #include "RenderCoreEngine.h"
 #include "MeshUtil.h"
@@ -14,6 +15,12 @@ namespace RCEngine
 	{
 		using namespace RCEngine::Debugger;
 		using namespace Graphics;
+		void RenderCoreEngine::OnWindowsResize(Rect screen)
+		{
+			graphicsEngine->OnWindowResize(screen);
+
+
+		}
 		void RenderCoreEngine::InitilizeEngine()
 		{
 			Rect surface{ 0,0,1024,760 };
@@ -23,6 +30,7 @@ namespace RCEngine
 #if  PLATFORM_WINDOWS
 			
 			renderSurface = std::make_unique<RenderSurfaceWin64>(surface);
+			
 #if (OPENGL)
 			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL4xEngine>();
 
@@ -40,7 +48,7 @@ namespace RCEngine
 
 #endif
 
-			
+			renderSurface->AddWindowResizeListener(std::bind(&RenderCoreEngine::OnWindowsResize, this, std::placeholders::_1));
 			
 			ShaderProgram defaultShaderProgram =
 			{
@@ -129,12 +137,9 @@ namespace RCEngine
 		}
 		void RenderCore::RenderCoreEngine::Renderer()
 		{
-			
-
 		  graphicsEngine->RenderLoop();
-			fps->CalculateFPS();
-
 			uiEngine->UIRender(cameraObject);
+			fps->CalculateFPS();
 		}
 		void RenderCoreEngine::Update()
 		{

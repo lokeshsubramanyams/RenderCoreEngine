@@ -32,6 +32,7 @@ namespace RCEngine
 
 			virtual void SetCamera(ICamera *camera)= 0;
 			
+			virtual void OnWindowResize(Rect viewport) = 0;
 
 		protected:
 			virtual std::unordered_map<std::string, ShaderMetaData> GetShaderMetaData() = 0;

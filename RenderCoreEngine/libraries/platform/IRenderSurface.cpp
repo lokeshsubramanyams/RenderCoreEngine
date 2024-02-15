@@ -21,6 +21,11 @@ namespace RCEngine
 
 		}
 
+		void IRenderSurface::AddWindowResizeListener(std::function<void(Rect)> windowResizeEventHandler)
+		{
+			this->windowResizeEventListenser = windowResizeEventHandler;
+		}
+
 		RCEngine::Platform::IRenderSurface::~IRenderSurface()
 		{
 			

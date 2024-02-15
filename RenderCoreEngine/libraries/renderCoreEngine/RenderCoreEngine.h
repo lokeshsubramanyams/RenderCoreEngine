@@ -41,6 +41,7 @@ namespace RCEngine
 			GraphicsObject *triangle,*quad,*cube;
 			GraphicsObject* cameraObject;
 			
+			void OnWindowsResize(Rect screen);
 
 		public:
 			std::unique_ptr<IRenderSurface> renderSurface;

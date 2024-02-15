@@ -28,6 +28,7 @@ namespace  RCEngine
 			void Render(RCEngine::RenderCore::IRenderer* renderer)override;
 			void RegisterCustomShader(ShaderMetaData customShader)const override;
 		
+			void OnWindowResize(Rect viewport)override;
 
 		protected:
 		

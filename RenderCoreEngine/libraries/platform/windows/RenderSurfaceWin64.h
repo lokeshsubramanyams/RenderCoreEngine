@@ -26,6 +26,9 @@ namespace RCEngine
 			void Run(std::function<void()>renderFunction, std::function<void()>updateFunction) override;
 
 			std::any GetContext()override;
+		
+			void framebufferResizeCallback(GLFWwindow* window, Rect newViewport);
+
 		};
 	}
 }

@@ -16,7 +16,7 @@ namespace RCEngine
 		{
 		protected:
 			const Rect screenRect;
-			
+			std::function<void(Rect)>windowResizeEventListenser;
 		public:
 
 			 IRenderSurface(Rect surfaceInfo);
@@ -32,8 +32,8 @@ namespace RCEngine
 			 
 			 virtual std::any GetContext() = 0;
 			
+			 virtual void AddWindowResizeListener(std::function<void(Rect)>windowResizeEventHandler);
 			 
-
 			 
 		};
 
