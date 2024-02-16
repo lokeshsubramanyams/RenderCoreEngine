@@ -75,6 +75,71 @@ namespace RCEngine
 			}
 			
 		}
+
+    void RenderSurfaceWin64::WindowPlacementOnBigMonitor()
+    {
+
+			GLFWmonitor* highResMonitor = GetMonitorWithHighestResolution();
+			if (!highResMonitor) {
+				std::cerr << "Failed to get highResMonitor monitor" << std::endl;
+				return;
+			}
+			const GLFWvidmode* mode = glfwGetVideoMode(highResMonitor);
+
+			int monitorX, monitorY;
+
+			glfwGetMonitorPos(highResMonitor, &monitorX, &monitorY);
+
+			int left, right, top, bottom;
+			glfwGetWindowFrameSize(window, &left, &top, &right, &bottom);
+
+			int windowWidth = mode->width - (left+right);
+			int windowHeight = mode->height - (top+bottom);
+
+			int windowX = monitorX;// +(mode->width - windowWidth) / 2;
+			int windowY = monitorY;// +(mode->height - windowHeight) / 2;
+
+			std::cout <<"width:" << windowWidth <<"height:"<< windowHeight<< std::endl;
+			std::cout << "windowX:" << windowX << "windowY:" << windowY << std::endl;
+
+			glfwSetWindowPos(window, windowX+left, windowY+top);
+			glfwSetWindowSize(window, windowWidth, windowHeight);
+
+    }
+
+		GLFWmonitor* RenderSurfaceWin64::GetMonitorWithHighestResolution()
+		{
+			int monitorCount;
+			GLFWmonitor** monitors = glfwGetMonitors(&monitorCount);
+			if (monitorCount == 0) {
+				return nullptr;
+			}
+
+			GLFWmonitor* highestResMonitor = monitors[0];
+			const GLFWvidmode* highestResMode = glfwGetVideoMode(highestResMonitor);
+
+			for (int i = 0; i < monitorCount; ++i) 
+			{
+				const GLFWvidmode* mode = glfwGetVideoMode(monitors[i]);
+
+				int monitorX, monitorY;
+				glfwGetMonitorPos(monitors[i], &monitorX, &monitorY);
+
+				std::cout << "monitor: " << glfwGetMonitorName(monitors[i])
+					<< " (" << mode->width << "x" << mode->height << ")" <<"x:"<< monitorX <<"y:"<< monitorY << std::endl;
+
+	
+				if ((mode->width * mode->height) >= (highestResMode->width * highestResMode->height)) {
+					highestResMonitor = monitors[i];
+					highestResMode = mode;
+				}
+
+				
+			}
+
+			return highestResMonitor;
+		}
+
     std::any RenderSurfaceWin64::GetContext()
     {
 			return window;

@@ -12,7 +12,7 @@ namespace RCEngine
 		private:
 			 GLFWwindow* window;
 
-			 
+			 GLFWmonitor* GetMonitorWithHighestResolution();
 			 
 		public:
 			RenderSurfaceWin64(Rect _viewport);
@@ -24,10 +24,13 @@ namespace RCEngine
 			bool IsValid()const override;
 			void PollEvents() override;
 			void Run(std::function<void()>renderFunction, std::function<void()>updateFunction) override;
+			void WindowPlacementOnBigMonitor()override;
 
 			std::any GetContext()override;
 		
 			void framebufferResizeCallback(GLFWwindow* window, Rect newViewport);
+
+
 
 		};
 	}

@@ -20,7 +20,8 @@ namespace RCEngine
 				if (resizeCallBack)
 				{
 					Debug::Log("Resized");
-					resizeCallBack(window, Rect{ 0,0, width,height });
+
+					resizeCallBack(window, Rect{ 0, 0, width, height });
 				}
 			}
 			

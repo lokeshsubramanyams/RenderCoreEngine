@@ -23,8 +23,7 @@ namespace RCEngine
 		}
 		void RenderCoreEngine::InitilizeEngine()
 		{
-			Rect surface{ 0,0,1024,760 };
-
+			Rect surface{ 0,0, 1024, 760 };//1920,1080 };//
 			
 			
 #if  PLATFORM_WINDOWS
@@ -42,13 +41,15 @@ namespace RCEngine
 			renderSurface = std::make_unique<RenderSurfaceGlfwBrowser>(surface);
 #if (OPENGL)
 			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL3xEngine>();
-			uiEngine = std::make_unique<RCEngine::UI::UserInterfaceEngine>(renderSurface.get()->GetContext(), "#version 300 es");
+			uiEngine = std::make_unique<RCEngine::UI::UserInterfaceEngine>(0, "#version 300 es");
 #endif
 
 
 #endif
 
 			renderSurface->AddWindowResizeListener(std::bind(&RenderCoreEngine::OnWindowsResize, this, std::placeholders::_1));
+
+			
 			
 			ShaderProgram defaultShaderProgram =
 			{
@@ -97,6 +98,8 @@ namespace RCEngine
 			/////////////////////////////////////////////////////////////
 
 			
+
+			
 		/*	triangle = new GraphicsObject("TestTriangle");
 			Mesh* mesh = MeshUtil::Triangle();
 			IComponent* component =  graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
@@ -133,6 +136,7 @@ namespace RCEngine
 			//////////////////////////////////////////////////////////////
 			fps = new FrameRateTracker();
 
+			renderSurface->WindowPlacementOnBigMonitor();
 			
 		}
 		void RenderCore::RenderCoreEngine::Renderer()

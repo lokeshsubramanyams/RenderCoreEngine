@@ -34,6 +34,7 @@ namespace RCEngine
 			
 			 virtual void AddWindowResizeListener(std::function<void(Rect)>windowResizeEventHandler);
 			 
+			 virtual void WindowPlacementOnBigMonitor() = 0;
 			 
 		};
 

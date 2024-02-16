@@ -78,6 +78,11 @@ namespace RCEngine
 			return glfwCanvas;
     }
 
+    void RenderSurfaceGlfwBrowser::WindowPlacementOnBigMonitor()
+    {
+
+    }
+
 	
 	}
 }

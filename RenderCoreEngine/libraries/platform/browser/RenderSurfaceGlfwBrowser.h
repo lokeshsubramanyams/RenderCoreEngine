@@ -30,6 +30,8 @@ namespace RCEngine
 			void PollEvents() override;
 
 			std::any GetContext()override;
+
+			void WindowPlacementOnBigMonitor()override;
 			
 
 		};

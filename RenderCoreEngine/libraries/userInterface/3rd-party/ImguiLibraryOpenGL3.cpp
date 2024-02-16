@@ -70,8 +70,8 @@ namespace RCEngine
 				{
 				case ComponentType::CameraComp:
 				{
-					UIRender(graphicsObject->GetComponent<Camera*>(ComponentType::CameraComp));
-
+					//graphicsObject getcomponent having issue on emscripten build so conversion in place 
+					UIRender(static_cast<Camera*>(graphicsObject->components[it->first]));
 				}
 				break;
 				case ComponentType::MeshRendererComp:
