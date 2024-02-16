@@ -127,8 +127,8 @@ namespace RCEngine
 				MathLib::Rect surface = EngineSetting::GetWindowSurfaceRect();
 
 				MathLib::Rect viewport = {
-					std::round(surface.x * viewportRectf.x),
-					std::round(surface.y * viewportRectf.y),
+					std::round(surface.width * viewportRectf.x),
+					std::round(surface.height * viewportRectf.y),
 					std::round(surface.width * viewportRectf.width),
 					std::round(surface.height * viewportRectf.height)
 				};
