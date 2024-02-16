@@ -58,6 +58,16 @@ namespace RCEngine
 					}
 					return 0;
 				}
+
+				EM_JS(int, getWindowWidth, (), 
+					{
+					return document.body.clientWidth;
+					});//	let dpr = window.devicePixelRatio || 1;window.innerWidth * dpr;
+
+				EM_JS(int, getWindowHeight, (), { return document.body.clientHeight; });//let dpr = window.devicePixelRatio || 1;window.innerHeight* dpr;
+
+	
+
 				
 				
 			}

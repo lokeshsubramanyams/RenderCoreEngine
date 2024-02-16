@@ -16,12 +16,17 @@ namespace RCEngine
 
 			glfwGetFramebufferSize(glfwCanvas, &screenRect.width, &screenRect.height);
 
-
 			MakeContextCurrent();
 
-
+			resizeCallBack = std::bind(&RenderSurfaceGlfwBrowser::framebufferResizeCallback, this, std::placeholders::_1, std::placeholders::_2);
 		}
-
+		void RenderSurfaceGlfwBrowser::framebufferResizeCallback(GLFWwindow* window, Rect newSurface)
+		{
+			if (windowResizeEventListenser)
+			{
+				windowResizeEventListenser(newSurface);
+			}
+		}
 		void RenderSurfaceGlfwBrowser::MakeContextCurrent()
 		{
 			glfwMakeContextCurrent(glfwCanvas);
@@ -80,6 +85,15 @@ namespace RCEngine
 
     void RenderSurfaceGlfwBrowser::WindowPlacementOnBigMonitor()
     {
+
+			int width = getWindowWidth();
+			int height = getWindowHeight();
+
+			Debug::Log("width:100%:", width);
+			Debug::Log("height:100%:", height);
+
+			//glfwGetFramebufferSize(glfwCanvas, &width, &height);
+			glfwSetWindowSize(glfwCanvas, width, height);
 
     }
 

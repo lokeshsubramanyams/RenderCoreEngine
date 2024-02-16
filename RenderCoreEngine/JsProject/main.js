@@ -1,4 +1,6 @@
 // main.js
+//import style from './style.css';
+
 
 
 const wasmJs = 'RenderCoreEngine.js';
@@ -6,10 +8,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
   console.log("DOM fully loaded and parsed");
 
   const canvas = document.createElement('canvas');
-  canvas.width = 640;
-  canvas.height = 480;
+  canvas.width = '100%'; //640;
+  canvas.height = '100%'; //480;
+  canvas.display = 'block';
   canvas.id = 'canvas';
-  canvas.style.border = '4px solid black';
+
+  //canvas.style.border = '4px solid black';
   document.body.appendChild(canvas);
 
   window.Module = {
