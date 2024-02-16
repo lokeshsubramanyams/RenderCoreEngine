@@ -17,18 +17,20 @@ namespace RCEngine
 		using namespace Graphics;
 		void RenderCoreEngine::OnWindowsResize(Rect screen)
 		{
-			graphicsEngine->OnWindowResize(screen);
+			EngineSetting::SetWindowSurfaceRect(screen);
 
+			graphicsEngine->OnWindowResize(screen);
+			
 
 		}
 		void RenderCoreEngine::InitilizeEngine()
 		{
-			Rect surface{ 0,0, 1024, 760 };//1920,1080 };//
-			
-			
+
+			engineSetting = new EngineSetting({ 0,0, 1024, 760 });
+		
 #if  PLATFORM_WINDOWS
 			
-			renderSurface = std::make_unique<RenderSurfaceWin64>(surface);
+			renderSurface = std::make_unique<RenderSurfaceWin64>(EngineSetting::GetWindowSurfaceRect());
 			
 #if (OPENGL)
 			graphicsEngine = std::make_unique<RCEngine::OpenGLEngine::OpenGL4xEngine>();
@@ -66,7 +68,7 @@ namespace RCEngine
 			
 			///////////////////////////////////////////////////////////
 
-			graphicsEngine->InitilizeEngine(surface);
+			graphicsEngine->InitilizeEngine(EngineSetting::GetWindowSurfaceRect());
 
 			graphicsEngine->LoadShaderBatch({ defaultShaderProgram });
 
@@ -76,20 +78,9 @@ namespace RCEngine
 
 			///////////////////////////////////////////////////////////////
 
-			RCEngine::CameraSetting  cameraSetting = {
-				CameraType::Perspective,
-				45.0f,
-				0.1f,
-				1000.0f
-			};
-
-			RCEngine::Settings settings = {
-				surface,
-				cameraSetting
-			};
-
+		
 			cameraObject = new GraphicsObject("MainCamera");
-			Camera* camera = new Camera(settings);
+			Camera* camera = new Camera({ {0.0f,0.0f,0.0f,1.0f}, CameraType::Perspective,45.0f,0.1f,1000.0f });
 			cameraObject->AttachComponent(camera);
 
 			cameraObject->transform->position = Vector3(0.0f, 0.3f, -1.0f);

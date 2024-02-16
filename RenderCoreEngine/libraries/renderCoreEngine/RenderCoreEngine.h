@@ -37,6 +37,9 @@ namespace RCEngine
 		class RenderCoreEngine
 		{
 		private:
+
+			EngineSetting *engineSetting;
+		
 			FrameRateTracker* fps;
 			GraphicsObject *triangle,*quad,*cube;
 			GraphicsObject* cameraObject;

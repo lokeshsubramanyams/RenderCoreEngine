@@ -6,7 +6,7 @@ namespace RCEngine
 	using namespace Debugger;
 	namespace RenderCore
 	{
-		Camera::Camera(Settings _setting):ICamera(_setting)
+		Camera::Camera(CameraSetting _setting):ICamera(_setting)
 		{
 			UpdateSettings(_setting);
 		}
@@ -14,10 +14,10 @@ namespace RCEngine
 		{
 			
 		}
-		void Camera::UpdateSettings(Settings _setting)
+		void Camera::UpdateSettings(CameraSetting _setting)
 		{
 			this->setting = _setting;
-			aspectRatio = (float)setting.screen.width / (float)setting.screen.height;
+			
 		}
 		Matrix44 Camera::GetViewProjectionMatrix()
 		{
@@ -49,32 +49,34 @@ namespace RCEngine
 
 		Matrix44 Camera::CalculateProjectionMatrix()
 		{
-			
-			if (setting.cameraSettings.cameraType == CameraType::Perspective)
+			Rect viewport = this->viewport->GetViewport();
+			//Debug::Log("Width:", viewport.width);
+		 //Debug::Log("Height:", viewport.height);
+
+			aspectRatio = (float)viewport.width / (float)viewport.height;
+
+			if (setting.cameraType == CameraType::Perspective)
 			{
-				float fov = glm::radians(setting.cameraSettings.fieldOfView);
-				//float aspectRatio = setting.screen.width / setting.screen.height;
-				float nearPlane = setting.cameraSettings.nearZ;
-				float farPlane = setting.cameraSettings.farZ;
+				float fov = glm::radians(setting.fieldOfView);
+				float nearPlane = setting.nearZ;
+				float farPlane = setting.farZ;
 
 				return glm::perspective(fov, aspectRatio, nearPlane, farPlane);
 			}
-			else if(setting.cameraSettings.cameraType == CameraType::Orthographic)
+			else if(setting.cameraType == CameraType::Orthographic)
 			{
 				float scaleFactor = 1.0f/orthographicScaleFactor;
 
 				float left = 0.0f;
-				float right = (float)setting.screen.width;
+				float right = (float)viewport.width;
 				float bottom = 0.0f;
-				float top = (float)setting.screen.height;
-				float zNear = setting.cameraSettings.nearZ;
-				float zFar =  setting.cameraSettings.farZ;
+				float top = (float)viewport.height;
+				float zNear = setting.nearZ;
+				float zFar =  setting.farZ;
 
-				float aspectRatio = (float)setting.screen.width / (float)setting.screen.height;
-				float orthoHeight = (float)setting.screen.height * scaleFactor;
+				float orthoHeight = (float)viewport.height * scaleFactor;
 				float orthoWidth = orthoHeight * aspectRatio;
-			
-			
+						
 				left = -orthoWidth *0.5f;
 				right = orthoWidth *0.5f;
 				bottom = -orthoHeight *0.5f;

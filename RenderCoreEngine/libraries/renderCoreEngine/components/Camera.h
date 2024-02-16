@@ -12,10 +12,10 @@ namespace RCEngine
 		class Camera :public ICamera
 		{
 		public:
-			Camera(Settings setting);
+			Camera(CameraSetting setting);
 			~Camera();
 			
-		 void UpdateSettings(Settings setting)override;
+		 void UpdateSettings(CameraSetting setting)override;
 		 Matrix44 GetViewProjectionMatrix()override;
 		 Matrix44 GetViewMatrix()override;
 		 Matrix44 GetProjectionMatrix()override;

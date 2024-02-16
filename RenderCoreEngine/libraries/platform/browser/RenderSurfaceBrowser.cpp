@@ -31,7 +31,7 @@ namespace RCEngine
 			{
 				Debug::Log("canvas created successfully");
 
-				EMSCRIPTEN_RESULT result = emscripten_set_canvas_element_size("#canvas", screenRect.width, screenRect.height);
+				EMSCRIPTEN_RESULT result = emscripten_set_canvas_element_size("#canvas", screenRect->width, screenRect->height);
 				if (result != EMSCRIPTEN_RESULT_SUCCESS) {
 					Debug::LogError("error on setting the canvas size");
 				}

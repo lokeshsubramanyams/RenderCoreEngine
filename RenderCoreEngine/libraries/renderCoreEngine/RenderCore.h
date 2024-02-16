@@ -2,6 +2,7 @@
 
 #include <string>
 #include "MathLib.h"
+#include<algorithm>
 
 namespace RCEngine
 {
@@ -54,16 +55,13 @@ namespace RCEngine
 
 		struct CameraSetting
 		{
+			MathLib::Vector4 backgroundColor;
 			CameraType cameraType;
 			float fieldOfView;
 			float nearZ;
 			float farZ;
 		};
-		struct Settings
-		{
-			MathLib::Rect screen;
-			CameraSetting cameraSettings;
-		};
+		
 
 	
 		namespace CONST
@@ -91,7 +89,52 @@ namespace RCEngine
 			}
 		};
 
-		
+		class EngineSetting
+		{
+		private:
+			inline static MathLib::Rect *surface = nullptr;
+		public:
+			EngineSetting(MathLib::Rect _surface)
+			{
+				surface = new MathLib::Rect(_surface);
+			}
+			static void SetWindowSurfaceRect(MathLib::Rect _surface)
+			{
+				surface->x = _surface.x;surface->y = _surface.y;
+				surface->width = _surface.width;surface->height = _surface.height;
+			}
+			static MathLib::Rect GetWindowSurfaceRect() { return { surface->x,surface->y,surface->width,surface->height }; }
+		};
 
+
+		class ViewPort
+		{
+		private:
+			MathLib::Rectf viewportRectf = {0.0f,0.0f,1.0f,1.0f};
+			inline float clamp01(float value) {	return std::clamp(value, float(0), float(1));	}
+			inline MathLib::Rectf RectfClamp01(MathLib::Rectf rectf) { return { clamp01(rectf.x) ,clamp01(rectf.y) ,clamp01(rectf.width) ,clamp01(rectf.height) };}
+		public:
+			inline MathLib::Rectf GetViewportRectf() { return RectfClamp01(viewportRectf); }
+			inline void SetViewPortRectfX(float x) { viewportRectf.x = x; }
+			inline void SetViewPortRectfY(float y) { viewportRectf.y = y; }
+			inline void SetViewPortRectfWidth(float width) { viewportRectf.width = width; }
+			inline void SetViewPortRectfHeight(float height) { viewportRectf.height = height; }
+			inline void SetViewPortRectf(MathLib::Rectf rectf) { viewportRectf = RectfClamp01(rectf); }
+			ViewPort(MathLib::Rectf rectf) { viewportRectf = rectf; }
+			MathLib::Rect GetViewport()
+			{
+				viewportRectf = RectfClamp01(viewportRectf);
+				MathLib::Rect surface = EngineSetting::GetWindowSurfaceRect();
+
+				MathLib::Rect viewport = {
+					std::round(surface.x * viewportRectf.x),
+					std::round(surface.y * viewportRectf.y),
+					std::round(surface.width * viewportRectf.width),
+					std::round(surface.height * viewportRectf.height)
+				};
+				return viewport;
+			}
+
+		};
 	
 }

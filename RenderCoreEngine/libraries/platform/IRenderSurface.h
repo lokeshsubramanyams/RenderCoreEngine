@@ -15,7 +15,7 @@ namespace RCEngine
 		class IRenderSurface
 		{
 		protected:
-			const Rect screenRect;
+			Rect screenRect;
 			std::function<void(Rect)>windowResizeEventListenser;
 		public:
 

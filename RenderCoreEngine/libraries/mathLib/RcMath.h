@@ -4,6 +4,8 @@
 #include<gtc/quaternion.hpp>
 #include<gtc/type_ptr.hpp>
 
+#include<algorithm>
+
 namespace RCEngine
 {
 	namespace MathLib
@@ -16,5 +18,12 @@ namespace RCEngine
 		typedef quat Quaternion;
 		typedef mat4 Matrix44;
 		typedef vec4 Color;
+
+		template<typename T>
+		T clamp01(T value) {
+			return std::clamp(value, T(0), T(1));
+		}
+
+
 	}
 }

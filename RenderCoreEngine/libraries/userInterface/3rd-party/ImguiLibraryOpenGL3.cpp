@@ -63,9 +63,9 @@ namespace RCEngine
 
 			UIRender(graphicsObject->transform);
 
-			for (std::unordered_map<ComponentType, IComponent*>::iterator it = graphicsObject->components.begin(); it != graphicsObject->components.end(); ++it) {
-				std::cout << it->first << ": " << it->second << std::endl;
-
+			for (std::unordered_map<ComponentType, IComponent*>::iterator it = graphicsObject->components.begin(); it != graphicsObject->components.end(); ++it) 
+			{
+				
 				switch (it->first)
 				{
 				case ComponentType::CameraComp:
@@ -92,22 +92,35 @@ namespace RCEngine
 
 			ImGui::Text(WIDGET_NAMES::CAMERA);
 
+			ImGui::ColorEdit4(":Background", (float*)&camera->setting.backgroundColor);
+
 			if (ImGui::Combo(WIDGET_NAMES::CAMERATYPE, &currentCameraType,UIWidget::CameraTypeStrings, IM_ARRAYSIZE(UIWidget::CameraTypeStrings)))
 			{
-				camera->setting.cameraSettings.cameraType = (RCEngine::CameraType)currentCameraType;
+				camera->setting.cameraType = (RCEngine::CameraType)currentCameraType;
 			}
-			if (camera->setting.cameraSettings.cameraType == RCEngine::CameraType::Perspective)
+			if (camera->setting.cameraType == RCEngine::CameraType::Perspective)
 			{
-				ImGui::InputFloat(":FieldOfView", &camera->setting.cameraSettings.fieldOfView);
+				ImGui::InputFloat(":FieldOfView", &camera->setting.fieldOfView);
 			}
-			else if (camera->setting.cameraSettings.cameraType == RCEngine::CameraType::Orthographic)
+			else if (camera->setting.cameraType == RCEngine::CameraType::Orthographic)
 			{
 				ImGui::InputFloat(":orthographicScaleFactor", &camera->orthographicScaleFactor);
 			}
 			
-			ImGui::InputFloat(":NearPlane", &camera->setting.cameraSettings.nearZ);
-			ImGui::InputFloat(":FarPlane", &camera->setting.cameraSettings.farZ);
+			ImGui::InputFloat(":NearPlane", &camera->setting.nearZ);
 
+			ImGui::InputFloat(":FarPlane", &camera->setting.farZ);
+
+			MathLib::Rectf viewport = camera->viewport->GetViewportRectf();
+			int change = 0;
+			
+			change+= ImGui::InputFloat(":x", &viewport.x)?1:0;
+			change+= ImGui::InputFloat(":y", &viewport.y)?1:0;
+			change+= ImGui::InputFloat(":width", &viewport.width)?1:0;
+			change+= ImGui::InputFloat(":height", &viewport.height)?1:0;
+
+			if (change > 0)
+				camera->viewport->SetViewPortRectf(viewport);
 		
 		}
 		void ImguiLibraryOpenGL3::UIRender(RCEngine::RenderCore::Transform* transform)

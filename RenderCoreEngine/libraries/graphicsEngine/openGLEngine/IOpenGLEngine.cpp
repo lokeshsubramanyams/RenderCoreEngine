@@ -57,9 +57,9 @@ namespace RCEngine
     void IOpenGLEngine::OnWindowResize(Rect viewport)
     {
 			glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
-			Settings setting = this->camera->setting;
-			setting.screen = viewport;
-			this->camera->UpdateSettings(setting);
+			//Settings setting = this->camera->setting;
+		//	setting.screen = viewport;
+			//this->camera->UpdateSettings(setting);
     }
 		Matrix44 IOpenGLEngine::GetProjectionViewMatrix()
 		{
