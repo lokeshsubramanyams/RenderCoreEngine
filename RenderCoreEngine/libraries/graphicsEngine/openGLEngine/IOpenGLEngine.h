@@ -19,26 +19,21 @@ namespace  RCEngine
 		public:
 			virtual void InitilizeEngine(Rect viewport);
 			virtual void  RenderLoop() = 0;
-
-			void SetCamera(ICamera *camera)override;
-
 			void LoadShaderBatch(std::vector<ShaderProgram> programs)override;
 			IShader* GetLoadedShader(std::string shader)override;
 			IComponentFactory* GetFactory()override;
-			void Render(RCEngine::RenderCore::IRenderer* renderer)override;
-			void RegisterCustomShader(ShaderMetaData customShader)const override;
-		
 			void OnWindowResize(Rect viewport)override;
-
+			
+			
+			void PreRenderSetup()override;
+			void PreRenderSetup(ICamera* camera)override;
+			void PostRenderSetup()override;
+			void PostRenderSetup(ICamera* camera)override;
 		protected:
 		
 			std::unique_ptr<IShaderBuilder> shaderBuilder;
 			std::unique_ptr<IComponentFactory>componentFactory;
 			std::vector<IRenderer*> renderers;
-			ICamera* camera;
-
-			Matrix44 GetProjectionViewMatrix() override;
-
 			
 		
 		};

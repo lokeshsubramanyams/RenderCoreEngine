@@ -10,6 +10,7 @@
 #include "IComponentFactory.h"
 #include "IRenderer.h"
 #include "ICamera.h"
+
 namespace RCEngine
 {
 	namespace GraphicsEngine
@@ -20,24 +21,19 @@ namespace RCEngine
 		{
 		public:
 			virtual void InitilizeEngine( Rect viewport) = 0;
-
 			virtual void LoadShaderBatch(std::vector<ShaderProgram> programs) = 0;
-
 			virtual IShader* GetLoadedShader(std::string shader) = 0;
 			virtual IComponentFactory* GetFactory() = 0;
-			virtual void Render(IRenderer* renderer) = 0;
-
-			virtual void RegisterCustomShader(ShaderMetaData customShader)const = 0;
 			virtual void RenderLoop() = 0;
-
-			virtual void SetCamera(ICamera *camera)= 0;
-			
 			virtual void OnWindowResize(Rect viewport) = 0;
-
+			
+			virtual void PreRenderSetup() = 0;
+			virtual void PreRenderSetup(ICamera* camera) = 0;
+			virtual void PostRenderSetup() = 0;
+			virtual void PostRenderSetup(ICamera* camera) = 0;
 		protected:
 			virtual std::unordered_map<std::string, ShaderMetaData> GetShaderMetaData() = 0;
-
-			virtual Matrix44 GetProjectionViewMatrix() = 0;
+			
 
 		};
 

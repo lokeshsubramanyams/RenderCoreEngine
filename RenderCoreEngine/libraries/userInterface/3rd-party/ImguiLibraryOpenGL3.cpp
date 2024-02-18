@@ -59,6 +59,8 @@ namespace RCEngine
 	
 		void ImguiLibraryOpenGL3::ComponentRender(RenderCore::GraphicsObject *graphicsObject)
 		{
+			ImGui::SetNextWindowSize(ImVec2(500, 400));
+
 			ImGui::Text(graphicsObject->name.c_str());
 
 			UIRender(graphicsObject->transform);

@@ -25,6 +25,7 @@
 #include "Camera.h"
 
 #include "UserInterfaceEngine.h"
+#include "Scene.h"
 
 namespace RCEngine
 {
@@ -39,17 +40,15 @@ namespace RCEngine
 		private:
 
 			EngineSetting *engineSetting;
-		
 			FrameRateTracker* fps;
-			GraphicsObject *triangle,*quad,*cube;
-			GraphicsObject* cameraObject;
-			
 			void OnWindowsResize(Rect screen);
 
 		public:
 			std::unique_ptr<IRenderSurface> renderSurface;
 			std::unique_ptr<IGraphicsEngine> graphicsEngine;
 			std::unique_ptr<UserInterfaceEngine> uiEngine;
+			std::unique_ptr<Scene> scene;
+
 			void InitilizeEngine();
 			void Renderer();
 			void Update();

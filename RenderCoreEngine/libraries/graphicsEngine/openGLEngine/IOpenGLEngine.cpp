@@ -21,12 +21,6 @@ namespace RCEngine
 			
    	}
 
-    
-
-		void IOpenGLEngine::SetCamera(ICamera *camera)
-		{
-			this->camera = camera;
-		}
 
     void IOpenGLEngine::LoadShaderBatch(std::vector<ShaderProgram> programs)
     {
@@ -43,32 +37,55 @@ namespace RCEngine
 			return componentFactory.get();
 		}
 
-		void IOpenGLEngine::Render(RCEngine::RenderCore::IRenderer* renderer)
-		{
-			renderer->Load();
-			renderers.push_back(renderer);
-
-		}
-	
-		void IOpenGLEngine::RegisterCustomShader(ShaderMetaData customShader) const
-		{
-
-		}
     void IOpenGLEngine::OnWindowResize(Rect viewport)
     {
 			glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
-			//Settings setting = this->camera->setting;
-		//	setting.screen = viewport;
-			//this->camera->UpdateSettings(setting);
     }
-		Matrix44 IOpenGLEngine::GetProjectionViewMatrix()
+				
+		void IOpenGLEngine::PreRenderSetup()
 		{
-			if (this->camera != nullptr)
-			{
-				return camera->GetProjectionMatrix() * camera->GetViewMatrix();
-			}
-			return Matrix44(1.0f);
-	  }
+			Rect full = EngineSetting::GetWindowSurfaceRect();
+
+			glScissor(full.x, full.y, full.width, full.height);
+
+			glEnable(GL_SCISSOR_TEST);
+
+			glViewport(full.x, full.y, full.width, full.height);
+
+			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+			glClear(GL_COLOR_BUFFER_BIT);
+			
+		}
+
+		void IOpenGLEngine::PreRenderSetup(ICamera* camera)
+		{
+			Rect viewport = camera->viewport->GetViewport();
+
+			glScissor(viewport.x, viewport.y, viewport.width, viewport.height);
+
+			glEnable(GL_SCISSOR_TEST);
+
+			glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
+
+			Vector4 color = camera->setting.backgroundColor;
+
+			glClearColor(color.r, color.g, color.b, color.a);
+
+			glClear(GL_COLOR_BUFFER_BIT);
+		}
+
+		void IOpenGLEngine::PostRenderSetup(ICamera* camera)
+		{
+			//glDisable(GL_SCISSOR_TEST);
+
+		}
+
+		void IOpenGLEngine::PostRenderSetup()
+		{
+			//glDisable(GL_SCISSOR_TEST);
+		}
+		
 	}
 }
 
