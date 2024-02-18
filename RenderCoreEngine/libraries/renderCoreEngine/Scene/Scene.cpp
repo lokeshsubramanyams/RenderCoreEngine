@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Scene.h"
+#include "Scene.h"
 #include <Camera.h>
 
 namespace RCEngine
@@ -104,6 +105,30 @@ namespace RCEngine
 			sceneObjects.insert({ camName,cameraObject });
 			cameras.push_back(camera);
 		}
+
+    void Scene::AddLines(string objName)
+    {
+			GraphicsObject* lineObj = new GraphicsObject(objName);
+
+			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
+			defaultShader->Log();
+
+			Vector3* vertices = new Vector3[6];
+			vertices[0] = Vector3(0.0, -100.0, 0.0);
+			vertices[1] = Vector3(0.0, 100.0, 0.0);
+			vertices[2] = Vector3(-100.0, 0.0, 0.0);
+			vertices[3] = Vector3(100.0, 0.0, 0.0);
+			vertices[4] = Vector3(0.0, 0.0, -100.0);
+			vertices[5] = Vector3(0.0, 0.0, 100.0);
+			
+			Line* lines = MeshUtil::GetGridLines();// new Line(vertices, 6);
+			IComponent* component2 = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
+			lineObj->AttachComponent(component2);
+			sceneObjects.insert({ name,lineObj });
+			IRenderer* renderer = static_cast<IRenderer*>(component2);
+			renderers.push_back(renderer);
+			Load(renderer);
+    }
 
 		void Scene::CreateGraphicsObject(string name, Mesh* mesh)
 		{

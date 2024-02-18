@@ -26,6 +26,7 @@ namespace RCEngine
 			void AddTriangle(string objName);
 			void AddQuad(string objName);
 			void AddCamera(string objName);
+			void AddLines(string objName);
 
 			void LoadAll();
 			void Load(IRenderer* renderer);

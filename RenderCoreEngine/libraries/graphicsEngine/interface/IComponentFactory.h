@@ -1,6 +1,7 @@
 #pragma once
 #include "IComponent.h"
 #include "Mesh.h"
+#include "Line.h"
 #include "IShader.h"
 
 namespace RCEngine
@@ -13,6 +14,7 @@ namespace RCEngine
 		{
 		public:
 			virtual RCEngine::RenderCore::IComponent *CreateMeshRendererComp(Mesh &mesh,IShader &shader) = 0;
+			virtual RCEngine::RenderCore::IComponent* CreateLineRendererComp(Line& mesh, IShader& shader) = 0;
 		};
 	}
 }

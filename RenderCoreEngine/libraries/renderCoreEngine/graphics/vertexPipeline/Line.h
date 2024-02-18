@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 #include "MathLib.h"
 
 namespace RCEngine
@@ -8,24 +8,20 @@ namespace RCEngine
 		namespace Graphics
 		{
 			using namespace RCEngine::MathLib;
-			class Mesh
+			class Line
 			{
 			public:
 				Vector3* vertices;
 				int verticesCount;
-				int* indices;
-				int indicesCount;
-
-
-				Mesh(Vector3 *verts,int vLength, int *indices,int iLength);
+			
+				Line(Vector3* verts, int vLength);
 				int SizeOfVertices();
 				int SizeOfVertexDataStructure();
-				int SizeOfIndices();
-
-				~Mesh();
+			
+				~Line();
 
 			};
 		}
-		
+
 	}
 }

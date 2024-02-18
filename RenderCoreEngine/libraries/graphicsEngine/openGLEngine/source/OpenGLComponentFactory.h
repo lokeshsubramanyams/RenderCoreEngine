@@ -2,6 +2,7 @@
 #include "IComponentFactory.h"
 #include "OpenGLMeshRenderer.h"
 #include "OpenGLShader.h"
+#include "OpenGLLineRenderer.h"
 namespace RCEngine
 {
 	namespace OpenGLEngine
@@ -12,7 +13,7 @@ namespace RCEngine
 		{
 		public:
 			RCEngine::RenderCore::IComponent *CreateMeshRendererComp(Mesh& mesh, IShader& shader) override;
-
+			RCEngine::RenderCore::IComponent *CreateLineRendererComp(Line& mesh, IShader& shader) override;
 		};
 	}
 }

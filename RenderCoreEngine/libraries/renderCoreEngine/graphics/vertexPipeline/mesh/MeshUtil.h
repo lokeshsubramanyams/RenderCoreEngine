@@ -2,6 +2,7 @@
 
 #include "MathLib.h"
 #include "Mesh.h"
+#include "Line.h"
 #include "RenderCore.h"
 namespace RCEngine
 {
@@ -24,6 +25,9 @@ namespace RCEngine
 				static Mesh* GetCylinderMesh();
 				static Mesh* GetMeshCone();
 				static Mesh* GetMeshTorus();
+
+				static Line* GetGridLines();
+
 
 			};
 		}

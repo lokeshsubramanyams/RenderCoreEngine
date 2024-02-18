@@ -1,4 +1,5 @@
 #include "MeshUtil.h"
+#include "MeshUtil.h"
 #include "Debug.h"
 namespace RCEngine
 {
@@ -119,6 +120,36 @@ namespace RCEngine
 			{
 				Debug::LogError("Torus is not implemented:");
 				return nullptr;
+			}
+
+			Line* MeshUtil::GetGridLines()
+			{
+				float length = 80.0f;
+				int rows = 10 * 4;
+				int columns = 10 * 4;
+				int count = rows * columns;
+				Vector3* vertices = new Vector3[count];
+
+					
+				for (int i = 0; i < count-8; i+=8)
+				{
+					vertices[i] = Vector3(i, 0.0f, -length);
+					vertices[i+1] = Vector3(i, 0.0f, length);
+
+					vertices[i+2] = Vector3(-i, 0.0f, -length);
+					vertices[i +3] = Vector3(-i, 0.0f, length);
+					
+					vertices[i+4] = Vector3(-length, 0.0f, i);
+					vertices[i + 5] = Vector3(length, 0.0f, i);
+
+					vertices[i + 6] = Vector3(-length, 0.0f, -i);
+					vertices[i + 7] = Vector3(length, 0.0f, -i);
+				}
+
+			
+				Line* lines = new Line(vertices, count);
+
+				return lines;
 			}
 
 			

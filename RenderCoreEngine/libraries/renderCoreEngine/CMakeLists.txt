@@ -6,6 +6,7 @@ target_include_directories(renderCore_module PUBLIC
 "${CMAKE_CURRENT_SOURCE_DIR}/"
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/"
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/vertexPipeline/mesh/"
+"${CMAKE_CURRENT_SOURCE_DIR}/graphics/vertexPipeline/"
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/vertexPipeline/camera/"
 "${CMAKE_CURRENT_SOURCE_DIR}/graphics/fragmentPipeline/light/"
 "${CMAKE_CURRENT_SOURCE_DIR}/components/",

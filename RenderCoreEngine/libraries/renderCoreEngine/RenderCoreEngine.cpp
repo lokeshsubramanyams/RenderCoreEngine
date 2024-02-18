@@ -66,11 +66,11 @@ namespace RCEngine
 			
 			//////////////////////////////////////////////////////////////
 
-			
+			scene->AddLines("Lines");
+		//	scene->GetGraphicsObject("Lines")->transform->position = Vector3(0, 1, 0);
 
-		  scene->AddShape("cube", GeometryShapes::Cube);
-
-			scene->AttachComponent("cube", new Behaviour(0.5f));
+		  //scene->AddShape("cube", GeometryShapes::Cube);
+		//	scene->AttachComponent("cube", new Behaviour(0.5f));
 
 			fps = new FrameRateTracker();
 		}
@@ -79,8 +79,8 @@ namespace RCEngine
 		  scene->Render();
 			fps->CalculateFPS();
 			uiEngine->Begin();
-			uiEngine->UIRender(scene->GetGraphicsObject("MainCamera"));
-			uiEngine->UIRender(UIText{ {"performance"},std::to_string(fps->Fps()).c_str()});
+			uiEngine->UI(scene->GetGraphicsObject("MainCamera"));
+			uiEngine->UI(UIText{ {"performance"},std::to_string(fps->Fps()).c_str()});
 			uiEngine->End();
 		}
 
