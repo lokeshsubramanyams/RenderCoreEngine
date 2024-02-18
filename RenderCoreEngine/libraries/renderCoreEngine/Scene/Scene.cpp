@@ -51,19 +51,19 @@ namespace RCEngine
 		
 		void Scene::Render()
 		{
-			graphicsEngine->PreRenderSetup();
+			graphicsEngine->PreRender();
 		
-			/*for (int cam = 0; cam < cameras.size(); cam++)
+			for (int cam = 0; cam < cameras.size(); cam++)
 			{
-				graphicsEngine->PreRenderSetup(cameras[cam]);
+				graphicsEngine->PreRender(cameras[cam]);
 
 				for (int ren = 0; ren < renderers.size(); ren++)
 				{
-					renderers[ren]->Render(cameras[0]->GetViewProjectionMatrix());
+					renderers[ren]->Render(cameras[cam]->GetViewProjectionMatrix());
 				}
-				graphicsEngine->PostRenderSetup(cameras[cam]);
-			}*/
-			//graphicsEngine->PostRenderSetup();
+				graphicsEngine->PostRender(cameras[cam]);
+			}
+			graphicsEngine->PostRender();
 		}
 
 		void Scene::Update(float deltaTime)
@@ -99,7 +99,7 @@ namespace RCEngine
 
 			Camera* camera = new Camera({ {0.0f,0.0f,0.0f,1.0f}, CameraType::Perspective,45.0f,0.1f,1000.0f });
 			cameraObject->AttachComponent(camera);
-			cameraObject->transform->position = Vector3(0.0f, 0.0f, -10.0f);
+			cameraObject->transform->position = Vector3(0.0f, 0.0f, -1.0f);
 
 			sceneObjects.insert({ camName,cameraObject });
 			cameras.push_back(camera);

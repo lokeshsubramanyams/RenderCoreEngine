@@ -25,10 +25,10 @@ namespace  RCEngine
 			void OnWindowResize(Rect viewport)override;
 			
 			
-			void PreRenderSetup()override;
-			void PreRenderSetup(ICamera* camera)override;
-			void PostRenderSetup()override;
-			void PostRenderSetup(ICamera* camera)override;
+			void PreRender()override;
+			void PreRender(ICamera* camera)override;
+			void PostRender()override;
+			void PostRender(ICamera* camera)override;
 		protected:
 		
 			std::unique_ptr<IShaderBuilder> shaderBuilder;

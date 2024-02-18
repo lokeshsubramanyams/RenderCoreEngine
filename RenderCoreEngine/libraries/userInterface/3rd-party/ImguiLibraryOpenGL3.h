@@ -29,10 +29,14 @@ namespace RCEngine
 		public:
 			ImguiLibraryOpenGL3(unsigned int windowID, const char* shaderVersion);
 			
-			void UIRender(const char* title,const char* str)override;
-			void UIRender(RenderCore::GraphicsObject *gObject)override;
+			void UI(const char* title,const char* str)override;
+			void UI(RenderCore::GraphicsObject *gObject)override;
+			void UI()override;
 
 			void ShutDown()override;
+
+			void Begin()override;
+			void End()override;
 
 		private:
 			void ComponentRender(RenderCore::GraphicsObject *graphicsObject);

@@ -2,7 +2,6 @@
 #include<any>
 #include <memory>
 #include "IUILibrary.h"
-#include "UserInterface.h"
 #include <GraphicsObject.h>
 namespace RCEngine
 {
@@ -14,8 +13,11 @@ namespace RCEngine
 			UserInterfaceEngine(unsigned int windowID, const char* shaderVersion );
 			~UserInterfaceEngine();
 			
-			void UIRender(UIText text);
-			void UIRender(RenderCore::GraphicsObject *graphicsObject);
+			void Begin();
+			void UI();
+			void UI(UIText text);
+			void UI(RenderCore::GraphicsObject *graphicsObject);
+			void End();
 		protected:
 			std::unique_ptr<IUILibrary> uiLibraryImpl;
 		};

@@ -27,10 +27,10 @@ namespace RCEngine
 			virtual void RenderLoop() = 0;
 			virtual void OnWindowResize(Rect viewport) = 0;
 			
-			virtual void PreRenderSetup() = 0;
-			virtual void PreRenderSetup(ICamera* camera) = 0;
-			virtual void PostRenderSetup() = 0;
-			virtual void PostRenderSetup(ICamera* camera) = 0;
+			virtual void PreRender() = 0;
+			virtual void PreRender(ICamera* camera) = 0;
+			virtual void PostRender() = 0;
+			virtual void PostRender(ICamera* camera) = 0;
 		protected:
 			virtual std::unordered_map<std::string, ShaderMetaData> GetShaderMetaData() = 0;
 			

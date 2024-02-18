@@ -42,13 +42,13 @@ namespace RCEngine
 			glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
     }
 				
-		void IOpenGLEngine::PreRenderSetup()
+		void IOpenGLEngine::PreRender()
 		{
+			glEnable(GL_SCISSOR_TEST);
+
 			Rect full = EngineSetting::GetWindowSurfaceRect();
 
 			glScissor(full.x, full.y, full.width, full.height);
-
-			glEnable(GL_SCISSOR_TEST);
 
 			glViewport(full.x, full.y, full.width, full.height);
 
@@ -58,14 +58,12 @@ namespace RCEngine
 			
 		}
 
-		void IOpenGLEngine::PreRenderSetup(ICamera* camera)
+		void IOpenGLEngine::PreRender(ICamera* camera)
 		{
 			Rect viewport = camera->viewport->GetViewport();
 
 			glScissor(viewport.x, viewport.y, viewport.width, viewport.height);
-
-			glEnable(GL_SCISSOR_TEST);
-
+		
 			glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 
 			Vector4 color = camera->setting.backgroundColor;
@@ -75,15 +73,14 @@ namespace RCEngine
 			glClear(GL_COLOR_BUFFER_BIT);
 		}
 
-		void IOpenGLEngine::PostRenderSetup(ICamera* camera)
+		void IOpenGLEngine::PostRender(ICamera* camera)
 		{
-			//glDisable(GL_SCISSOR_TEST);
-
+			
 		}
 
-		void IOpenGLEngine::PostRenderSetup()
+		void IOpenGLEngine::PostRender()
 		{
-			//glDisable(GL_SCISSOR_TEST);
+			glDisable(GL_SCISSOR_TEST);
 		}
 		
 	}

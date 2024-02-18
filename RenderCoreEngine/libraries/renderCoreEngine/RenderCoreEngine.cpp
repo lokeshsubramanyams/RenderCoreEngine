@@ -70,7 +70,7 @@ namespace RCEngine
 
 		  scene->AddShape("cube", GeometryShapes::Cube);
 
-			scene->AttachComponent("cube", new Behaviour(0.25f));
+			scene->AttachComponent("cube", new Behaviour(0.5f));
 
 			fps = new FrameRateTracker();
 		}
@@ -78,8 +78,10 @@ namespace RCEngine
 		{
 		  scene->Render();
 			fps->CalculateFPS();
+			uiEngine->Begin();
 			uiEngine->UIRender(scene->GetGraphicsObject("MainCamera"));
 			uiEngine->UIRender(UIText{ {"performance"},std::to_string(fps->Fps()).c_str()});
+			uiEngine->End();
 		}
 
 		void RenderCoreEngine::Update()

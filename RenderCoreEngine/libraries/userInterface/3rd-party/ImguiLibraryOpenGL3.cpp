@@ -27,31 +27,22 @@ namespace RCEngine
 
 		}
 
-		void ImguiLibraryOpenGL3::UIRender(const char* title, const char* str)
+		void ImguiLibraryOpenGL3::UI(const char* title, const char* str)
 		{
-			ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplGlfw_NewFrame();
-			ImGui::NewFrame();
-
 			ImGui::Begin(title);
 			ImGui::Text(str);
 			ImGui::End();
-
-			ImGui::Render();
-
-			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		}
 
-		void ImguiLibraryOpenGL3::UIRender(RenderCore::GraphicsObject *gObject)
+		void ImguiLibraryOpenGL3::UI(RenderCore::GraphicsObject *gObject)
 		{
-			ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplGlfw_NewFrame();
-			ImGui::NewFrame();
 			ImGui::Begin(WIDGET_NAMES::INSPECTOR);
-
 			ComponentRender(gObject);
-
 			ImGui::End();
+		}
+
+		void ImguiLibraryOpenGL3::UI()
+		{
 			ImGui::Render();
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		}
@@ -59,7 +50,7 @@ namespace RCEngine
 	
 		void ImguiLibraryOpenGL3::ComponentRender(RenderCore::GraphicsObject *graphicsObject)
 		{
-			ImGui::SetNextWindowSize(ImVec2(500, 400));
+			ImGui::SetNextWindowSize(ImVec2(1000, 400));
 
 			ImGui::Text(graphicsObject->name.c_str());
 
@@ -137,6 +128,18 @@ namespace RCEngine
 		{
 			ImGui_ImplOpenGL3_Shutdown();
 			ImGui_ImplGlfw_Shutdown();
+		}
+
+		void ImguiLibraryOpenGL3::Begin()
+		{
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
+		}
+
+		void ImguiLibraryOpenGL3::End()
+		{
+			UI();
 		}
 	}
 }
