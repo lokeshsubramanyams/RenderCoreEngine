@@ -127,10 +127,10 @@ namespace RCEngine
 				MathLib::Rect surface = EngineSetting::GetWindowSurfaceRect();
 
 				MathLib::Rect viewport = {
-					std::round(surface.width * viewportRectf.x),
-					std::round(surface.height * viewportRectf.y),
-					std::round(surface.width * viewportRectf.width),
-					std::round(surface.height * viewportRectf.height)
+					static_cast<int>(std::round(surface.width * viewportRectf.x)),
+					static_cast<int>(std::round(surface.height * viewportRectf.y)),
+					static_cast<int>(std::round(surface.width * viewportRectf.width)),
+					static_cast<int>(std::round(surface.height * viewportRectf.height))
 				};
 				return viewport;
 			}

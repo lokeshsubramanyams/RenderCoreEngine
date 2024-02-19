@@ -9,7 +9,7 @@ namespace RCEngine
 		using namespace RCEngine::Debugger;
 		using namespace RCEngine::Platform::Browser;
 
-		RenderSurfaceGlfwBrowser::RenderSurfaceGlfwBrowser(Rect* screenRect)
+		RenderSurfaceGlfwBrowser::RenderSurfaceGlfwBrowser(Rect screenRect)
 			:IRenderSurface(screenRect)
 		{
 			glfwCanvas = CreateGlfwWindow("RCEngine", screenRect.width, screenRect.height);
