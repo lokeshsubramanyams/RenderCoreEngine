@@ -14,5 +14,10 @@ namespace RCEngine
 		const char* unifromKey;
 	};
 
+	struct ShaderMetaDataV01:ShaderMetaData
+	{
+
+	};
+
 }
 

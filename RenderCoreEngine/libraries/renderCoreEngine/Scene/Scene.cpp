@@ -60,7 +60,7 @@ namespace RCEngine
 
 				for (int ren = 0; ren < renderers.size(); ren++)
 				{
-					renderers[ren]->Render(cameras[cam]->GetViewProjectionMatrix());
+					renderers[ren]->Render(cameras[cam]);// ->GetViewProjectionMatrix());
 				}
 				graphicsEngine->PostRender(cameras[cam]);
 			}
@@ -97,6 +97,7 @@ namespace RCEngine
 		void Scene::AddDefaultSceneObjects()
 		{
 			AddCamera("MainCamera");
+			AddLines("GridLines");
 		}
 
 		void Scene::AddCamera(string camName)
@@ -117,7 +118,7 @@ namespace RCEngine
 			GraphicsObject* lineObj = new GraphicsObject(objName);
 			lineObj->tag = "editor";
 			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
-			defaultShader->Log();
+			//defaultShader->Log();
 			Line* lines = MeshUtil::GetGridLines();
 			IComponent* component = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
 			lineObj->AttachComponent(component);
@@ -130,8 +131,8 @@ namespace RCEngine
 		void Scene::CreateGraphicsObject(string name, Mesh* mesh)
 		{
 			GraphicsObject* shapeObj = new GraphicsObject(name);
-			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
-			defaultShader->Log();
+			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01);
+			//defaultShader->Log();
 			IComponent* component2 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
 			shapeObj->AttachComponent(component2);
 			IRenderer* renderer = static_cast<IRenderer*>(component2);

@@ -70,6 +70,8 @@ namespace RCEngine
 			{
 				constexpr char DEFAULT_VERTEX[] = "DEFAULT_VERTEX";
 				constexpr char DEFAULT_FRAGMENT[] = "DEFAULT_FRAGMENT";
+				constexpr char DEFAULT_VERTEX_V01[] = "DEFAULT_VERTEX_V01";
+				constexpr char DEFAULT_FRAGMENT_V01[] = "DEFAULT_FRAGMENT_V01";
 			}
 			namespace SHADERUNIFORM
 			{
@@ -78,10 +80,21 @@ namespace RCEngine
 
 				constexpr char DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX[] =  "transformationMatrix";
 				constexpr char DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLOR[] = "uniformFragmentColor";
+
+				constexpr char DEFAULT_VERTEX_UNIFORM_MODEL_MATRIX[] = "MODEL_MATRIX";
+				constexpr char DEFAULT_VERTEX_UNIFORM_VIEW_MATRIX[] = "VIEW_MATRIX";
+				constexpr char DEFAULT_VERTEX_UNIFORM_PROJECTION_MATRIX[] = "PROJECTION_MATRIX";
+
+				constexpr char DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR[] = "LIGHT_DIRECTION";
+				constexpr char DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR[] = "LIGHT_COLOR";
+				constexpr char DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR[] = "OBJECT_COLOR";
+				
+
 			}
 			namespace SHADERKEY
 			{
 				constexpr char DEFAULT_VERTEX_FRAGMENT[] = "DEFAULT_VERTEX_FRAGMENT";
+				constexpr char DEFAULT_VERTEX_FRAGMENT_V01[] = "DEFAULT_VERTEX_FRAGMENT_V01";
 			}
 			namespace DEFAULTVALUE
 			{

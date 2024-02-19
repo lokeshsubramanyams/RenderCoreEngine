@@ -58,7 +58,26 @@ namespace RCEngine
 				{CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX,	CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLOR}
 			};
 
-			graphicsEngine->LoadShaderBatch({ defaultShaderProgram });
+			ShaderProgram defaultShaderProgramV01 =
+			{
+				CONST::SHADERFILE::DEFAULT_VERTEX_V01,
+				CONST::SHADERFILE::DEFAULT_FRAGMENT_V01,
+				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01,
+				{
+					CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_MODEL_MATRIX,
+			  	CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_VIEW_MATRIX,
+					CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_PROJECTION_MATRIX,
+					CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR,
+					CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR,
+					CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR
+
+				}
+			};
+
+			graphicsEngine->LoadShaderBatch({ defaultShaderProgram,defaultShaderProgramV01 });
+
+			IShader* defaultShaderv1 = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01);
+			defaultShaderv1->Log();
 
 			///////////////////////////////////////////////////////////////
 
@@ -66,13 +85,8 @@ namespace RCEngine
 			
 			//////////////////////////////////////////////////////////////
 
-			scene->AddLines("Lines");
-		
-
 		  scene->AddShape("cube", GeometryShapes::Cube);
 			scene->AttachComponent("cube", new Behaviour(0.25f));
-
-			//scene->AttachComponent("MainCamera", new Behaviour(0.25f));
 
 			fps = new FrameRateTracker();
 		}
@@ -82,7 +96,7 @@ namespace RCEngine
 			fps->CalculateFPS();
 			uiEngine->Begin();
 			uiEngine->UI(scene.get());
-			uiEngine->UI(UIText{ {"performance"},std::to_string(fps->Fps()).c_str() });
+			uiEngine->UI(UIText{ {"Stats"},std::to_string(fps->Fps()).c_str() });
 			uiEngine->UI(scene->GetGraphicsObject(scene->sceneHierarchySelectedKey));
 			uiEngine->End();
 		}

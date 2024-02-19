@@ -3,6 +3,7 @@
 #include "IShader.h"
 #include "Transform.h"
 #include "IRequiredComponent.h"
+#include "Camera.h"
 
 namespace RCEngine
 {
@@ -25,6 +26,8 @@ namespace RCEngine
 			virtual void Render() = 0;
 
 			virtual void Render(Matrix44 matrix) = 0;
+
+			virtual void Render(ICamera* camera) = 0;
 
 			virtual void UnLoad() = 0;
 

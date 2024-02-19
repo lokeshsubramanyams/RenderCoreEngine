@@ -34,11 +34,20 @@ namespace RCEngine
 				return sizeof(int) *  this->indicesCount;
 			}
 
+			int Mesh::SizeOfVertNormalTex()
+			{
+				return sizeof(Vertex) * this->verticesCount;
+			}
+			int Mesh::SizeOfVertNormalTexDataStructure()
+			{
+				return sizeof(Vertex);
+			}
 
 			Mesh::~Mesh()
 			{
 				delete vertices;
 				delete indices;
+				delete vertNormalTex;
 			}
 
 		}

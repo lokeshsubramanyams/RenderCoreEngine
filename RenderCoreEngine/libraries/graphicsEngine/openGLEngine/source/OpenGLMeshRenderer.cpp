@@ -22,14 +22,23 @@ namespace RCEngine
 			glGenBuffers(1, &VBO);
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER, meshFilter->mesh->SizeOfVertices(), meshFilter->mesh->vertices, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, meshFilter->mesh->SizeOfVertNormalTex(), meshFilter->mesh->vertNormalTex, GL_STATIC_DRAW);
 
 			glGenBuffers(1, &EBO);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshFilter->mesh->SizeOfIndices(), meshFilter->mesh->indices, GL_STATIC_DRAW);
 
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertexDataStructure(), (void*)0);
+			//position
 			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)0);
+			
+			// Normals
+			glEnableVertexAttribArray(1); 
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)offsetof(Vertex, normal));
+
+			// Normals
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)offsetof(Vertex, texCoord));
 
 		}
 
@@ -71,6 +80,27 @@ namespace RCEngine
 
 			glBindVertexArray(0);
 
+		}
+		void OpenGLMeshRenderer::Render(ICamera* camera)
+		{
+			glBindVertexArray(0);
+
+			material->shader->UseProgram();
+
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_MODEL_MATRIX, transform->GetMatrix());
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_VIEW_MATRIX, camera->GetViewMatrix());
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_PROJECTION_MATRIX, camera->GetProjectionMatrix());
+
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR, Vector3(1,1,0));
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR, Vector3(1, 1, 1));
+
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR, Vector3(1.0f,1.0f,1.0f));
+
+			glBindVertexArray(VAO);
+
+			glDrawElements(GL_TRIANGLES, meshFilter->mesh->indicesCount, GL_UNSIGNED_INT, 0);
+
+			glBindVertexArray(0);
 		}
 		void OpenGLMeshRenderer::UnLoad()
 		{

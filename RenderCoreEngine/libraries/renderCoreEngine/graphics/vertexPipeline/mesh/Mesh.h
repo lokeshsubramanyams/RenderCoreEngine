@@ -36,6 +36,9 @@ namespace RCEngine
 				int SizeOfVertexDataStructure();
 				int SizeOfIndices();
 
+				int SizeOfVertNormalTex();
+				int SizeOfVertNormalTexDataStructure();
+
 				~Mesh();
 
 			};

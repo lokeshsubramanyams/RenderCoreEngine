@@ -51,6 +51,22 @@ namespace RCEngine
 			glBindVertexArray(0);
 
 		}
+		void OpenGLLineRenderer::Render(ICamera* camera)
+		{
+			glBindVertexArray(0);
+
+			material->shader->UseProgram();
+
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, camera->GetViewProjectionMatrix() * transform->GetMatrix());
+
+			material->ApplyColor(color);
+
+			glBindVertexArray(VAO);
+
+			glDrawArrays(GL_LINES, 0, line->verticesCount);
+
+			glBindVertexArray(0);
+		}
 		void OpenGLLineRenderer::UnLoad()
 		{
 			glDeleteVertexArrays(1, &VAO);

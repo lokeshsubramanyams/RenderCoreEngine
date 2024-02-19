@@ -62,7 +62,19 @@ namespace RCEngine
 			{
 				Vector3* vertices = new Vector3[8];
 
-				vertices[0] = Vector3(0.5f, 0.5f, 0.5f);
+				Vertex* vertices_normal_textcoord = new Vertex[8];
+
+				vertices_normal_textcoord[0] = { Vector3(0.5f, 0.5f, 0.5f),Vector3(0.0f, 0.0f, 1.0f),Vector2(1.0f,1.0f)};
+				vertices_normal_textcoord[1] = { Vector3(-0.5f, 0.5f, -0.5f),Vector3(0.0f, 0.0f, -1.0f),Vector2(1.0f,1.0f) };
+				vertices_normal_textcoord[2] = { Vector3(-0.5f, 0.5f, 0.5f),Vector3(0.0f, 0.0f, 1.0f),Vector2(0.0f,1.0f) };
+				vertices_normal_textcoord[3] = { Vector3(0.5f, -0.5f, -0.5f),Vector3(0.0f, 0.0f, -1.0f),Vector2(0.0f,0.0f) };
+				vertices_normal_textcoord[4] = { Vector3(-0.5f, -0.5f, -0.5f),Vector3(0.0f, 0.0f, -1.0f),Vector2(1.0f,0.0f) };
+				vertices_normal_textcoord[5] = { Vector3(0.5f, 0.5f, -0.5f),Vector3(0.0f, 0.0f, -1.0f),Vector2(0.0f,1.0f) };
+				vertices_normal_textcoord[6] = { Vector3(0.5f, -0.5f, 0.5f),Vector3(0.0f, 0.0f, 1.0f),Vector2(1.0f,0.0f) };
+				vertices_normal_textcoord[7] = { Vector3(-0.5f, -0.5f, 0.5f),Vector3(0.0f, 0.0f, 1.0f),Vector2(0.0f,0.0f) };
+				
+
+			/*	vertices[0] = Vector3(0.5f, 0.5f, 0.5f);
 				vertices[1] = Vector3(-0.5f, 0.5f, -0.5f);
 				vertices[2] = Vector3(-0.5f, 0.5f, 0.5f);
 				vertices[3] = Vector3(0.5f, -0.5f, -0.5f);
@@ -70,7 +82,7 @@ namespace RCEngine
 				vertices[5] = Vector3(0.5f, 0.5f, -0.5f);
 				vertices[6] = Vector3(0.5f, -0.5f, 0.5f);
 				vertices[7] = Vector3(-0.5f, -0.5f, 0.5f);
-
+				*/
 				//12*3 = 36
 				int *indices = new int[36] {
 					
@@ -93,8 +105,8 @@ namespace RCEngine
 					0, 2, 7
 				};
 				
-				Mesh* mesh = new Mesh(vertices, 8, indices, 36);
-
+				//Mesh* mesh = new Mesh(vertices, 8, indices, 36);
+				Mesh* mesh = new Mesh(vertices_normal_textcoord, 8, indices, 36);
 				return mesh;
 			}
 
