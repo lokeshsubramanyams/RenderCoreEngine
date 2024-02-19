@@ -61,11 +61,8 @@ namespace RCEngine
 
 			material->shader->UseProgram();
 
-			Debug::Log("cube_Position:", transform->position);
-			Debug::Log("cube_rotation:", transform->rotation);
-			Debug::Log("cube_scale:", transform->scale);
-
 			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, projectView * transform->GetMatrix());
+
 			material->ApplyDefaultColor();
 
 			glBindVertexArray(VAO);

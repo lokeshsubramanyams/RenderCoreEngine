@@ -93,7 +93,7 @@ namespace RCEngine
 			}
 			if (camera->setting.cameraType == RCEngine::CameraType::Perspective)
 			{
-				ImGui::InputFloat(":FieldOfView", &camera->setting.fieldOfView);
+				ImGui::DragFloat(":FieldOfView", &camera->setting.fieldOfView, 1.0f, 0.0f, 360.0f, "%.3f");
 			}
 			else if (camera->setting.cameraType == RCEngine::CameraType::Orthographic)
 			{
@@ -119,9 +119,13 @@ namespace RCEngine
 		void ImguiLibraryOpenGL3::UIRender(RCEngine::RenderCore::Transform* transform)
 		{
 			ImGui::Text(WIDGET_NAMES::TRANSFORMATION);
-			ImGui::InputFloat3(":Position", &transform->position[0], "%.3f");
-			ImGui::InputFloat4(":Rotation", &transform->rotation[0], "%.3f");
-			ImGui::InputFloat3(":Scale", &transform->scale[0], "%.3f");
+			ImGui::DragFloat3(":Position", &transform->position[0]);
+			if (ImGui::DragFloat4(":Rotation", &transform->eularAnglesInDegrees[0]))
+			{
+				transform->ApplyEularAnglesInDegree();
+			}
+			
+			ImGui::DragFloat3(":Scale", &transform->scale[0]);
 		}
 
 		void ImguiLibraryOpenGL3::ShutDown()

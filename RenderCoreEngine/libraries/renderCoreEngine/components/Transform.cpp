@@ -9,12 +9,14 @@ namespace RCEngine
 			position = Vector3(0,0,0);
 			rotation = Quaternion();
 			scale = Vector3(1,1,1);
+			eularAnglesInDegrees = EularAnglesInDegrees();
 		}
 		Transform::Transform(Vector3 _pos, Quaternion _rot, Vector3 _scale):IComponent(ComponentType::TransformComp)
 		{
 			position = _pos;
 			rotation = _rot;
 			scale = _scale;
+			eularAnglesInDegrees = EularAnglesInDegrees();
 		}
 		Matrix44 Transform::GetMatrix()
 		{
@@ -43,11 +45,20 @@ namespace RCEngine
 			return glm::vec3(rotationMatrix[0][0], rotationMatrix[1][0], rotationMatrix[2][0]);
 		}
 
-		Vector3 Transform::EularAngles()
+		Vector3 Transform::EularAnglesRadians()
 		{
-			return glm::eulerAngles(glm::normalize(rotation));
+			return glm::eulerAngles(rotation);
+		}
+		
+		Vector3 Transform::EularAnglesInDegrees()
+		{
+			return glm::degrees(EularAnglesRadians());
 		}
 
+		void Transform::ApplyEularAnglesInDegree()
+		{
+			rotation = Quaternion(Vector3(glm::radians(eularAnglesInDegrees.x), glm::radians(eularAnglesInDegrees.y), glm::radians(eularAnglesInDegrees.z)));
+		}
 
 	}
 }

@@ -67,10 +67,12 @@ namespace RCEngine
 			//////////////////////////////////////////////////////////////
 
 			scene->AddLines("Lines");
-		//	scene->GetGraphicsObject("Lines")->transform->position = Vector3(0, 1, 0);
+		
 
-		  //scene->AddShape("cube", GeometryShapes::Cube);
-		//	scene->AttachComponent("cube", new Behaviour(0.5f));
+		  scene->AddShape("cube", GeometryShapes::Cube);
+			scene->AttachComponent("cube", new Behaviour(0.25f));
+
+			//scene->AttachComponent("MainCamera", new Behaviour(0.25f));
 
 			fps = new FrameRateTracker();
 		}

@@ -21,7 +21,11 @@ namespace RCEngine
 			Vector3 up();
 			Vector3 right();
 
-			Vector3 EularAngles();
+			Vector3 EularAnglesInDegrees();
+			Vector3 EularAnglesRadians();
+			void ApplyEularAnglesInDegree();
+
+			Vector3 eularAnglesInDegrees;
 			
 		};
 	}

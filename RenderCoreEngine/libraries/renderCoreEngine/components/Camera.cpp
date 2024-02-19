@@ -90,7 +90,7 @@ namespace RCEngine
 		}
 		Matrix44 Camera::CalculateViewMatrix()
 		{
-			glm::mat4 viewMatrix = glm::lookAt(cameraPosition(), cameraForward(), cameraUp());
+			glm::mat4 viewMatrix = glm::lookAt(cameraPosition(), cameraPosition()+cameraForward(), cameraUp());
 
 			return viewMatrix;
 		}

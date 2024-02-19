@@ -124,12 +124,13 @@ namespace RCEngine
 
 			Line* MeshUtil::GetGridLines()
 			{
-				float length = 80.0f;
+				
 				int rows = 10 * 4;
 				int columns = 10 * 4;
 				int count = rows * columns;
 				Vector3* vertices = new Vector3[count];
 
+				float length = count;
 					
 				for (int i = 0; i < count-8; i+=8)
 				{

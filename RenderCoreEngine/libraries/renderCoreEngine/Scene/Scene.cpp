@@ -98,12 +98,13 @@ namespace RCEngine
 		{
 			GraphicsObject* cameraObject = new GraphicsObject(camName);
 
-			Camera* camera = new Camera({ {0.0f,0.0f,0.0f,1.0f}, CameraType::Perspective,45.0f,0.1f,1000.0f });
+			Camera* camera = new Camera({ {0.142f,0.216f,0.149f,1.0f}, CameraType::Perspective,45.0f,0.1f,1000.0f });
 			cameraObject->AttachComponent(camera);
-			cameraObject->transform->position = Vector3(0.0f, 0.0f, -1.0f);
+			cameraObject->transform->position = Vector3(0.0f, 5.0f, -10.0f);
 
 			sceneObjects.insert({ camName,cameraObject });
 			cameras.push_back(camera);
+			 
 		}
 
     void Scene::AddLines(string objName)
