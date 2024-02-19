@@ -2,6 +2,7 @@
 #include<any>
 #include "UserInterface.h"
 #include <GraphicsObject.h>
+#include <Scene.h>
 namespace RCEngine
 {
 	namespace UI
@@ -18,6 +19,8 @@ namespace RCEngine
 			virtual void UI(const char* title, const char* str) = 0;
 
 			virtual void UI(RenderCore::GraphicsObject *gObject) = 0;
+
+			virtual void UI(RenderCore::Scene* scene) = 0;
 
 			virtual void ShutDown() = 0;
 

@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Scene.h"
 #include <Camera.h>
 #include <ILineRenderer.h>
 
@@ -77,6 +78,7 @@ namespace RCEngine
 		void Scene::AttachComponent(string objectName, IComponent* component)
 		{
 			sceneObjects[objectName]->AttachComponent(component);
+
 			if (component->type == ComponentType::BehaviourComp)
 			{
 				behaviours.push_back(static_cast<IBehaviour*>(component));
@@ -85,7 +87,11 @@ namespace RCEngine
 
 		GraphicsObject* Scene::GetGraphicsObject(string name)
 		{
-			return sceneObjects[name];
+			if (sceneObjects.count(name) > 0)
+			{
+				return sceneObjects[name];
+			}
+			return nullptr;
 		}
 
 		void Scene::AddDefaultSceneObjects()
@@ -100,27 +106,25 @@ namespace RCEngine
 			Camera* camera = new Camera({ {0.142f,0.216f,0.149f,1.0f}, CameraType::Perspective,45.0f,0.1f,1000.0f });
 			cameraObject->AttachComponent(camera);
 			cameraObject->transform->position = Vector3(0.0f, 5.0f, -10.0f);
-
-			sceneObjects.insert({ camName,cameraObject });
+			
 			cameras.push_back(camera);
-			 
+
+			AddToScene(camName, cameraObject,nullptr);
 		}
 
     void Scene::AddLines(string objName)
     {
 			GraphicsObject* lineObj = new GraphicsObject(objName);
-
+			lineObj->tag = "editor";
 			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
 			defaultShader->Log();
 			Line* lines = MeshUtil::GetGridLines();
 			IComponent* component = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
 			lineObj->AttachComponent(component);
-			sceneObjects.insert({ name,lineObj });
 			static_cast<ILineRenderer*>(component)->color = Color(0.0f, 0.0f, 0.0f, 1.0f);
 			IRenderer* renderer = static_cast<IRenderer*>(component);
 			
-			renderers.push_back(renderer);
-			Load(renderer);
+			AddToScene(objName, lineObj, renderer);
     }
 
 		void Scene::CreateGraphicsObject(string name, Mesh* mesh)
@@ -130,10 +134,23 @@ namespace RCEngine
 			defaultShader->Log();
 			IComponent* component2 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
 			shapeObj->AttachComponent(component2);
-			sceneObjects.insert({ name,shapeObj });
 			IRenderer* renderer = static_cast<IRenderer*>(component2);
-			renderers.push_back(renderer);
-			Load(renderer);
+
+			AddToScene(name, shapeObj, renderer);
+		}
+
+		void RenderCore::Scene::AddToScene(string key, GraphicsObject* obj,IRenderer* renderer=nullptr)
+		{
+			sceneObjects.insert({ key,obj });
+			if (obj->tag != "editor")
+			{
+				sceneObjectKeys.push_back(key);
+			}
+			if (renderer)
+			{
+				renderers.push_back(renderer);
+				Load(renderer);
+			}
 		}
 	}
 }

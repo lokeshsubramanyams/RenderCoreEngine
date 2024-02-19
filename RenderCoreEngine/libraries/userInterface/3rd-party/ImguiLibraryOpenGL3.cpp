@@ -29,6 +29,10 @@ namespace RCEngine
 
 		void ImguiLibraryOpenGL3::UI(const char* title, const char* str)
 		{
+			Rect rect = WidgetRect(WIDGET_NAMES::PERFORMANCE_STATS);
+			ImGui::SetNextWindowSize(ImVec2(rect.width, rect.height));
+			ImGui::SetNextWindowPos(ImVec2(rect.x, rect.y));
+
 			ImGui::Begin(title);
 			ImGui::Text(str);
 			ImGui::End();
@@ -36,10 +40,43 @@ namespace RCEngine
 
 		void ImguiLibraryOpenGL3::UI(RenderCore::GraphicsObject *gObject)
 		{
+			Rect rect = WidgetRect(WIDGET_NAMES::INSPECTOR);
+			ImGui::SetNextWindowSize(ImVec2(rect.width, rect.height));
+			ImGui::SetNextWindowPos(ImVec2(rect.x, rect.y));
 			ImGui::Begin(WIDGET_NAMES::INSPECTOR);
-			ComponentRender(gObject);
+			if (gObject)
+			{
+				ComponentRender(gObject);
+			}
 			ImGui::End();
 		}
+
+    void ImguiLibraryOpenGL3::UI(RenderCore::Scene* scene)
+    {
+			Rect rect = WidgetRect(WIDGET_NAMES::HIERARCHY);
+			ImGui::SetNextWindowSize(ImVec2(rect.width, rect.height));
+			ImGui::SetNextWindowPos(ImVec2(rect.x, rect.y));
+			ImGui::Begin(WIDGET_NAMES::HIERARCHY);
+			ImGui::Text(scene->name.c_str());
+
+			ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_Framed;
+		
+			for (int i = 0; i < scene->sceneObjectKeys.size(); i++)
+			{
+				bool node_open = ImGui::TreeNodeEx(scene->sceneObjectKeys[i].c_str(), node_flags);
+				if (ImGui::IsItemClicked())
+				{
+					scene->sceneHierarchySelectedKey = scene->sceneObjectKeys[i];
+				}
+				if (node_open)
+				{
+					ImGui::TreePop();
+				}
+			}
+		
+			
+			ImGui::End();
+    }
 
 		void ImguiLibraryOpenGL3::UI()
 		{
@@ -73,7 +110,7 @@ namespace RCEngine
 				}
 				//break;
 			  default:
-					Debug::LogError("Component UI not implemented type:" + std::to_string(it->first));
+					//Debug::LogError("Component UI not implemented type:" + std::to_string(it->first));
 					break;
 				}
 			}

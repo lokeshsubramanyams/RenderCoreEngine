@@ -31,6 +31,9 @@ namespace RCEngine
 			
 			void UI(const char* title,const char* str)override;
 			void UI(RenderCore::GraphicsObject *gObject)override;
+
+			void UI(RenderCore::Scene* scene) override;
+
 			void UI()override;
 
 			void ShutDown()override;

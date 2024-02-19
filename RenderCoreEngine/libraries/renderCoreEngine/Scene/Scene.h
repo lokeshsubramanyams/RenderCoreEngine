@@ -37,18 +37,22 @@ namespace RCEngine
 
 			GraphicsObject* GetGraphicsObject(string name);
 
+			std::vector<string>sceneObjectKeys;
+			std::string sceneHierarchySelectedKey;
 		protected:
 			std::unordered_map<string, GraphicsObject*>sceneObjects;
 			std::vector<ICamera*>cameras;
 			std::vector<IRenderer*>renderers;
 			std::vector<IBehaviour*>behaviours;
 			IGraphicsEngine* graphicsEngine;
+
+			
 			
 
 		private:
 			void AddDefaultSceneObjects();
 			void CreateGraphicsObject(string name, Mesh* mesh);
-
+			void AddToScene(string keu, GraphicsObject* obj, IRenderer* renderer);
 
 		};
 

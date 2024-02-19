@@ -81,8 +81,9 @@ namespace RCEngine
 		  scene->Render();
 			fps->CalculateFPS();
 			uiEngine->Begin();
-			uiEngine->UI(scene->GetGraphicsObject("MainCamera"));
-			uiEngine->UI(UIText{ {"performance"},std::to_string(fps->Fps()).c_str()});
+			uiEngine->UI(scene.get());
+			uiEngine->UI(UIText{ {"performance"},std::to_string(fps->Fps()).c_str() });
+			uiEngine->UI(scene->GetGraphicsObject(scene->sceneHierarchySelectedKey));
 			uiEngine->End();
 		}
 

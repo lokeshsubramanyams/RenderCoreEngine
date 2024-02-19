@@ -1,6 +1,8 @@
 #include "UserInterfaceEngine.h"
+#include "UserInterfaceEngine.h"
 #include "ImguiLibraryOpenGL3.h"
 #include "Debug.h"
+
 namespace RCEngine
 {
 	using namespace RCEngine::Debugger;
@@ -32,6 +34,11 @@ namespace RCEngine
     {
 			uiLibraryImpl->UI(graphicsObject);
     }
+
+		void UserInterfaceEngine::UI(RenderCore::Scene* scene)
+		{
+			uiLibraryImpl->UI(scene);
+		}
 
 		void UserInterfaceEngine::End()
 		{

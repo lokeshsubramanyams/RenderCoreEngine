@@ -3,6 +3,7 @@
 #include <memory>
 #include "IUILibrary.h"
 #include <GraphicsObject.h>
+#include <Scene.h>
 namespace RCEngine
 {
 	namespace UI
@@ -17,6 +18,7 @@ namespace RCEngine
 			void UI();
 			void UI(UIText text);
 			void UI(RenderCore::GraphicsObject *graphicsObject);
+			void UI(RenderCore::Scene *scene);
 			void End();
 		protected:
 			std::unique_ptr<IUILibrary> uiLibraryImpl;
