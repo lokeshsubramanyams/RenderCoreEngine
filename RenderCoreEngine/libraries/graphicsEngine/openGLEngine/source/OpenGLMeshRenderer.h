@@ -20,7 +20,7 @@ namespace RCEngine
 			void LoadInBatch()override;
 			void Render()override;
 			void Render(Matrix44 matrix)override;
-			void Render(ICamera* camera)override;
+			void Render(ICamera* camera, ILight* light)override;
 			void UnLoad()override;
 
 		};

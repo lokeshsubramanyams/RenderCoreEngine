@@ -7,6 +7,7 @@
 #include <IGraphicsEngine.h>
 #include <MeshUtil.h>
 #include <Mesh.h>
+#include "DirectionalLight.h"
 
 namespace RCEngine
 {
@@ -27,6 +28,7 @@ namespace RCEngine
 			void AddQuad(string objName);
 			void AddCamera(string objName);
 			void AddLines(string objName);
+			void AddLight(string objName);
 
 			void LoadAll();
 			void Load(IRenderer* renderer);
@@ -42,6 +44,7 @@ namespace RCEngine
 		protected:
 			std::unordered_map<string, GraphicsObject*>sceneObjects;
 			std::vector<ICamera*>cameras;
+			std::vector<ILight*>lights;
 			std::vector<IRenderer*>renderers;
 			std::vector<IBehaviour*>behaviours;
 			IGraphicsEngine* graphicsEngine;

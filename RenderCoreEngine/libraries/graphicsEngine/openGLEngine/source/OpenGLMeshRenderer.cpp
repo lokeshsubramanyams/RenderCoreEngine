@@ -81,7 +81,7 @@ namespace RCEngine
 			glBindVertexArray(0);
 
 		}
-		void OpenGLMeshRenderer::Render(ICamera* camera)
+		void OpenGLMeshRenderer::Render(ICamera* camera, ILight* light)
 		{
 			glBindVertexArray(0);
 
@@ -91,8 +91,9 @@ namespace RCEngine
 			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_VIEW_MATRIX, camera->GetViewMatrix());
 			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_PROJECTION_MATRIX, camera->GetProjectionMatrix());
 
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR, Vector3(1,1,0));
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR, Vector3(1, 1, 1));
+			
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR, light->GetLightDirection());
+			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR, light->lightColor);
 
 			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR, Vector3(1.0f,1.0f,1.0f));
 

@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include "Scene.h"
 #include <Camera.h>
 #include <ILineRenderer.h>
 
@@ -60,7 +59,7 @@ namespace RCEngine
 
 				for (int ren = 0; ren < renderers.size(); ren++)
 				{
-					renderers[ren]->Render(cameras[cam]);// ->GetViewProjectionMatrix());
+					renderers[ren]->Render(cameras[cam],lights[0]);// ->GetViewProjectionMatrix());
 				}
 				graphicsEngine->PostRender(cameras[cam]);
 			}
@@ -98,6 +97,7 @@ namespace RCEngine
 		{
 			AddCamera("MainCamera");
 			AddLines("GridLines");
+			AddLight("DirectionLight");
 		}
 
 		void Scene::AddCamera(string camName)
@@ -107,6 +107,7 @@ namespace RCEngine
 			Camera* camera = new Camera({ {0.142f,0.216f,0.149f,1.0f}, CameraType::Perspective,45.0f,0.1f,1000.0f });
 			cameraObject->AttachComponent(camera);
 			cameraObject->transform->position = Vector3(0.0f, 5.0f, -10.0f);
+			cameraObject->transform->rotation = Quaternion(Vector3(glm::radians(-22.5f), 0.0f, 0.0f));
 			
 			cameras.push_back(camera);
 
@@ -127,6 +128,16 @@ namespace RCEngine
 			
 			AddToScene(objName, lineObj, renderer);
     }
+
+		void Scene::AddLight(string objName)
+		{
+			GraphicsObject* lightObj = new GraphicsObject(objName);
+			DirectionalLight* light = new DirectionalLight();
+			lightObj->AttachComponent(light);
+			lightObj->transform->rotation = Quaternion(Vector3(glm::radians(-60.0f), 0.0f, 0.0f));
+			lights.push_back(light);
+			AddToScene(objName, lightObj, nullptr);
+		}
 
 		void Scene::CreateGraphicsObject(string name, Mesh* mesh)
 		{

@@ -46,7 +46,7 @@ namespace RCEngine
 
 			void UIRender(RCEngine::RenderCore::Transform* transform);
 			void UIRender(RCEngine::RenderCore::Camera* transform);
-
+			void UIRender(RCEngine::RenderCore::DirectionalLight* directionLight);
 			
 
 		};

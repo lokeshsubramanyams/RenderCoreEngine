@@ -60,53 +60,61 @@ namespace RCEngine
 
 			Mesh* MeshUtil::GetCubeMesh()
 			{
-				Vector3* vertices = new Vector3[8];
+				Vertex *cubeVertices = new Vertex[24]{
+					// Front face
+					{{-1.0f, -1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {0.0f, 0.0f}}, // Bottom-left
+					{{ 1.0f, -1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {1.0f, 0.0f}}, // Bottom-right
+					{{ 1.0f,  1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {1.0f, 1.0f}}, // Top-right
+					{{-1.0f,  1.0f,  1.0f}, {0.0f,  0.0f,  1.0f}, {0.0f, 1.0f}}, // Top-left
 
-				Vertex* vertices_normal_textcoord = new Vertex[8];
+					// Right face
+					{{1.0f, -1.0f,  1.0f}, {1.0f,  0.0f,  0.0f}, {0.0f, 0.0f}},
+					{{1.0f, -1.0f, -1.0f}, {1.0f,  0.0f,  0.0f}, {1.0f, 0.0f}},
+					{{1.0f,  1.0f, -1.0f}, {1.0f,  0.0f,  0.0f}, {1.0f, 1.0f}},
+					{{1.0f,  1.0f,  1.0f}, {1.0f,  0.0f,  0.0f}, {0.0f, 1.0f}},
 
-				vertices_normal_textcoord[0] = { Vector3(0.5f, 0.5f, 0.5f),Vector3(0.0f, 0.0f, 1.0f),Vector2(1.0f,1.0f)};
-				vertices_normal_textcoord[1] = { Vector3(-0.5f, 0.5f, -0.5f),Vector3(0.0f, 0.0f, -1.0f),Vector2(1.0f,1.0f) };
-				vertices_normal_textcoord[2] = { Vector3(-0.5f, 0.5f, 0.5f),Vector3(0.0f, 0.0f, 1.0f),Vector2(0.0f,1.0f) };
-				vertices_normal_textcoord[3] = { Vector3(0.5f, -0.5f, -0.5f),Vector3(0.0f, 0.0f, -1.0f),Vector2(0.0f,0.0f) };
-				vertices_normal_textcoord[4] = { Vector3(-0.5f, -0.5f, -0.5f),Vector3(0.0f, 0.0f, -1.0f),Vector2(1.0f,0.0f) };
-				vertices_normal_textcoord[5] = { Vector3(0.5f, 0.5f, -0.5f),Vector3(0.0f, 0.0f, -1.0f),Vector2(0.0f,1.0f) };
-				vertices_normal_textcoord[6] = { Vector3(0.5f, -0.5f, 0.5f),Vector3(0.0f, 0.0f, 1.0f),Vector2(1.0f,0.0f) };
-				vertices_normal_textcoord[7] = { Vector3(-0.5f, -0.5f, 0.5f),Vector3(0.0f, 0.0f, 1.0f),Vector2(0.0f,0.0f) };
-				
+					// Back face
+					{{ 1.0f, -1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {0.0f, 0.0f}},
+					{{-1.0f, -1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {1.0f, 0.0f}},
+					{{-1.0f,  1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {1.0f, 1.0f}},
+					{{ 1.0f,  1.0f, -1.0f}, {0.0f,  0.0f, -1.0f}, {0.0f, 1.0f}},
 
-			/*	vertices[0] = Vector3(0.5f, 0.5f, 0.5f);
-				vertices[1] = Vector3(-0.5f, 0.5f, -0.5f);
-				vertices[2] = Vector3(-0.5f, 0.5f, 0.5f);
-				vertices[3] = Vector3(0.5f, -0.5f, -0.5f);
-				vertices[4] = Vector3(-0.5f, -0.5f, -0.5f);
-				vertices[5] = Vector3(0.5f, 0.5f, -0.5f);
-				vertices[6] = Vector3(0.5f, -0.5f, 0.5f);
-				vertices[7] = Vector3(-0.5f, -0.5f, 0.5f);
-				*/
-				//12*3 = 36
-				int *indices = new int[36] {
-					
-					0, 1, 2,
-					1, 3, 4,
-					
-					5, 6, 3,
-					7, 3, 6,
-					
-					2, 4, 7,
-					0, 7, 6,
-					
-					0, 5, 1,
-					1, 5, 3,
-					
-					5, 0, 6,
-					7, 4, 3,
-					
-					2, 1, 4,
-					0, 2, 7
+					// Left face
+					{{-1.0f, -1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}, {0.0f, 0.0f}},
+					{{-1.0f, -1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f}},
+					{{-1.0f,  1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 1.0f}},
+					{{-1.0f,  1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}, {0.0f, 1.0f}},
+
+					// Top face
+					{{-1.0f,  1.0f,  1.0f}, {0.0f,  1.0f,  0.0f}, {0.0f, 0.0f}},
+					{{ 1.0f,  1.0f,  1.0f}, {0.0f,  1.0f,  0.0f}, {1.0f, 0.0f}},
+					{{ 1.0f,  1.0f, -1.0f}, {0.0f,  1.0f,  0.0f}, {1.0f, 1.0f}},
+					{{-1.0f,  1.0f, -1.0f}, {0.0f,  1.0f,  0.0f}, {0.0f, 1.0f}},
+
+					// Bottom face
+					{{-1.0f, -1.0f, -1.0f}, {0.0f, -1.0f,  0.0f}, {0.0f, 0.0f}},
+					{{ 1.0f, -1.0f, -1.0f}, {0.0f, -1.0f,  0.0f}, {1.0f, 0.0f}},
+					{{ 1.0f, -1.0f,  1.0f}, {0.0f, -1.0f,  0.0f}, {1.0f, 1.0f}},
+					{{-1.0f, -1.0f,  1.0f}, {0.0f, -1.0f,  0.0f}, {0.0f, 1.0f}},
 				};
 				
-				//Mesh* mesh = new Mesh(vertices, 8, indices, 36);
-				Mesh* mesh = new Mesh(vertices_normal_textcoord, 8, indices, 36);
+
+				int *cubeIndices = new int[36]{
+					// Front face
+					0, 1, 2,    2, 3, 0,
+					// Right face
+					4, 5, 6,    6, 7, 4,
+					// Back face
+					8, 9, 10,   10, 11, 8,
+					// Left face
+					12, 13, 14, 14, 15, 12,
+					// Top face
+					16, 17, 18, 18, 19, 16,
+					// Bottom face
+					20, 21, 22, 22, 23, 20
+				};
+				
+				Mesh* mesh = new Mesh(cubeVertices, 24, cubeIndices, 36);
 				return mesh;
 			}
 

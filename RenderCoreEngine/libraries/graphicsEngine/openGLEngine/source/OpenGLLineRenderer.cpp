@@ -51,7 +51,7 @@ namespace RCEngine
 			glBindVertexArray(0);
 
 		}
-		void OpenGLLineRenderer::Render(ICamera* camera)
+		void OpenGLLineRenderer::Render(ICamera* camera,ILight* light)
 		{
 			glBindVertexArray(0);
 

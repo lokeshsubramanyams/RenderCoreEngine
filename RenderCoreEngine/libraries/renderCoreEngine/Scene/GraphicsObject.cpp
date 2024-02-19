@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "IMeshRenderer.h"
 #include "ILineRenderer.h"
+#include "ILight.h"
 
 
 namespace RCEngine
@@ -52,6 +53,10 @@ namespace RCEngine
 			else if (component->type == ComponentType::CameraComp)
 			{
 				GetComponent<Camera*>(ComponentType::CameraComp)->RequiredComponent(transform);
+			}
+			else if (component->type == ComponentType::LightComp)
+			{
+				GetComponent<ILight*>(ComponentType::LightComp)->RequiredComponent(transform);
 			}
 		}
 

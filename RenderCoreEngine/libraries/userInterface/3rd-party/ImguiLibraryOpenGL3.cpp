@@ -104,6 +104,10 @@ namespace RCEngine
 					UIRender(static_cast<Camera*>(graphicsObject->components[it->first]));
 				}
 				break;
+				case ComponentType::LightComp:
+				{
+					UIRender(static_cast<DirectionalLight*>(graphicsObject->components[it->first]));
+				}
 				case ComponentType::MeshRendererComp:
 				{
 					//IMeshRenderer* meshRenderer = graphicsObject->GetComponent<IMeshRenderer*>(ComponentType::MeshRendererComp);
@@ -152,6 +156,12 @@ namespace RCEngine
 			if (change > 0)
 				camera->viewport->SetViewPortRectf(viewport);
 		
+		}
+		void ImguiLibraryOpenGL3::UIRender(RCEngine::RenderCore::DirectionalLight* directionLight)
+		{
+			ImGui::Text(WIDGET_NAMES::DIRECTIONAL_LIGHT);
+			ImGui::ColorEdit3(":LightColor", (float*)&directionLight->lightColor);
+			ImGui::DragFloat(":LightIntensity", &directionLight->lightIntensity, 1.0f, 0.0f, 100.0f, "%.3f");
 		}
 		void ImguiLibraryOpenGL3::UIRender(RCEngine::RenderCore::Transform* transform)
 		{

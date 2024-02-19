@@ -40,6 +40,7 @@ namespace RCEngine
 		{
 			TransformComp,
 			CameraComp,
+			LightComp,
 			MeshFilterComp,
 			MaterialComp,
 			MeshRendererComp,

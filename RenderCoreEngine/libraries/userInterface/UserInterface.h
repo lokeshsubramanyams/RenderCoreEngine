@@ -31,6 +31,8 @@ namespace RCEngine
 			constexpr char CAMERATYPE[] = "CameraType";
 			constexpr char VIEWPORT[] = "ViewPort";
 			constexpr char PERFORMANCE_STATS[] = "PerformanceStats";
+
+			constexpr char DIRECTIONAL_LIGHT[] = "Directional Light";
 		}
 
 		inline Rect WidgetRect(const char* widget)

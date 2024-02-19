@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "IRequiredComponent.h"
 #include "Camera.h"
+#include "ILight.h"
 
 namespace RCEngine
 {
@@ -27,7 +28,7 @@ namespace RCEngine
 
 			virtual void Render(Matrix44 matrix) = 0;
 
-			virtual void Render(ICamera* camera) = 0;
+			virtual void Render(ICamera* camera,ILight* light ) = 0;
 
 			virtual void UnLoad() = 0;
 
