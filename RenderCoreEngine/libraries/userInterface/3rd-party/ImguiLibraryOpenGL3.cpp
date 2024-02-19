@@ -120,7 +120,7 @@ namespace RCEngine
 		{
 			ImGui::Text(WIDGET_NAMES::TRANSFORMATION);
 			ImGui::DragFloat3(":Position", &transform->position[0]);
-			if (ImGui::DragFloat4(":Rotation", &transform->eularAnglesInDegrees[0]))
+			if (ImGui::DragFloat3(":Rotation", &transform->eularAnglesInDegrees[0]))
 			{
 				transform->ApplyEularAnglesInDegree();
 			}

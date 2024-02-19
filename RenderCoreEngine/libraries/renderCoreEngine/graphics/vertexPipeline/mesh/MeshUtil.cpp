@@ -132,7 +132,7 @@ namespace RCEngine
 
 				float length = count;
 					
-				for (int i = 0; i < count-8; i+=8)
+				for (int i = 0; i < count; i+=8)
 				{
 					vertices[i] = Vector3(i, 0.0f, -length);
 					vertices[i+1] = Vector3(i, 0.0f, length);
