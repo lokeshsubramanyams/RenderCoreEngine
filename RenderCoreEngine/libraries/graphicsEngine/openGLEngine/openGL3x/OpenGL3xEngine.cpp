@@ -23,6 +23,8 @@ namespace RCEngine
 			std::unordered_map<std::string, ShaderMetaData> data;
 			data.insert({ defaultVertShader.shaderKey,defaultVertShader });
 			data.insert({ defaultFragShader.shaderKey,defaultFragShader });
+			data.insert({ defaultVertShader_v01.shaderKey,defaultVertShader_v01 });
+			data.insert({ defaultFragShader_v01.shaderKey,defaultFragShader_v01 });
 			return data;
 		}
 
