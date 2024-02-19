@@ -1,7 +1,6 @@
 #include "Scene.h"
-#include "Scene.h"
-#include "Scene.h"
 #include <Camera.h>
+#include <ILineRenderer.h>
 
 namespace RCEngine
 {
@@ -113,12 +112,13 @@ namespace RCEngine
 
 			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
 			defaultShader->Log();
-
 			Line* lines = MeshUtil::GetGridLines();
-			IComponent* component2 = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
-			lineObj->AttachComponent(component2);
+			IComponent* component = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
+			lineObj->AttachComponent(component);
 			sceneObjects.insert({ name,lineObj });
-			IRenderer* renderer = static_cast<IRenderer*>(component2);
+			static_cast<ILineRenderer*>(component)->color = Color(0.0f, 0.0f, 0.0f, 1.0f);
+			IRenderer* renderer = static_cast<IRenderer*>(component);
+			
 			renderers.push_back(renderer);
 			Load(renderer);
     }

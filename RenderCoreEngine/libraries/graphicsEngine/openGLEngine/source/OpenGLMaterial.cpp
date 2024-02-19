@@ -11,5 +11,9 @@ namespace RCEngine
 		{
 			shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLOR, CONST::DEFAULTVALUE::defaultColor);
 		}
+		void OpenGLMaterial::ApplyColor(Color color)
+		{
+			shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLOR,color );
+		}
 	}
 }

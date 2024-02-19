@@ -14,6 +14,7 @@ namespace RCEngine
 		public:
 			IMaterial* material;
 			Line* line;
+			Color color;
 			explicit ILineRenderer(Line* line ,IMaterial* mat) :line(line), material(mat), IRenderer(ComponentType::LineRendererComp) {};
 			
 		};

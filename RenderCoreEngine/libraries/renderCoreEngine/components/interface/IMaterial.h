@@ -14,6 +14,7 @@ namespace RCEngine
 			IShader* shader;
 			explicit IMaterial(IShader *_shader) :shader(_shader),IComponent(ComponentType::MaterialComp) {};
 			virtual void ApplyDefaultColor() = 0;
+			virtual void ApplyColor(Color color) = 0;
 
 		};
 	}

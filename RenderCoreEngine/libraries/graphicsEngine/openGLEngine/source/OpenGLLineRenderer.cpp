@@ -42,7 +42,7 @@ namespace RCEngine
 
 			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, projectView * transform->GetMatrix());
 
-			material->ApplyDefaultColor();
+			material->ApplyColor(color);
 
 			glBindVertexArray(VAO);
 
