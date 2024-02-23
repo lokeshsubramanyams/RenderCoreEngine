@@ -92,10 +92,10 @@ namespace RCEngine
 
 			material->SetTransformationMatrix(transform->GetMatrix(), camera->GetViewMatrix(), camera->GetProjectionMatrix());
 
-			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR, light->GetLightDirection());
-			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR, light->GetLightDirection());
-			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR, light->lightColor);
-			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR, Vector3(1.0f, 1.0f, 1.0f));
+			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR , light->GetLightDirection());
+			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR , light->GetLightDirection());
+			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR , light->lightColor);
+			material->ApplyToRender(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR);// , Vector3(1.0f, 1.0f, 1.0f));
 
 			glBindVertexArray(VAO);
 

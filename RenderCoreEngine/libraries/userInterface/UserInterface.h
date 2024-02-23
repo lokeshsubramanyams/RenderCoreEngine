@@ -30,6 +30,8 @@ namespace RCEngine
 			constexpr char CAMERA[] = "Camera";
 			constexpr char CAMERATYPE[] = "CameraType";
 			constexpr char VIEWPORT[] = "ViewPort";
+			constexpr char MESHRENDERER[] = "Mesh Renderer";
+			constexpr char MATERIAL[] = "Material";
 			constexpr char PERFORMANCE_STATS[] = "PerformanceStats";
 
 			constexpr char DIRECTIONAL_LIGHT[] = "Directional Light";

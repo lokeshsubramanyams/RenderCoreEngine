@@ -107,12 +107,12 @@ namespace RCEngine
 				case ComponentType::LightComp:
 				{
 					UIRender(static_cast<DirectionalLight*>(graphicsObject->components[it->first]));
-				}
+				}break;
 				case ComponentType::MeshRendererComp:
 				{
-					//IMeshRenderer* meshRenderer = graphicsObject->GetComponent<IMeshRenderer*>(ComponentType::MeshRendererComp);
+					UIRender(static_cast<IMeshRenderer*>(graphicsObject->components[it->first]));
 				}
-				//break;
+				break;
 			  default:
 					//Debug::LogError("Component UI not implemented type:" + std::to_string(it->first));
 					break;
@@ -162,6 +162,83 @@ namespace RCEngine
 			ImGui::Text(WIDGET_NAMES::DIRECTIONAL_LIGHT);
 			ImGui::ColorEdit3(":LightColor", (float*)&directionLight->lightColor);
 			ImGui::DragFloat(":LightIntensity", &directionLight->lightIntensity, 1.0f, 0.0f, 100.0f, "%.3f");
+		}
+		void ImguiLibraryOpenGL3::UIRender(RCEngine::RenderCore::IMeshRenderer* meshRenderer)
+		{
+			ImGui::Text(WIDGET_NAMES::MESHRENDERER);
+			ImGui::Text(WIDGET_NAMES::MATERIAL);
+
+			for (std::unordered_map<std::string, UniformVariable>::iterator it = meshRenderer->GetMaterial()->uniforms.begin(); it != meshRenderer->GetMaterial()->uniforms.end(); ++it)
+			{
+				if (!it->second.materialCanEdit)continue;
+
+					switch (it->second.vType)
+					{
+						case RCEngine::float1:	
+						{
+							float tempFloat = it->second.GetFloat();
+							if (ImGui::DragFloat(it->first.c_str(), &tempFloat))
+							{
+								meshRenderer->GetMaterial()->Apply(it->first, tempFloat);
+							}
+							break;
+						}
+						case RCEngine::int1:		
+						{
+							int tempInt = it->second.GetInt();
+							if (ImGui::DragInt(it->first.c_str(), &tempInt))
+							{
+								meshRenderer->GetMaterial()->Apply(it->first, tempInt);
+							}
+							break;
+						}
+						case RCEngine::vector2:
+						{
+							Vector2 tempV2 = it->second.GetVec2();
+							if (ImGui::DragFloat2(it->first.c_str(), &tempV2[0]))
+							{
+								meshRenderer->GetMaterial()->Apply(it->first, tempV2);
+							}
+							break;
+						}
+						case RCEngine::vector3: 
+						{
+							Vector3 tempV3 = it->second.GetVec3();
+							if (ImGui::DragFloat3(it->first.c_str(), &tempV3[0]))
+							{
+								meshRenderer->GetMaterial()->Apply(it->first, tempV3);
+							}break;
+						}
+						case RCEngine::vector4: 
+						{
+							Vector4 tempV4 = it->second.GetVec4();
+							if (ImGui::DragFloat4(it->first.c_str(), &tempV4[0]))
+							{
+								meshRenderer->GetMaterial()->Apply(it->first, tempV4);
+							}break;
+						}
+						case RCEngine::color3:	 
+						{
+							auto& color = std::get<Color3>(it->second.variable);
+							if (ImGui::ColorEdit4(it->first.c_str(), reinterpret_cast<float*>(&color)))
+							{
+								meshRenderer->GetMaterial()->Apply(it->first, color);
+							}break;
+						}
+						case RCEngine::color4:	
+						{
+							auto& color = std::get<Color4>(it->second.variable);
+							if (ImGui::ColorEdit4(it->first.c_str(), reinterpret_cast<float*>(&color)))
+							{
+								meshRenderer->GetMaterial()->Apply(it->first,color);
+							}break;
+						 
+						}
+					}
+
+			}
+			
+
 		}
 		void ImguiLibraryOpenGL3::UIRender(RCEngine::RenderCore::Transform* transform)
 		{

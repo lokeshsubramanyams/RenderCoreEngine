@@ -15,7 +15,8 @@ namespace RCEngine
 			MeshFilter *meshFilter;
 			IMaterial *material;
 			explicit IMeshRenderer(MeshFilter* filter, IMaterial* mat):meshFilter(filter), material(mat), IRenderer(ComponentType::MeshRendererComp) {};
-
+		public:
+			IMaterial *GetMaterial() {	return material;}
 		};
 	}
 }

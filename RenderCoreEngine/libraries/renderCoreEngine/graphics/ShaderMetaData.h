@@ -15,6 +15,7 @@ namespace RCEngine
 	{
 		const char* name;
 		VariableType variableType;
+		bool materialCanModify = true;
 	};
 	struct ShaderMetaData
 	{

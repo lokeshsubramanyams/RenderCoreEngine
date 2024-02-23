@@ -9,7 +9,7 @@ namespace RCEngine
 			for (int i = 0; i < shader->uniformMeta.size(); i++)
 			{
 				UniformVariable variable(shader->uniformMeta[i].name, shader->uniformMeta[i].variableType);
-				Debugger::Debug::Log(shader->uniformMeta[i].name, "");
+				variable.materialCanEdit = shader->uniformMeta[i].materialCanModify;
 				uniforms.insert({ shader->uniformMeta[i].name ,variable });
 			}
 		}

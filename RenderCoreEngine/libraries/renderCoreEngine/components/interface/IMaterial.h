@@ -12,6 +12,11 @@ namespace RCEngine
 	{
 		using namespace RCEngine::RenderCore;
 		using namespace RCEngine::MathLib;
+		using namespace Debugger;
+		struct make_string_functor {
+			std::string operator()(const std::string& x) const { return x; }
+			std::string operator()(int x) const { return std::to_string(x); }
+		};
 		class IMaterial:public IComponent
 		{
 		protected:
@@ -24,22 +29,31 @@ namespace RCEngine
 			virtual void ApplyColor(Color4 color) = 0;
 			virtual void UseProgram() = 0;
 			
+			virtual void ApplyToRender(std::string uniformKey)
+			{
+				if (uniforms.count(uniformKey) > 0)
+				{
+					Apply(uniforms[uniformKey]);
+				}
+			}
 
 			virtual void Apply(std::string uniformKey, uniformVarient value)
 			{
 				if (uniforms.count(uniformKey) > 0)
 				{
 					uniforms[uniformKey].Set(value);
+					
 					if (uniforms[uniformKey].updated)
 					{
 						Apply(uniforms[uniformKey]);
-						Debugger::Debug::Log("Updating:", uniformKey);
 						uniforms[uniformKey].updated = false;
 					}
+				
 				}
 			}
 			virtual void Apply(UniformVariable variable)
 			{
+				
 				switch (variable.vType)
 				{
 				case RCEngine::float1: shader->ApplyProperty(variable.nameKey.c_str(), variable.GetFloat());

@@ -30,6 +30,7 @@ namespace RCEngine
 		std::string nameKey;
 		VariableType vType;
 		bool updated = false;
+		bool materialCanEdit = true;
 		UniformVariable() :variable(0), vType(VariableType::int1), nameKey("") {}
 		UniformVariable(const char* str, VariableType type) :vType(type), nameKey(str) 
 		{
@@ -40,8 +41,8 @@ namespace RCEngine
 			case RCEngine::vector2: variable = Vector2(0.0f, 0.0f); break;
 			case RCEngine::vector3:	variable = Vector3(0.0f, 0.0f, 0.0f); break;
 			case RCEngine::vector4:	variable = Vector4(0.0f, 0.0f, 0.0f, 0.0f); break;
-			case RCEngine::color3:	variable = Color3(0.0f, 0.0f, 0.0f); break;
-			case RCEngine::color4:	variable = Color4(0.0f, 0.0f, 0.0f, 0.0f); break;
+			case RCEngine::color3:	variable = Color3(1.0f, 1.0f, 1.0f); break;
+			case RCEngine::color4:	variable = Color4(1.0f, 1.0f, 1.0f, 1.0f); break;
 			case RCEngine::mat3:		variable = Matrix33(1.0f); break;
 			case RCEngine::mat4:		variable = Matrix44(1.0f); break;
 			default:variable = 0; break;

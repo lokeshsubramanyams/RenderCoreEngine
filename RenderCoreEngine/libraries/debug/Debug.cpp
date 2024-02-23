@@ -50,8 +50,15 @@ void RCEngine::Debugger::Debug::Log(const char* msg,const char* message) {
 void RCEngine::Debugger::Debug::Log(const char* log, Vector3 vector)
 {
 #ifdef DEBUG
-	string vecStr = string("{" + std::to_string(vector.x) +" , " + std::to_string(vector.y) + " , " + std::to_string(vector.z) + "}");
+	string vecStr = string("{" + std::to_string(vector.x) +" , " + std::to_string(vector.y) + " , " + std::to_string(vector.z) + " , " + std::to_string(vector.t) + "}");
 	std::cout<<log <<" : " << vecStr << std::endl;
+#endif
+}
+void RCEngine::Debugger::Debug::Log(const char* log, Vector4 vector)
+{
+#ifdef DEBUG
+	string vecStr = string("{" + std::to_string(vector.x) + " , " + std::to_string(vector.y) + " , " + std::to_string(vector.z) + "}");
+	std::cout << log << " : " << vecStr << std::endl;
 #endif
 }
 
