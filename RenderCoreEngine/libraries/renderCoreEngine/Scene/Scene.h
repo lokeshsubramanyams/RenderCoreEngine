@@ -9,6 +9,7 @@
 #include <Mesh.h>
 #include "DirectionalLight.h"
 
+
 namespace RCEngine
 {
 	namespace RenderCore
@@ -27,7 +28,6 @@ namespace RCEngine
 			void AddTriangle(string objName);
 			void AddQuad(string objName);
 			void AddCamera(string objName);
-			void AddLines(string objName);
 			void AddLight(string objName);
 
 			void LoadAll();
@@ -50,13 +50,15 @@ namespace RCEngine
 			IGraphicsEngine* graphicsEngine;
 
 			
+
+			void AddGridLines(string objName);
 			
 
 		private:
 			void AddDefaultSceneObjects();
 			void CreateGraphicsObject(string name, Mesh* mesh);
 			void AddToScene(string keu, GraphicsObject* obj, IRenderer* renderer);
-
+			
 		};
 
 	}

@@ -33,7 +33,10 @@ namespace RCEngine
 					
 					if (shaderProgram != -1)
 					{
-						shaders.insert({ programsToLoad[index].generatedShaderKey,std::make_unique<RCEngine::OpenGLEngine::OpenGLShader>(shaderProgram, programsToLoad[index].uniformKeys) });
+
+						std::vector<UniformMeta> metas(engineMetaData[vkey].uniforms);
+						metas.insert(metas.end(), engineMetaData[fkey].uniforms.begin(), engineMetaData[fkey].uniforms.end());
+						shaders.insert({ programsToLoad[index].generatedShaderKey,std::make_unique<RCEngine::OpenGLEngine::OpenGLShader>(shaderProgram, programsToLoad[index].uniformKeys,metas) });
 						
 					}
 

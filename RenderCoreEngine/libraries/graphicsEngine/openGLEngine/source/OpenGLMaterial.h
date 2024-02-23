@@ -13,7 +13,8 @@ namespace RCEngine
 		public:
 			OpenGLMaterial(IShader *shader);
 			void ApplyDefaultColor() override;
-			void ApplyColor(Color color)override;
+			void ApplyColor(Color4 color)override;
+			void UseProgram()override;
 		};
 	}
 }

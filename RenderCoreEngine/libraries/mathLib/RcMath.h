@@ -16,8 +16,10 @@ namespace RCEngine
 		typedef vec3 Vector3;
 		typedef vec4 Vector4;
 		typedef quat Quaternion;
+		typedef mat3 Matrix33;
 		typedef mat4 Matrix44;
-		typedef vec4 Color;
+		typedef vec3 Color3;
+		typedef vec4 Color4;
 
 		template<typename T>
 		T clamp01(T value) {

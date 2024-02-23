@@ -62,7 +62,16 @@ namespace RCEngine
 			float nearZ;
 			float farZ;
 		};
-		
+
+		enum GraphicsTag
+		{
+			Scene = 0,
+			Editor = 1
+		};
+		enum VariableType
+		{
+			float1, int1, vector2, vector3, vector4, color3, color4, mat3, mat4
+		};
 
 	
 		namespace CONST
@@ -99,7 +108,7 @@ namespace RCEngine
 			}
 			namespace DEFAULTVALUE
 			{
-				const MathLib::Color defaultColor = MathLib::Color(1.0f, 1.0f, 1.0f, 1.0f);
+				const MathLib::Color4 defaultColor = MathLib::Color4(1.0f, 1.0f, 1.0f, 1.0f);
 			}
 		};
 

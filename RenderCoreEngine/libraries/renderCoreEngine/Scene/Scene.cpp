@@ -82,6 +82,12 @@ namespace RCEngine
 			{
 				behaviours.push_back(static_cast<IBehaviour*>(component));
 			}
+			else if (component->type == ComponentType::LineRendererComp)
+			{
+				IRenderer* renderer = static_cast<IRenderer*>(component);
+				renderers.push_back(renderer);
+				renderer->Load();
+			}
 		}
 
 		GraphicsObject* Scene::GetGraphicsObject(string name)
@@ -96,7 +102,7 @@ namespace RCEngine
 		void Scene::AddDefaultSceneObjects()
 		{
 			AddCamera("MainCamera");
-			AddLines("GridLines");
+			AddGridLines("GridLines");
 			AddLight("DirectionLight");
 		}
 
@@ -114,7 +120,7 @@ namespace RCEngine
 			AddToScene(camName, cameraObject,nullptr);
 		}
 
-    void Scene::AddLines(string objName)
+    void Scene::AddGridLines(string objName)
     {
 			GraphicsObject* lineObj = new GraphicsObject(objName);
 			lineObj->tag = "editor";
@@ -123,7 +129,7 @@ namespace RCEngine
 			Line* lines = MeshUtil::GetGridLines();
 			IComponent* component = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
 			lineObj->AttachComponent(component);
-			static_cast<ILineRenderer*>(component)->color = Color(0.0f, 0.0f, 0.0f, 1.0f);
+			static_cast<ILineRenderer*>(component)->color = Color4(0.0f, 0.0f, 0.0f, 1.0f);
 			IRenderer* renderer = static_cast<IRenderer*>(component);
 			
 			AddToScene(objName, lineObj, renderer);
@@ -134,7 +140,7 @@ namespace RCEngine
 			GraphicsObject* lightObj = new GraphicsObject(objName);
 			DirectionalLight* light = new DirectionalLight();
 			lightObj->AttachComponent(light);
-			lightObj->transform->rotation = Quaternion(Vector3(glm::radians(-60.0f), 0.0f, 0.0f));
+			//lightObj->transform->Rotation(Quaternion(Vector3(glm::radians(-60.0f), 0.0f, 0.0f)));
 			lights.push_back(light);
 			AddToScene(objName, lightObj, nullptr);
 		}

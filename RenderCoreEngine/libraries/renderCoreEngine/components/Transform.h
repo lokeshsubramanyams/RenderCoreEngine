@@ -26,6 +26,8 @@ namespace RCEngine
 			void ApplyEularAnglesInDegree();
 
 			Vector3 eularAnglesInDegrees;
+
+			void Rotation(Quaternion rotation);
 			
 		};
 	}

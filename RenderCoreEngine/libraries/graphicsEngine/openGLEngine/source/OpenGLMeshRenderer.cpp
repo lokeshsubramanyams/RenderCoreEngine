@@ -9,7 +9,9 @@ namespace RCEngine
 		using namespace Debugger;
 		OpenGLMeshRenderer::OpenGLMeshRenderer(MeshFilter* filter, IMaterial* material):IMeshRenderer(filter,material)
 		{
+		  
 			
+
 		}
 
 		void OpenGLMeshRenderer::Load()
@@ -17,6 +19,7 @@ namespace RCEngine
 			glEnable(GL_CULL_FACE);
 			glFrontFace(GL_CCW);
 			glCullFace(GL_BACK);
+
 
 			glGenVertexArrays(1, &VAO);
 			glGenBuffers(1, &VBO);
@@ -36,7 +39,7 @@ namespace RCEngine
 			glEnableVertexAttribArray(1); 
 			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)offsetof(Vertex, normal));
 
-			// Normals
+			// TexCoord
 			glEnableVertexAttribArray(2);
 			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)offsetof(Vertex, texCoord));
 
@@ -51,9 +54,9 @@ namespace RCEngine
 		{
 			glBindVertexArray(0);
 
-			material->shader->UseProgram();
+			material->UseProgram();
 			
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, transform->GetMatrix());
+			material->SetTransformationMatrix(transform->GetMatrix());
 			material->ApplyDefaultColor();
 
 			glBindVertexArray(VAO);
@@ -68,9 +71,9 @@ namespace RCEngine
 		{
 			glBindVertexArray(0);
 
-			material->shader->UseProgram();
+			material->UseProgram();
 
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, projectView * transform->GetMatrix());
+			material->SetTransformationMatrix(projectView * transform->GetMatrix());
 
 			material->ApplyDefaultColor();
 
@@ -85,17 +88,14 @@ namespace RCEngine
 		{
 			glBindVertexArray(0);
 
-			material->shader->UseProgram();
+			material->UseProgram();
 
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_MODEL_MATRIX, transform->GetMatrix());
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_VIEW_MATRIX, camera->GetViewMatrix());
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_PROJECTION_MATRIX, camera->GetProjectionMatrix());
+			material->SetTransformationMatrix(transform->GetMatrix(), camera->GetViewMatrix(), camera->GetProjectionMatrix());
 
-			
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR, light->GetLightDirection());
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR, light->lightColor);
-
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR, Vector3(1.0f,1.0f,1.0f));
+			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR, light->GetLightDirection());
+			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR, light->GetLightDirection());
+			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR, light->lightColor);
+			material->Apply(CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR, Vector3(1.0f, 1.0f, 1.0f));
 
 			glBindVertexArray(VAO);
 

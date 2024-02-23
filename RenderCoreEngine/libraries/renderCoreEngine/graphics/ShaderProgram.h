@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 #include<vector>
+
 namespace RCEngine
 {
 	struct ShaderProgram
@@ -9,7 +10,6 @@ namespace RCEngine
 		std::string fragmentkey;
 		std::string generatedShaderKey;
 		std::vector<const char*> uniformKeys;
-
 	};
 
 }

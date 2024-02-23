@@ -1,7 +1,8 @@
 #include "Transform.h"
-
+#include "Debug.h"
 namespace RCEngine
 {
+	using namespace Debugger;
 	namespace RenderCore
 	{
 		Transform::Transform() :IComponent(ComponentType::TransformComp)
@@ -9,7 +10,9 @@ namespace RCEngine
 			position = Vector3(0,0,0);
 			rotation = Quaternion();
 			scale = Vector3(1,1,1);
+
 			eularAnglesInDegrees = EularAnglesInDegrees();
+			Debug::Log("->", eularAnglesInDegrees);
 		}
 		Transform::Transform(Vector3 _pos, Quaternion _rot, Vector3 _scale):IComponent(ComponentType::TransformComp)
 		{
@@ -17,6 +20,7 @@ namespace RCEngine
 			rotation = _rot;
 			scale = _scale;
 			eularAnglesInDegrees = EularAnglesInDegrees();
+			Debug::Log("->", eularAnglesInDegrees);
 		}
 		Matrix44 Transform::GetMatrix()
 		{
@@ -30,19 +34,19 @@ namespace RCEngine
 			Quaternion quaternion = glm::normalize(rotation);
 			glm::mat4 rotationMatrix = glm::mat4_cast(quaternion);
 			
-			return  glm::vec3(rotationMatrix[0][2], rotationMatrix[1][2], rotationMatrix[2][2]);
+			return  glm::normalize(glm::vec3(rotationMatrix[0][2], rotationMatrix[1][2], rotationMatrix[2][2]));
 		}
 		Vector3 Transform::up() {
 			
 			Quaternion quaternion = glm::normalize(rotation);
 			glm::mat4 rotationMatrix = glm::mat4_cast(quaternion);
-			return glm::vec3(rotationMatrix[0][1], rotationMatrix[1][1], rotationMatrix[2][1]);
+			return glm::normalize(glm::vec3(rotationMatrix[0][1], rotationMatrix[1][1], rotationMatrix[2][1]));
 
 		}
 		Vector3 Transform::right() {
 			Quaternion quaternion = glm::normalize(rotation);
 			glm::mat4 rotationMatrix = glm::mat4_cast(quaternion);
-			return glm::vec3(rotationMatrix[0][0], rotationMatrix[1][0], rotationMatrix[2][0]);
+			return glm::normalize(glm::vec3(rotationMatrix[0][0], rotationMatrix[1][0], rotationMatrix[2][0]));
 		}
 
 		Vector3 Transform::EularAnglesRadians()
@@ -60,5 +64,10 @@ namespace RCEngine
 			rotation = Quaternion(Vector3(glm::radians(eularAnglesInDegrees.x), glm::radians(eularAnglesInDegrees.y), glm::radians(eularAnglesInDegrees.z)));
 		}
 
+		void Transform::Rotation(Quaternion rotation)
+		{
+			this->rotation = rotation;
+			this->eularAnglesInDegrees = EularAnglesInDegrees();
+		}
 	}
 }

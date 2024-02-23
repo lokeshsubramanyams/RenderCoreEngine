@@ -38,9 +38,9 @@ namespace RCEngine
 		{
 			glBindVertexArray(0);
 
-			material->shader->UseProgram();
+			material->UseProgram();
 
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, projectView * transform->GetMatrix());
+			material->SetTransformationMatrix(projectView * transform->GetMatrix());
 
 			material->ApplyColor(color);
 
@@ -55,9 +55,9 @@ namespace RCEngine
 		{
 			glBindVertexArray(0);
 
-			material->shader->UseProgram();
+			material->UseProgram();
 
-			material->shader->ApplyProperty(CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX, camera->GetViewProjectionMatrix() * transform->GetMatrix());
+			material->SetTransformationMatrix(camera->GetViewProjectionMatrix() * transform->GetMatrix());
 
 			material->ApplyColor(color);
 

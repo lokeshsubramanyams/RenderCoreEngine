@@ -13,12 +13,15 @@ namespace RCEngine
 		class OpenGLShader : public IShader
 		{
 		public:
-			OpenGLShader(GLuint shaderProgram, std::vector<const char*> uniformKeys);
+			OpenGLShader(GLuint shaderProgram, std::vector<const char*> uniformKeys, std::vector<UniformMeta> umetas);
 			void UseProgram()override;
 			void ApplyProperty(const char* uniformKey, MathLib::Matrix44 value)override;
 			void ApplyProperty(const char* uniformKey, MathLib::Vector4 value)override;
 			void ApplyProperty(const char* uniformKey, MathLib::Vector3 value)override;
 			void ApplyProperty(const char* uniformKey, MathLib::Vector2 value)override;
+			void ApplyProperty(const char* uniformKey, MathLib::Matrix33 value)override;
+			void ApplyProperty(const char* uniformKey, float value) override;
+			void ApplyProperty(const char* uniformKey, int value) override;
 			
 			void Log()override;
 		private:

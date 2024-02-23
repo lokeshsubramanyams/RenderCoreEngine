@@ -85,8 +85,26 @@ namespace RCEngine
 			
 			//////////////////////////////////////////////////////////////
 
-		  scene->AddShape("cube", GeometryShapes::Cube);
-			scene->AttachComponent("cube", new Behaviour(0.25f));
+		 // scene->AddShape("cube", GeometryShapes::Cube);
+		//	scene->GetGraphicsObject("cube")->transform->position = Vector3(0, 0, 10);
+			//scene->AttachComponent("cube", new Behaviour(0.25f));
+
+			Vector3 forward =  scene->GetGraphicsObject("DirectionLight")->transform->forward();
+
+			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
+
+			Vector3 p1 = Vector3(0.0f, 0.0f, 0.0f);
+			Vector3 p2 = p1 + forward * 10.0f;
+			Vector3 *vertices = new Vector3[2]{ p1,p2 };
+			Line* lines = new Line(vertices, 2);
+			IComponent* component = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
+			
+
+		 	scene->AddShape("sphere", GeometryShapes::Sphere);
+			scene->GetGraphicsObject("sphere")->transform->scale = Vector3(0.5, 0.5, 0.5);
+			scene->AttachComponent("sphere", component);
+		   scene->AttachComponent("sphere", new Behaviour(0.25f));
+
 
 			fps = new FrameRateTracker();
 		}

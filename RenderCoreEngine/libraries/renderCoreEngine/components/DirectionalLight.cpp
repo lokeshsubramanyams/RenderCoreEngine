@@ -1,5 +1,5 @@
 #include "DirectionalLight.h"
-
+#include "Debug.h"
 namespace RCEngine
 {
 	namespace RenderCore

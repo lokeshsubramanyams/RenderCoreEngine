@@ -7,8 +7,8 @@ namespace RCEngine
 	using namespace Debugger;
 	namespace OpenGLEngine
 	{
-		OpenGLShader::OpenGLShader(GLuint shaderProgram,std::vector<const char*> uniformKeys)
-			:thisShaderProgram(shaderProgram)
+		OpenGLShader::OpenGLShader(GLuint shaderProgram,std::vector<const char*> uniformKeys, std::vector<UniformMeta>umetas)
+			:thisShaderProgram(shaderProgram),IShader(umetas)
 		{
 			for (int i = 0; i < uniformKeys.size(); i++)
 			{
@@ -55,6 +55,21 @@ namespace RCEngine
 		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Vector2 value)
 		{
 			glUniform2fv(GetUniform(uniformKey), 1, glm::value_ptr(value));
+		}
+
+		void OpenGLShader::ApplyProperty(const char* uniformKey, MathLib::Matrix33 value)
+		{
+			glUniformMatrix3fv(GetUniform(uniformKey), 1, GL_FALSE, glm::value_ptr(value));
+		}
+
+		void OpenGLShader::ApplyProperty(const char* uniformKey, float value)
+		{
+			glUniform1f(GetUniform(uniformKey), value);
+		}
+
+		void OpenGLShader::ApplyProperty(const char* uniformKey, int value)
+		{
+			glUniform1i(GetUniform(uniformKey), value);
 		}
 		
 		void OpenGLShader::Log()
