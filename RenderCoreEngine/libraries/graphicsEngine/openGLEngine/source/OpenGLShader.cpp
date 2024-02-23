@@ -7,12 +7,12 @@ namespace RCEngine
 	using namespace Debugger;
 	namespace OpenGLEngine
 	{
-		OpenGLShader::OpenGLShader(GLuint shaderProgram,std::vector<const char*> uniformKeys, std::vector<UniformMeta>umetas)
+		OpenGLShader::OpenGLShader(GLuint shaderProgram, std::vector<UniformMeta>umetas)
 			:thisShaderProgram(shaderProgram),IShader(umetas)
 		{
-			for (int i = 0; i < uniformKeys.size(); i++)
+			for (int i = 0; i < umetas.size(); i++)
 			{
-				this->AddUniform(uniformKeys[i]);
+				this->AddUniform(umetas[i].name);
 			}
 		}
 

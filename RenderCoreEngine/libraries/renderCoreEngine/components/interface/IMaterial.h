@@ -33,6 +33,7 @@ namespace RCEngine
 					if (uniforms[uniformKey].updated)
 					{
 						Apply(uniforms[uniformKey]);
+						Debugger::Debug::Log("Updating:", uniformKey);
 						uniforms[uniformKey].updated = false;
 					}
 				}

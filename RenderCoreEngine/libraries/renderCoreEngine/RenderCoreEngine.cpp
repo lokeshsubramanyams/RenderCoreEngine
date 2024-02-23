@@ -54,24 +54,18 @@ namespace RCEngine
 
 			ShaderProgram defaultShaderProgram =
 			{
-				CONST::SHADERFILE::DEFAULT_VERTEX,CONST::SHADERFILE::DEFAULT_FRAGMENT,CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT,
-				{CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_TRANSFORM_MATRIX,	CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_FRAGMENT_COLOR}
+				CONST::SHADERFILE::DEFAULT_VERTEX,
+				CONST::SHADERFILE::DEFAULT_FRAGMENT,
+				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT
+				
 			};
 
 			ShaderProgram defaultShaderProgramV01 =
 			{
 				CONST::SHADERFILE::DEFAULT_VERTEX_V01,
 				CONST::SHADERFILE::DEFAULT_FRAGMENT_V01,
-				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01,
-				{
-					CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_MODEL_MATRIX,
-			  	CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_VIEW_MATRIX,
-					CONST::SHADERUNIFORM::DEFAULT_VERTEX_UNIFORM_PROJECTION_MATRIX,
-					CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTDIR,
-					CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_LIGHTCOLOR,
-					CONST::SHADERUNIFORM::DEFAULT_FRAGMENT_UNIFORM_OBJECTCOLOR
-
-				}
+				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01
+			
 			};
 
 			graphicsEngine->LoadShaderBatch({ defaultShaderProgram,defaultShaderProgramV01 });
@@ -84,10 +78,6 @@ namespace RCEngine
 			scene = std::make_unique<Scene>(graphicsEngine.get(), "Sample");
 			
 			//////////////////////////////////////////////////////////////
-
-		 // scene->AddShape("cube", GeometryShapes::Cube);
-		//	scene->GetGraphicsObject("cube")->transform->position = Vector3(0, 0, 10);
-			//scene->AttachComponent("cube", new Behaviour(0.25f));
 
 			Vector3 forward =  scene->GetGraphicsObject("DirectionLight")->transform->forward();
 

@@ -9,7 +9,6 @@ namespace RCEngine
 		std::string vertexkey;
 		std::string fragmentkey;
 		std::string generatedShaderKey;
-		std::vector<const char*> uniformKeys;
 	};
 
 }
