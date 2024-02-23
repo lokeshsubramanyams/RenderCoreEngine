@@ -95,6 +95,14 @@ namespace RCEngine
 			scene->AttachComponent("sphere", component);
 		   scene->AttachComponent("sphere", new Behaviour(0.25f));
 
+			 scene->AddShape("sphere1", GeometryShapes::Sphere);
+			 scene->GetGraphicsObject("sphere1")->transform->position = Vector3(0, 0, 10);
+
+			 scene->AddShape("sphere2", GeometryShapes::Sphere);
+			 scene->GetGraphicsObject("sphere2")->transform->position = Vector3(0, 0, 20);
+			 
+			 
+
 
 			fps = new FrameRateTracker();
 		}
