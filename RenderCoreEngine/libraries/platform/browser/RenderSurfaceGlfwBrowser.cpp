@@ -18,9 +18,9 @@ namespace RCEngine
 
 			MakeContextCurrent();
 
-			resizeCallBack = std::bind(&RenderSurfaceGlfwBrowser::framebufferResizeCallback, this, std::placeholders::_1, std::placeholders::_2);
+			resizeCallBack = std::bind(&RenderSurfaceGlfwBrowser::FramebufferResizeCallback, this, std::placeholders::_1, std::placeholders::_2);
 		}
-		void RenderSurfaceGlfwBrowser::framebufferResizeCallback(GLFWwindow* window, Rect newSurface)
+		void RenderSurfaceGlfwBrowser::FramebufferResizeCallback(GLFWwindow* window, Rect newSurface)
 		{
 			if (windowResizeEventListenser)
 			{

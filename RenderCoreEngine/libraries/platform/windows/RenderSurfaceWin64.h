@@ -1,5 +1,4 @@
-#include "IRenderSurface.h"
-#include "GlfwWindow.h"
+#include "IRenderSurfaceGlfw.h"
 
 namespace RCEngine
 {
@@ -7,11 +6,10 @@ namespace RCEngine
 	{
 		using namespace RCEngine::MathLib;
 		
-		class RenderSurfaceWin64 :public IRenderSurface
+		class RenderSurfaceWin64 :public IRenderSurfaceGlfw
 		{
 		private:
-			 GLFWwindow* window;
-
+			
 			 GLFWmonitor* GetMonitorWithHighestResolution();
 			 
 		public:
@@ -28,9 +26,7 @@ namespace RCEngine
 
 			std::any GetContext()override;
 		
-			void framebufferResizeCallback(GLFWwindow* window, Rect newViewport);
-
-
+		
 
 		};
 	}

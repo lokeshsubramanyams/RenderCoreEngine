@@ -20,6 +20,7 @@
 
 #include "IGraphicsEngine.h"
 #include "FrameRateTracker.h"
+#include "DesktopInputHandler.h"
 #include "Debug.h"
 #include "GraphicsObject.h"
 #include "Camera.h"
@@ -47,7 +48,9 @@ namespace RCEngine
 			std::unique_ptr<IRenderSurface> renderSurface;
 			std::unique_ptr<IGraphicsEngine> graphicsEngine;
 			std::unique_ptr<UserInterfaceEngine> uiEngine;
+
 			std::unique_ptr<Scene> scene;
+			std::unique_ptr<IInputHandler> inputHandler;
 
 			void InitilizeEngine();
 			void Renderer();

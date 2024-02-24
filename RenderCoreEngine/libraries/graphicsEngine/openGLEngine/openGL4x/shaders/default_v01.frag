@@ -14,16 +14,13 @@ uniform vec3 OBJECT_COLOR;
 
 void main()
 {
-
-    vec3 norm = normalize(Normal);
+    vec3 norm = Normal;//normalize(Normal);
 
     float diff = max(dot(norm, -LIGHT_DIRECTION), 0.0);
     vec3 diffuse = diff * LIGHT_COLOR;
-
+	
     // Combine the lighting component with the object color
     vec3 result = diffuse * OBJECT_COLOR;
     FragColor = vec4(result, 1.0);
-
-    
     //FragColor = vec4(texture(texture_diffuse, TexCoords).rgb * result, 1.0);
 }

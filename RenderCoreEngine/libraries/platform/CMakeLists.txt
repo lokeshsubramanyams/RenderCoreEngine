@@ -16,6 +16,8 @@ else()
   #file(GLOB_RECURSE PLATFORM_SOURCE_FILES  ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.h ${CMAKE_CURRENT_SOURCE_DIR}/windows/*.cpp)
   set(SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.h 
                       ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurface.cpp
+                      ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurfaceGlfw.h 
+                      ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurfaceGlfw.cpp
                       ${CMAKE_CURRENT_SOURCE_DIR}/GlfwWindow.h 
                          ${CMAKE_CURRENT_SOURCE_DIR}/windows/RenderSurfaceWin64.h 
                         ${CMAKE_CURRENT_SOURCE_DIR}/windows/RenderSurfaceWin64.cpp)

@@ -8,22 +8,23 @@ namespace RCEngine
 	namespace Platform
 	{
 
-		RenderSurfaceWin64::RenderSurfaceWin64(Rect _viewport) :IRenderSurface(_viewport)
+		RenderSurfaceWin64::RenderSurfaceWin64(Rect _viewport) :IRenderSurfaceGlfw(_viewport)
 		{
 			
 		  window = CreateGlfwWindow("RCEngine", screenRect.width, screenRect.height);
 
 			glfwMakeContextCurrent(window);
 			
-			resizeCallBack = std::bind(&RenderSurfaceWin64::framebufferResizeCallback, this, std::placeholders::_1, std::placeholders::_2);
+			resizeCallBack = std::bind(&RenderSurfaceWin64::FramebufferResizeCallback, this, std::placeholders::_1, std::placeholders::_2);
+
+			cursorPositionCallBack = std::bind(&RenderSurfaceWin64::MousePositionCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+
+			mouseClickCallBack = std::bind(&RenderSurfaceWin64::MouseClickCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+
+			mouseScrollCallBack = std::bind(&RenderSurfaceWin64::MouseScrollCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);;
+			
 		}
-		void RenderSurfaceWin64::framebufferResizeCallback(GLFWwindow *window, Rect newSurface)
-		{
-			if (windowResizeEventListenser)
-			{
-				windowResizeEventListenser(newSurface);
-			}
-		}
+	
 		RenderSurfaceWin64::~RenderSurfaceWin64()
 		{
 			if (window)

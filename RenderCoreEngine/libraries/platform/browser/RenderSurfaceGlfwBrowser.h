@@ -33,7 +33,7 @@ namespace RCEngine
 
 			void WindowPlacementOnBigMonitor()override;
 			
-			void framebufferResizeCallback(GLFWwindow* window, Rect newViewport);
+			void FramebufferResizeCallback(GLFWwindow* window, Rect newViewport);
 
 		};
 	}

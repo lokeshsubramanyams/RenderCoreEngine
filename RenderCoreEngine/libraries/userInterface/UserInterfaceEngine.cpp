@@ -1,5 +1,6 @@
 #include "UserInterfaceEngine.h"
 #include "UserInterfaceEngine.h"
+#include "UserInterfaceEngine.h"
 #include "ImguiLibraryOpenGL3.h"
 #include "Debug.h"
 
@@ -44,9 +45,12 @@ namespace RCEngine
 		{
 			uiLibraryImpl->End();
 		}
-		
-		
 
+    bool UserInterfaceEngine::IsMouseOnUI()
+    {
+       return uiLibraryImpl->IsMouseOnUI();
+    }
+	
 		UserInterfaceEngine::~UserInterfaceEngine()
 		{
 			uiLibraryImpl->ShutDown();

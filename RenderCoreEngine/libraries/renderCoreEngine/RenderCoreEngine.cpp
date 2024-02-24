@@ -47,6 +47,8 @@ namespace RCEngine
 			renderSurface->AddWindowResizeListener(std::bind(&RenderCoreEngine::OnWindowsResize, this, std::placeholders::_1));
 
 			renderSurface->WindowPlacementOnBigMonitor();
+
+			
 			
 			///////////////////////////////////////////////////////////
 
@@ -76,7 +78,11 @@ namespace RCEngine
 			///////////////////////////////////////////////////////////////
 
 			scene = std::make_unique<Scene>(graphicsEngine.get(), "Sample");
-			
+
+			inputHandler = std::make_unique<DesktopInputHandler>(renderSurface.get(), uiEngine.get());
+
+			inputHandler->HandleTransformByInput(scene->GetGraphicsObject("MainCamera")->transform);
+
 			//////////////////////////////////////////////////////////////
 
 			Vector3 forward =  scene->GetGraphicsObject("DirectionLight")->transform->forward();
@@ -93,15 +99,17 @@ namespace RCEngine
 		 	scene->AddShape("sphere", GeometryShapes::Sphere);
 			scene->GetGraphicsObject("sphere")->transform->scale = Vector3(0.5, 0.5, 0.5);
 			scene->AttachComponent("sphere", component);
-		   scene->AttachComponent("sphere", new Behaviour(0.25f));
+		  
 
-			 scene->AddShape("sphere1", GeometryShapes::Sphere);
-			 scene->GetGraphicsObject("sphere1")->transform->position = Vector3(0, 0, 10);
+			scene->AddShape("sphere1", GeometryShapes::Sphere);
+			scene->GetGraphicsObject("sphere1")->transform->position = Vector3(0, 0, 10);
 
-			 scene->AddShape("sphere2", GeometryShapes::Sphere);
-			 scene->GetGraphicsObject("sphere2")->transform->position = Vector3(0, 0, 20);
+			scene->AddShape("sphere2", GeometryShapes::Sphere);
+			scene->GetGraphicsObject("sphere2")->transform->position = Vector3(0, 0, 20);
 			 
-			 
+			scene->AddShape("Cube", GeometryShapes::Cube);
+			scene->GetGraphicsObject("Cube")->transform->position = Vector3(0, 0, 30);
+
 
 
 			fps = new FrameRateTracker();

@@ -2,6 +2,7 @@
 
 #include<glm.hpp>
 #include<gtc/quaternion.hpp>
+#include<gtx/quaternion.hpp>
 #include<gtc/type_ptr.hpp>
 
 #include<algorithm>
@@ -20,6 +21,8 @@ namespace RCEngine
 		typedef mat4 Matrix44;
 		typedef vec3 Color3;
 		typedef vec4 Color4;
+
+		typedef lowp_uvec2 Vector2Int;
 
 		template<typename T>
 		T clamp01(T value) {

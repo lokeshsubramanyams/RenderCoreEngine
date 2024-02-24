@@ -20,6 +20,7 @@ namespace RCEngine
 			void UI(RenderCore::GraphicsObject *graphicsObject);
 			void UI(RenderCore::Scene *scene);
 			void End();
+			bool IsMouseOnUI();
 		protected:
 			std::unique_ptr<IUILibrary> uiLibraryImpl;
 		};

@@ -269,6 +269,10 @@ namespace RCEngine
 		{
 			UI();
 		}
+    bool ImguiLibraryOpenGL3::IsMouseOnUI()
+    {
+			return ImGui::IsAnyItemActive() || ImGui::IsAnyItemFocused();
+    }
 	}
 }
 

@@ -17,6 +17,9 @@ namespace RCEngine
 		protected:
 			Rect screenRect;
 			std::function<void(Rect)>windowResizeEventListenser;
+			std::function<void(double, double)>mousePositionEventListenser;
+			std::function<void(int, int, int)>mouseClickEventListener;
+			std::function<void(double,double)>mouseScrollEventListener;
 		public:
 
 			 IRenderSurface(Rect surfaceInfo);
@@ -32,9 +35,13 @@ namespace RCEngine
 			 
 			 virtual std::any GetContext() = 0;
 			
-			 virtual void AddWindowResizeListener(std::function<void(Rect)>windowResizeEventHandler);
+			 virtual void AddWindowResizeListener(std::function<void(Rect)>windowResizeEventHandler) =0;
+			 virtual void AddMousePositionListener(std::function<void(double, double)>mousePosition)=0;
+			 virtual void AddMouseClickListener(std::function<void(int, int, int)>mouseClick) =0;
+			 virtual void AddMouseScrollListener(std::function<void(double, double)>mouseScroll)=0;
 			 
 			 virtual void WindowPlacementOnBigMonitor() = 0;
+
 			 
 		};
 

@@ -24,6 +24,8 @@ namespace RCEngine
 
 			virtual void ShutDown() = 0;
 
+			virtual bool IsMouseOnUI() = 0;
+
 		};
 	}
 }

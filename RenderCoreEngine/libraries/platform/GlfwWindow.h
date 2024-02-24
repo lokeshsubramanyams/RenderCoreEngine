@@ -10,18 +10,45 @@ namespace RCEngine
 	{
 
 			inline std::function<void(GLFWwindow*, MathLib::Rect)> resizeCallBack;
+			inline std::function<void(GLFWwindow*, double, double)> cursorPositionCallBack;
+			inline std::function<void(GLFWwindow*, int, int, int)> mouseClickCallBack;
+			inline std::function<void(GLFWwindow*, double, double)> mouseScrollCallBack;
 
 			static void glfwErrorCallback(int error, const char* description)
 			{
 				fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 			}
-			inline void framebufferResizeCallback(GLFWwindow* window, int width,int height)
+
+			inline void FramebufferResizeCallback(GLFWwindow* window, int width,int height)
 			{
 				if (resizeCallBack)
 				{
 					Debug::Log("Resized");
 
 					resizeCallBack(window, Rect{ 0, 0, width, height });
+				}
+			}
+			inline void mouseCursorPositionEventCallBack(GLFWwindow* window, double xPos, double yPos)
+			{
+				if (cursorPositionCallBack)
+				{
+					cursorPositionCallBack(window, xPos, yPos);
+				}
+			}
+
+			inline void mouseButtonClickEventCallBack(GLFWwindow* window, int button, int action, int mods)
+			{
+				if (mouseClickCallBack)
+				{
+					mouseClickCallBack(window, button, action, mods);
+				}
+			}
+
+			inline void mouseScrollEventCallBack(GLFWwindow* window, double xoffset, double yoffset)
+			{
+				if (mouseScrollCallBack)
+				{
+					mouseScrollCallBack(window, xoffset, yoffset);
 				}
 			}
 			
@@ -65,11 +92,22 @@ namespace RCEngine
 				else
 					Debug::Log("glfw Window or OpenGL context created");
 
-				glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
+				glfwSetFramebufferSizeCallback(window, FramebufferResizeCallback);
+
+				//Mouse events
+
+				glfwSetCursorPosCallback(window, mouseCursorPositionEventCallBack);
+
+				glfwSetMouseButtonCallback(window, mouseButtonClickEventCallBack);
+
+				glfwSetScrollCallback(window, mouseScrollEventCallBack);
+
 
 				return window;
 			}
 
+
+			
 			
 		
 	}

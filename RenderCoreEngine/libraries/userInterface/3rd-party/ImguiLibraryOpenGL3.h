@@ -41,6 +41,9 @@ namespace RCEngine
 			void Begin()override;
 			void End()override;
 
+			bool IsMouseOnUI()override;
+
+
 		private:
 			void ComponentRender(RenderCore::GraphicsObject *graphicsObject);
 

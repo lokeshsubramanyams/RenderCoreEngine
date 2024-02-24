@@ -13,7 +13,8 @@ target_include_directories(renderCore_module PUBLIC
 "${CMAKE_CURRENT_SOURCE_DIR}/components/interface/",
 "${CMAKE_CURRENT_SOURCE_DIR}/behaviours/",
 "${CMAKE_CURRENT_SOURCE_DIR}/source/",
-"${CMAKE_CURRENT_SOURCE_DIR}/scene/") 
+"${CMAKE_CURRENT_SOURCE_DIR}/scene/",
+"${CMAKE_CURRENT_SOURCE_DIR}/inputDevices/") 
 
 target_link_libraries(renderCore_module PUBLIC mathLib_interface platform_module graphicEngine_module userInterface_module )
 
