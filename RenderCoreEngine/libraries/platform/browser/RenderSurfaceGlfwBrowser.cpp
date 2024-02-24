@@ -10,31 +10,30 @@ namespace RCEngine
 		using namespace RCEngine::Platform::Browser;
 
 		RenderSurfaceGlfwBrowser::RenderSurfaceGlfwBrowser(Rect screenRect)
-			:IRenderSurface(screenRect)
+			:IRenderSurfaceGlfw(screenRect)
 		{
-			glfwCanvas = CreateGlfwWindow("RCEngine", screenRect.width, screenRect.height);
+			window = CreateGlfwWindow("RCEngine", screenRect.width, screenRect.height);
 
-			glfwGetFramebufferSize(glfwCanvas, &screenRect.width, &screenRect.height);
+			glfwGetFramebufferSize(window, &screenRect.width, &screenRect.height);
 
 			MakeContextCurrent();
 
 			resizeCallBack = std::bind(&RenderSurfaceGlfwBrowser::FramebufferResizeCallback, this, std::placeholders::_1, std::placeholders::_2);
-		}
-		void RenderSurfaceGlfwBrowser::FramebufferResizeCallback(GLFWwindow* window, Rect newSurface)
-		{
-			if (windowResizeEventListenser)
-			{
-				windowResizeEventListenser(newSurface);
-			}
+
+			cursorPositionCallBack = std::bind(&RenderSurfaceGlfwBrowser::MousePositionCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+
+			mouseClickCallBack = std::bind(&RenderSurfaceGlfwBrowser::MouseClickCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+
+			mouseScrollCallBack = std::bind(&RenderSurfaceGlfwBrowser::MouseScrollCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);;
 		}
 		void RenderSurfaceGlfwBrowser::MakeContextCurrent()
 		{
-			glfwMakeContextCurrent(glfwCanvas);
+			glfwMakeContextCurrent(window);
 		}
 
 		bool RenderSurfaceGlfwBrowser::IsValid() const
 		{
-			return glfwCanvas != nullptr;
+			return window != nullptr;
 		}
 
 
@@ -45,14 +44,14 @@ namespace RCEngine
 
 		void RenderSurfaceGlfwBrowser::SwapBuffers()
 		{
-			glfwSwapBuffers(glfwCanvas);
+			glfwSwapBuffers(window);
 		}
 
 		void RenderSurfaceGlfwBrowser::DestroySurface()
 		{
-			if (glfwCanvas)
+			if (window)
 			{
-				glfwDestroyWindow(glfwCanvas);
+				glfwDestroyWindow(window);
 				
 			}
 		}
@@ -80,7 +79,7 @@ namespace RCEngine
 
     std::any RenderSurfaceGlfwBrowser::GetContext()
     {
-			return glfwCanvas;
+			return window;
     }
 
     void RenderSurfaceGlfwBrowser::WindowPlacementOnBigMonitor()
@@ -93,7 +92,7 @@ namespace RCEngine
 			Debug::Log("height:100%:", height);
 
 			//glfwGetFramebufferSize(glfwCanvas, &width, &height);
-			glfwSetWindowSize(glfwCanvas, width, height);
+			glfwSetWindowSize(window, width, height);
 
     }
 

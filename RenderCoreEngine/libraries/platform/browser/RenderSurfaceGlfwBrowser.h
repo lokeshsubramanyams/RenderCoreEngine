@@ -1,6 +1,4 @@
-#include "IRenderSurface.h"
-#include "GlfwWindow.h"
-
+#include "IRenderSurfaceGlfw.h"
 #include <emscripten/emscripten.h>
 #include<emscripten/html5.h>
 
@@ -13,11 +11,9 @@ namespace RCEngine
 	{
 		using namespace RCEngine::MathLib;
 		using namespace RCEngine::Debugger;
-		class RenderSurfaceGlfwBrowser :public IRenderSurface
+		class RenderSurfaceGlfwBrowser :public IRenderSurfaceGlfw
 		{
-		private:
-			GLFWwindow* glfwCanvas;
-			
+		
 		public:
 			RenderSurfaceGlfwBrowser(Rect _viewport);
 			~RenderSurfaceGlfwBrowser();
@@ -33,8 +29,6 @@ namespace RCEngine
 
 			void WindowPlacementOnBigMonitor()override;
 			
-			void FramebufferResizeCallback(GLFWwindow* window, Rect newViewport);
-
 		};
 	}
 }

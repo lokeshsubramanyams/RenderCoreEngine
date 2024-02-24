@@ -39,12 +39,12 @@ namespace RCEngine
         yoffset *= sensitivity;
        
 				Quaternion yawQuat = glm::angleAxis(float(glm::radians(xoffset)), glm::vec3(0.0f, 1.0f, 0.0f));
-				Quaternion pitchQuat = glm::angleAxis(float(glm::radians(yoffset)), glm::vec3(1.0f, 0.0f, 0.0f));
+				Quaternion rollQuat = glm::angleAxis(float(glm::radians(yoffset)), glm::vec3(1.0f, 0.0f, 0.0f));
 
 				Quaternion cameraOrientation = currentTransformHandlingInput->rotation;
-				cameraOrientation = cameraOrientation * yawQuat * pitchQuat;
+				cameraOrientation = cameraOrientation * yawQuat * rollQuat;
 
-				cameraOrientation = glm::normalize(cameraOrientation);
+				//cameraOrientation = glm::normalize(cameraOrientation);
 
 				currentTransformHandlingInput->Rotation(cameraOrientation);
 

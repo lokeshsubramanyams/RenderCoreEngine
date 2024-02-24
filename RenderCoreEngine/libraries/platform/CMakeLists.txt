@@ -10,6 +10,8 @@ if(EMSCRIPTEN)
                       ${CMAKE_CURRENT_SOURCE_DIR}/GlfwWindow.h 
                         #${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceBrowser.h 
                         #${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceBrowser.cpp
+                         ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurfaceGlfw.h 
+                         ${CMAKE_CURRENT_SOURCE_DIR}/IRenderSurfaceGlfw.cpp
                          ${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceGlfwBrowser.h 
                         ${CMAKE_CURRENT_SOURCE_DIR}/browser/RenderSurfaceGlfwBrowser.cpp)
 else()
