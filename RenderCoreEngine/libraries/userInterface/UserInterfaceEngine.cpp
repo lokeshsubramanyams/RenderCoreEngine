@@ -1,6 +1,7 @@
 #include "UserInterfaceEngine.h"
 #include "UserInterfaceEngine.h"
 #include "UserInterfaceEngine.h"
+#include "UserInterfaceEngine.h"
 #include "ImguiLibraryOpenGL3.h"
 #include "Debug.h"
 
@@ -39,6 +40,11 @@ namespace RCEngine
 		void UserInterfaceEngine::UI(RenderCore::Scene* scene)
 		{
 			uiLibraryImpl->UI(scene);
+		}
+
+		void UserInterfaceEngine::UIMenuBar(RenderCore::Scene* scene)
+		{
+			uiLibraryImpl->UIMenuBar(scene);
 		}
 
 		void UserInterfaceEngine::End()

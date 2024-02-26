@@ -2,13 +2,13 @@
 #include<string>
 #include<vector>
 #include<unordered_map>
-#include "GraphicsObject.h"
-#include "ICamera.h"
 #include <IGraphicsEngine.h>
+#include <GraphicsObject.h>
+#include <ICamera.h>
 #include <MeshUtil.h>
 #include <Mesh.h>
-#include "DirectionalLight.h"
-
+#include <ILight.h>
+#include <GraphicsFactory.h>
 
 namespace RCEngine
 {
@@ -23,12 +23,13 @@ namespace RCEngine
 			string name;
 			Scene(IGraphicsEngine* graphicsEngine, string name);
 
-			void AddGraphicsObject(string objName);
 			void AddShape(string objName, GeometryShapes shape);
 			void AddTriangle(string objName);
 			void AddQuad(string objName);
-			void AddCamera(string objName);
-			void AddLight(string objName);
+			template<typename T>
+			T AddCamera(string objName);
+			template<typename T>
+			T AddLight(string objName);
 
 			void LoadAll();
 			void Load(IRenderer* renderer);
@@ -49,15 +50,22 @@ namespace RCEngine
 			std::vector<IBehaviour*>behaviours;
 			IGraphicsEngine* graphicsEngine;
 
+			void AddGridEditorLines(string objName);
 			
+			GraphicsFactory* gFactory;
 
-			void AddGridLines(string objName);
-			
 
 		private:
+			int sceneObjectCount = 0;
+			string GetSceneUniqueName(string name);
 			void AddDefaultSceneObjects();
-			void CreateGraphicsObject(string name, Mesh* mesh);
 			void AddToScene(string keu, GraphicsObject* obj, IRenderer* renderer);
+			template<typename T>
+			T AddToScene(tupleGraphicsObject obj);
+			template<typename T>
+			T AddToScene(tupleCameraObject obj);
+			template<typename T>
+			T AddToScene(tupleLightObject obj);
 			
 		};
 

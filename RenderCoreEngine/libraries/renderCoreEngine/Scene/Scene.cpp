@@ -1,6 +1,4 @@
 #include "Scene.h"
-#include <Camera.h>
-#include <ILineRenderer.h>
 
 namespace RCEngine
 {
@@ -13,27 +11,10 @@ namespace RCEngine
 
 			this->graphicsEngine = graphicsEngine;
 
+			gFactory = new GraphicsFactory(graphicsEngine);
+
 			AddDefaultSceneObjects();
 
-		}
-
-		void Scene::AddGraphicsObject(string objName)
-		{
-
-		}
-		void Scene::AddShape(string objName, GeometryShapes shape)
-		{
-			CreateGraphicsObject(objName, MeshUtil::GeometricalShapes(shape));
-		}
-
-		void Scene::AddTriangle(string objName)
-		{
-			CreateGraphicsObject(objName, MeshUtil::Triangle());
-		}
-
-		void Scene::AddQuad(string objName)
-		{
-			CreateGraphicsObject(objName, MeshUtil::Quad());
 		}
 
 		void Scene::LoadAll()
@@ -99,68 +80,61 @@ namespace RCEngine
 			return nullptr;
 		}
 
-		void Scene::AddDefaultSceneObjects()
+		string Scene::GetSceneUniqueName(string name)
 		{
-			AddCamera("MainCamera");
-			AddGridLines("GridLines");
-			AddLight("DirectionLight");
+			return string(name+"-"+std::to_string(++sceneObjectCount));
 		}
 
-		void Scene::AddCamera(string camName)
+		void Scene::AddShape(string objName, GeometryShapes shape)
 		{
-			GraphicsObject* cameraObject = new GraphicsObject(camName);
-
-			Camera* camera = new Camera({ {0.142f,0.216f,0.149f,1.0f}, CameraType::Perspective,45.0f,0.1f,1000.0f });
-			cameraObject->AttachComponent(camera);
-			cameraObject->transform->position = Vector3(0.0f, 5.0f, -10.0f);
-			cameraObject->transform->rotation = Quaternion(Vector3(glm::radians(-22.5f), 0.0f, 0.0f));
-			
-			cameras.push_back(camera);
-
-			AddToScene(camName, cameraObject,nullptr);
+			AddToScene<IMeshRenderer*>(gFactory->AddRenderingObject(objName, GraphicsTag::Scene, shape));
 		}
 
-    void Scene::AddGridLines(string objName)
-    {
-			GraphicsObject* lineObj = new GraphicsObject(objName);
-			lineObj->tag = "editor";
-			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
-			//defaultShader->Log();
-			Line* lines = MeshUtil::GetGridLines();
-			IComponent* component = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
-			lineObj->AttachComponent(component);
-			static_cast<ILineRenderer*>(component)->color = Color4(0.0f, 0.0f, 0.0f, 1.0f);
-			IRenderer* renderer = static_cast<IRenderer*>(component);
-			
-			AddToScene(objName, lineObj, renderer);
-    }
-
-		void Scene::AddLight(string objName)
+		void Scene::AddTriangle(string objName)
 		{
-			GraphicsObject* lightObj = new GraphicsObject(objName);
-			DirectionalLight* light = new DirectionalLight();
-			lightObj->AttachComponent(light);
-			//lightObj->transform->Rotation(Quaternion(Vector3(glm::radians(-60.0f), 0.0f, 0.0f)));
-			lights.push_back(light);
-			AddToScene(objName, lightObj, nullptr);
+			AddToScene<IMeshRenderer*>(gFactory->AddRenderingObject(objName, GraphicsTag::Scene, MeshUtil::Triangle()));
 		}
 
-		void Scene::CreateGraphicsObject(string name, Mesh* mesh)
+		void Scene::AddQuad(string objName)
 		{
-			GraphicsObject* shapeObj = new GraphicsObject(name);
-			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01);
-			//defaultShader->Log();
-			IComponent* component2 = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *defaultShader);
-			shapeObj->AttachComponent(component2);
-			IRenderer* renderer = static_cast<IRenderer*>(component2);
-
-			AddToScene(name, shapeObj, renderer);
+			AddToScene<IMeshRenderer*>(gFactory->AddRenderingObject(objName, GraphicsTag::Scene, MeshUtil::Quad()));
+		}
+	
+		template<typename T>
+		T Scene::AddCamera(string camName)
+		{
+			return AddToScene<T>(gFactory->AddCameraObject(camName, GraphicsTag::Scene, { {0.142f,0.216f,0.149f,1.0f}, CameraType::Perspective,45.0f,0.1f,1000.0f }));
+		}
+		template<typename T>
+		T Scene::AddLight(string objName)
+		{
+			return AddToScene<T>(gFactory->AddLightObject(objName, GraphicsTag::Scene, LightType::Directional));
+		}
+		template<typename T>
+		T RenderCore::Scene::AddToScene(tupleGraphicsObject obj)
+		{
+			AddToScene(std::get<0>(obj), std::get<1>(obj), std::get<2>(obj));
+			return static_cast<T>(std::get<2>(obj));
+		}
+		template<typename T>
+		T RenderCore::Scene::AddToScene(tupleCameraObject obj)
+		{
+			cameras.push_back(std::get<2>(obj));
+			AddToScene(std::get<0>(obj), std::get<1>(obj));
+			return static_cast<T>(std::get<2>(obj));
+		}
+		template<typename T>
+		T RenderCore::Scene::AddToScene(tupleLightObject obj)
+		{
+			lights.push_back(std::get<2>(obj));
+			AddToScene(std::get<0>(obj), std::get<1>(obj));
+			return static_cast<T>(std::get<2>(obj));
 		}
 
-		void RenderCore::Scene::AddToScene(string key, GraphicsObject* obj,IRenderer* renderer=nullptr)
+		void RenderCore::Scene::AddToScene(string key, GraphicsObject* obj, IRenderer* renderer = nullptr)
 		{
 			sceneObjects.insert({ key,obj });
-			if (obj->tag != "editor")
+			if (obj->tag != GraphicsTag::Editor)
 			{
 				sceneObjectKeys.push_back(key);
 			}
@@ -169,6 +143,25 @@ namespace RCEngine
 				renderers.push_back(renderer);
 				Load(renderer);
 			}
+		}
+
+	////////////Editor related set up in scene/////////////////////////////////	
+
+		void Scene::AddDefaultSceneObjects()
+		{
+			AddCamera<ICamera*>("MainCamera");
+			GraphicsObject* cameraObject = GetGraphicsObject("MainCamera");
+			cameraObject->transform->position = Vector3(0.0f, 5.0f, -10.0f);
+			cameraObject->transform->rotation = Quaternion(Vector3(glm::radians(-22.5f), 0.0f, 0.0f));
+			AddLight<ILight*>("DirectionLight");
+
+			AddGridEditorLines("GridLines");
+		}
+
+		void Scene::AddGridEditorLines(string objName)
+		{
+			ILineRenderer* lineRenderer = AddToScene<ILineRenderer*>(gFactory->AddRenderingObject(objName, GraphicsTag::Editor, MeshUtil::GetGridLines()));
+			lineRenderer->color = Color4(0.0f, 0.0f, 0.0f, 1.0f);
 		}
 	}
 }

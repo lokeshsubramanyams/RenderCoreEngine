@@ -19,6 +19,7 @@ namespace RCEngine
 			void UI(UIText text);
 			void UI(RenderCore::GraphicsObject *graphicsObject);
 			void UI(RenderCore::Scene *scene);
+			void UIMenuBar(RenderCore::Scene* scene);
 			void End();
 			bool IsMouseOnUI();
 		protected:

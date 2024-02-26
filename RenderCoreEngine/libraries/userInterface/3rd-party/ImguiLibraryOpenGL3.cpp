@@ -1,5 +1,9 @@
 #include "ImguiLibraryOpenGL3.h"
 
+#include <filesystem>
+
+namespace fs = std::filesystem;
+
 namespace RCEngine
 {
 	using namespace Debugger;
@@ -272,6 +276,49 @@ namespace RCEngine
     bool ImguiLibraryOpenGL3::IsMouseOnUI()
     {
 			return ImGui::IsAnyItemActive() || ImGui::IsAnyItemFocused();
+    }
+    void ImguiLibraryOpenGL3::UIMenuBar(RenderCore::Scene* scene)
+    {
+			if (ImGui::BeginMainMenuBar())
+			{
+				if (ImGui::BeginMenu("File")) 
+				{
+					if (ImGui::MenuItem("Open", "Ctrl+O")) 
+					{
+						// Open file logic
+					}
+					if (ImGui::MenuItem("Save", "Ctrl+S")) 
+					{
+						// Save file logic
+					}
+					if (ImGui::MenuItem("Save As...")) 
+					{
+						// Save As logic
+					}
+
+					ImGui::EndMenu();
+				}
+
+				if (ImGui::BeginMenu("Create"))
+				{
+					if (ImGui::MenuItem("Primitive->Cube"))
+					{
+						scene->AddShape("Cube100", GeometryShapes::Cube);
+						//scene->GetGraphicsObject("Cube100")->transform->position = Vector3(0, 0, 0);
+					}
+					if (ImGui::MenuItem("Primitive->Sphere"))
+					{
+						scene->AddShape("Sphere100", GeometryShapes::Sphere);
+						//scene->GetGraphicsObject("Sphere100")->transform->position = Vector3(0, 0, 0);
+					}
+
+					ImGui::EndMenu();
+				}
+
+				ImGui::EndMainMenuBar();
+			}
+
+	
     }
 	}
 }

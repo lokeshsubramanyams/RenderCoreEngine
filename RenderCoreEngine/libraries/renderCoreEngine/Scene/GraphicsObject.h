@@ -20,7 +20,7 @@ namespace RCEngine
     {
 		public:
 			std::string name;
-			std::string tag;
+			GraphicsTag tag;
 			GraphicsObject();
 			GraphicsObject(std::string name);
 			void AttachComponent(IComponent *component);

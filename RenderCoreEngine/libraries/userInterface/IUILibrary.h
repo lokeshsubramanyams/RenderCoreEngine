@@ -22,6 +22,8 @@ namespace RCEngine
 
 			virtual void UI(RenderCore::Scene* scene) = 0;
 
+			virtual void UIMenuBar(RenderCore::Scene* scene) = 0;
+
 			virtual void ShutDown() = 0;
 
 			virtual bool IsMouseOnUI() = 0;

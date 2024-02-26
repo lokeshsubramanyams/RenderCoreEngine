@@ -43,6 +43,8 @@ namespace RCEngine
 
 			bool IsMouseOnUI()override;
 
+			void UIMenuBar(RenderCore::Scene* scene)override;
+
 
 		private:
 			void ComponentRender(RenderCore::GraphicsObject *graphicsObject);

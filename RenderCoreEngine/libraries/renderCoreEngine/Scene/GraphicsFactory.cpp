@@ -7,48 +7,61 @@ namespace RCEngine
 			{
 				this->graphicsEngine = graphicsEngine;
 			}
-			void GraphicsFactory::AddGraphicsObject(string objName)
+		
+			tupleGraphicsObject GraphicsFactory::AddRenderingObject(string objName, GraphicsTag tag, GeometryShapes shape)
 			{
-
+				return  CreateGraphicsObject(objName, tag, MeshUtil::GeometricalShapes(shape));
+				
 			}
 
-			void GraphicsFactory::AddShape(string objName, GeometryShapes shape) 
+			tupleGraphicsObject GraphicsFactory::AddRenderingObject(string objName, GraphicsTag tag, Mesh* mesh)
 			{
-
+				return CreateGraphicsObject(objName, tag, mesh);
 			}
 
-			void GraphicsFactory::AddTriangle(string objName) 
+			tupleGraphicsObject GraphicsFactory::AddRenderingObject(string objName, GraphicsTag tag, Line* line)
 			{
-
+				GraphicsObject* lineObj = new GraphicsObject(objName); lineObj->tag = tag;
+				IShader* shader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
+				IComponent* component = graphicsEngine->GetFactory()->CreateLineRendererComp(*line, *shader);
+				lineObj->AttachComponent(component);
+				IRenderer* renderer = static_cast<IRenderer*>(component);
+				return std::make_tuple(objName, lineObj, renderer);
 			}
 
-			void GraphicsFactory::AddQuad(string objName) 
+			tupleCameraObject GraphicsFactory::AddCameraObject(string objName, GraphicsTag tag, CameraSetting cSetting)
 			{
-
-			}
-			void GraphicsFactory::AddCamera(string objName) 
-			{
-
-			}
-
-			void GraphicsFactory::AddLight(string objName) 
-			{
-
+				GraphicsObject* cameraObject = new GraphicsObject(objName); cameraObject->tag = tag;
+				Camera* camera = new Camera(cSetting);
+				cameraObject->AttachComponent(camera);
+				return std::make_tuple(objName, cameraObject, camera);
 			}
 
-			std::tuple<string, GraphicsObject*, IMeshRenderer*> GraphicsFactory::AddRenderingObject(string objName, GraphicsTag tag, Mesh* mesh)
+			tupleLightObject GraphicsFactory::AddLightObject(string objName, GraphicsTag tag, LightType lightType)
 			{
-				return std::tuple<string, GraphicsObject*, IMeshRenderer*>();
+				GraphicsObject* lightObj = new GraphicsObject(objName); lightObj->tag = tag;
+				ILight* light = nullptr;
+				switch (lightType)
+				{
+				case RCEngine::Directional:light = new DirectionalLight();
+					break;
+				case RCEngine::Point:light = new DirectionalLight();//need to implement this in shader and implement until then DirectionalLight
+					break;
+				case RCEngine::Area:light = new DirectionalLight();//need to implement this in shader and implement until then DirectionalLight
+					break;
+				}
+				
+				lightObj->AttachComponent(light);
+				return std::make_tuple(objName, lightObj, light);
 			}
-
-			std::tuple<string, GraphicsObject*, ILineRenderer*> GraphicsFactory::AddRenderingObject(string objName, GraphicsTag tag, Line* line)
+			
+			tupleGraphicsObject GraphicsFactory::CreateGraphicsObject(string objName, GraphicsTag tag, Mesh* mesh)
 			{
-				return std::tuple<string, GraphicsObject*, ILineRenderer*>();
-			}
-
-			std::tuple<string, GraphicsObject*, ICamera*> GraphicsFactory::AddCameraObject(string objName, GraphicsTag tag, CameraSetting cSetting)
-			{
-				return std::tuple<string, GraphicsObject*, ICamera*>();
+				GraphicsObject* obj = new GraphicsObject(objName);obj->tag = tag;
+				IShader* shader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01);//shader->Log();
+				IComponent* component = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *shader);
+				obj->AttachComponent(component);
+				return std::make_tuple(objName, obj, static_cast<IRenderer*>(component));
 			}
 			
 		

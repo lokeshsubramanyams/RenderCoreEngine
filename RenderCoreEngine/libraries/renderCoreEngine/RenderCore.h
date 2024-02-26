@@ -27,6 +27,17 @@ namespace RCEngine
 			FRAGMENT
 		};
 
+		enum PrimitiveTopology
+		{
+			POINTS,
+			LINES,
+			LINE_STRIP,
+			LINE_LOOP,
+			TRIANGLES,
+			TRIANGLE_STRIP,
+			TRIANGLE_FAN
+		};
+
 		enum GeometryShapes
 		{
 			Cube,
@@ -71,6 +82,11 @@ namespace RCEngine
 		enum VariableType
 		{
 			float1, int1, vector2, vector3, vector4, color3, color4, mat3, mat4
+		};
+
+		enum LightType
+		{
+			Directional,Point,Area
 		};
 
 	

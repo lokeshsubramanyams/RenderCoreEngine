@@ -6,6 +6,8 @@
 #include <GraphicsObject.h>
 #include <IMeshRenderer.h>
 #include <ILineRenderer.h>
+#include <MeshUtil.h>
+#include <DirectionalLight.h>
 
 namespace RCEngine
 {
@@ -13,25 +15,26 @@ namespace RCEngine
 	{
 		using namespace std;
 		using namespace GraphicsEngine;
+
+		using tupleGraphicsObject = std::tuple<string, GraphicsObject*, IRenderer*>;
+		using tupleCameraObject = std::tuple<string, GraphicsObject*, ICamera*>;
+		using tupleLightObject = std::tuple<string, GraphicsObject*, ILight*>;
+
 		class GraphicsFactory
 		{
 		public:
 			GraphicsFactory(IGraphicsEngine* graphicsEngine);
-			void AddGraphicsObject(string objName);
-			void AddShape(string objName, GeometryShapes shape);
-			void AddTriangle(string objName);
-			void AddQuad(string objName);
-			void AddCamera(string objName);
-			void AddLight(string objName);
-
-			std::tuple<string, GraphicsObject*, IMeshRenderer*> AddRenderingObject(string objName,GraphicsTag tag, Mesh* mesh);
-			std::tuple<string,GraphicsObject*, ILineRenderer*> AddRenderingObject(string objName, GraphicsTag tag, Line* line);
-			std::tuple<string,GraphicsObject*, ICamera*> AddCameraObject(string objName, GraphicsTag tag, CameraSetting cSetting);
-
-			
+				
+			tupleGraphicsObject AddRenderingObject(string objName, GraphicsTag tag, GeometryShapes shape);
+			tupleGraphicsObject AddRenderingObject(string objName,GraphicsTag tag, Mesh* mesh);
+			tupleGraphicsObject AddRenderingObject(string objName, GraphicsTag tag, Line* line);
+			tupleCameraObject AddCameraObject(string objName, GraphicsTag tag, CameraSetting cSetting);
+			tupleLightObject  AddLightObject(string objName, GraphicsTag tag,LightType lightType);
 			
 		private:
 			IGraphicsEngine* graphicsEngine;
+			
+			tupleGraphicsObject CreateGraphicsObject(string objName, GraphicsTag tag, Mesh* mesh);
 			
 		};
 	}

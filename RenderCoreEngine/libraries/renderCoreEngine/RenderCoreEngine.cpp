@@ -119,6 +119,7 @@ namespace RCEngine
 		  scene->Render();
 			fps->CalculateFPS();
 			uiEngine->Begin();
+			uiEngine->UIMenuBar(scene.get());
 			uiEngine->UI(scene.get());
 			uiEngine->UI(UIText{ {"Stats"},std::to_string(fps->Fps()).c_str() });
 			uiEngine->UI(scene->GetGraphicsObject(scene->sceneHierarchySelectedKey));
