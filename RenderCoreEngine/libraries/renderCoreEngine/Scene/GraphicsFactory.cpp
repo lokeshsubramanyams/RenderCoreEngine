@@ -58,7 +58,7 @@ namespace RCEngine
 			tupleGraphicsObject GraphicsFactory::CreateGraphicsObject(string objName, GraphicsTag tag, Mesh* mesh)
 			{
 				GraphicsObject* obj = new GraphicsObject(objName);obj->tag = tag;
-				IShader* shader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01);//shader->Log();
+				IShader* shader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01);
 				IComponent* component = graphicsEngine->GetFactory()->CreateMeshRendererComp(*mesh, *shader);
 				obj->AttachComponent(component);
 				return std::make_tuple(objName, obj, static_cast<IRenderer*>(component));

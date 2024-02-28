@@ -27,6 +27,7 @@
 
 #include "UserInterfaceEngine.h"
 #include "Scene.h"
+#include "RenderCoreShaderDB.h"
 
 namespace RCEngine
 {

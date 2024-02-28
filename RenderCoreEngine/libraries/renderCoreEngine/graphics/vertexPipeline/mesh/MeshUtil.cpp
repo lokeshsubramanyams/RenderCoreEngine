@@ -1,5 +1,4 @@
 #include "MeshUtil.h"
-#include "MeshUtil.h"
 #include "Debug.h"
 #include <vector>
 #include <cmath>
@@ -21,7 +20,7 @@ namespace RCEngine
 				int* indices = new int[3] {0, 1, 2};
 
 				Mesh* mesh = new Mesh(vertices,3, indices,3);
-
+				
 				return mesh;
 			}
 

@@ -4,6 +4,8 @@
 #include "Mesh.h"
 #include "Line.h"
 #include "RenderCore.h"
+#include "IMesh.h"
+
 namespace RCEngine
 {
 	namespace RenderCore

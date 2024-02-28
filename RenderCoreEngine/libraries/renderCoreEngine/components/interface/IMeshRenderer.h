@@ -7,8 +7,6 @@ namespace RCEngine
 {
 	namespace RenderCore
 	{
-		using namespace RCEngine::RenderCore;
-		
 		class IMeshRenderer : public IRenderer
 		{
 		protected:

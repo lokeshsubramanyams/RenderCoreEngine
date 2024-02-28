@@ -90,11 +90,11 @@ namespace RCEngine
 
 		}
 
-		GLuint OpenGLShaderBuilder::LoadShader(ShaderMetaData vertex, ShaderMetaData fragment)
+		GLuint OpenGLShaderBuilder::LoadShader(ShaderMetaData vertices, ShaderMetaData fragment)
 		{
 
 
-			GLuint vertexShader = this->Compile(vertex);
+			GLuint vertexShader = this->Compile(vertices);
 			GLuint fragmentShader = this->Compile(fragment);
 
 			GLuint shaderProgram = glCreateProgram();

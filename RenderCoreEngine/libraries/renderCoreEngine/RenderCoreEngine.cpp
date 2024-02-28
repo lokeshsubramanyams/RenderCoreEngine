@@ -7,7 +7,7 @@
 #include "Behaviour.h"
 #include "Screen.h"
 #include "Camera.h"
-
+#include "IMesh.h"
 
 namespace RCEngine
 {
@@ -54,26 +54,9 @@ namespace RCEngine
 
 			graphicsEngine->InitilizeEngine(EngineSetting::GetWindowSurfaceRect());
 
-			ShaderProgram defaultShaderProgram =
-			{
-				CONST::SHADERFILE::DEFAULT_VERTEX,
-				CONST::SHADERFILE::DEFAULT_FRAGMENT,
-				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT
-				
-			};
+			RenderCoreShaderDB shaderdB;
 
-			ShaderProgram defaultShaderProgramV01 =
-			{
-				CONST::SHADERFILE::DEFAULT_VERTEX_V01,
-				CONST::SHADERFILE::DEFAULT_FRAGMENT_V01,
-				CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01
-			
-			};
-
-			graphicsEngine->LoadShaderBatch({ defaultShaderProgram,defaultShaderProgramV01 });
-
-			IShader* defaultShaderv1 = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01);
-			defaultShaderv1->Log();
+			graphicsEngine->LoadShaderBatch(shaderdB.shadersDB);
 
 			///////////////////////////////////////////////////////////////
 
@@ -83,23 +66,9 @@ namespace RCEngine
 
 			inputHandler->HandleTransformByInput(scene->GetGraphicsObject("MainCamera")->transform);
 
-			//////////////////////////////////////////////////////////////
-
-			Vector3 forward =  scene->GetGraphicsObject("DirectionLight")->transform->forward();
-
-			IShader* defaultShader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT);
-
-			Vector3 p1 = Vector3(0.0f, 0.0f, 0.0f);
-			Vector3 p2 = p1 + forward * 10.0f;
-			Vector3 *vertices = new Vector3[2]{ p1,p2 };
-			Line* lines = new Line(vertices, 2);
-			IComponent* component = graphicsEngine->GetFactory()->CreateLineRendererComp(*lines, *defaultShader);
-			
+			////////////////////////////////////////////////////////////// 
 
 		 	scene->AddShape("sphere", GeometryShapes::Sphere);
-			scene->GetGraphicsObject("sphere")->transform->scale = Vector3(0.5, 0.5, 0.5);
-			scene->AttachComponent("sphere", component);
-		  
 
 			scene->AddShape("sphere1", GeometryShapes::Sphere);
 			scene->GetGraphicsObject("sphere1")->transform->position = Vector3(0, 0, 10);
@@ -109,8 +78,6 @@ namespace RCEngine
 			 
 			scene->AddShape("Cube", GeometryShapes::Cube);
 			scene->GetGraphicsObject("Cube")->transform->position = Vector3(0, 0, 30);
-
-
 
 			fps = new FrameRateTracker();
 		}

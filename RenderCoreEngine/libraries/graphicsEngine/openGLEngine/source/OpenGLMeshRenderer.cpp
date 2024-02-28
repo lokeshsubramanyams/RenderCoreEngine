@@ -37,11 +37,11 @@ namespace RCEngine
 			
 			// Normals
 			glEnableVertexAttribArray(1); 
-			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)offsetof(Vertex, normal));
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)(3*sizeof(float)));// (void*)offsetof(Vertex, normal));
 
 			// TexCoord
 			glEnableVertexAttribArray(2);
-			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)offsetof(Vertex, texCoord));
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, meshFilter->mesh->SizeOfVertNormalTexDataStructure(), (void*)(6 * sizeof(float)));// (void*)offsetof(Vertex, texCoord));
 
 		}
 

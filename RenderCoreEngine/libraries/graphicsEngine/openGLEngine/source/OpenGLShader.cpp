@@ -14,6 +14,7 @@ namespace RCEngine
 			{
 				this->AddUniform(umetas[i].name);
 			}
+			Log();
 		}
 
 		void OpenGLShader::UseProgram()

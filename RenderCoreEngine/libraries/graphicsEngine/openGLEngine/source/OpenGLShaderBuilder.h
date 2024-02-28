@@ -17,7 +17,7 @@ namespace RCEngine
 			RCEngine::RenderCore::IShader* GetShader(std::string generatedShaderKey)override;
 		private:
 			GLuint Compile(ShaderMetaData mData);
-			GLuint LoadShader(ShaderMetaData vertex, ShaderMetaData fragment);
+			GLuint LoadShader(ShaderMetaData vertices, ShaderMetaData fragment);
 			std::unordered_map<std::string,std::unique_ptr<RCEngine::RenderCore::IShader>> shaders;
 		};
 	}
