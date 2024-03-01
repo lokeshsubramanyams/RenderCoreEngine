@@ -5,6 +5,8 @@
 #include "IRequiredComponent.h"
 #include "Camera.h"
 #include "ILight.h"
+#include "MeshFilter.h"
+#include "IMaterial.h"
 
 namespace RCEngine
 {
@@ -31,6 +33,10 @@ namespace RCEngine
 			virtual void Render(ICamera* camera,ILight* light ) = 0;
 
 			virtual void UnLoad() = 0;
+
+			virtual IMaterial *GetMaterial() = 0;
+
+			virtual IMeshFilter *GetMeshFilter() = 0;
 
 			void RequiredComponent(Transform* trans)override { transform = trans; }
 

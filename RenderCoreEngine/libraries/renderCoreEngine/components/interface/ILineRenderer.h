@@ -17,6 +17,10 @@ namespace RCEngine
 			Color4 color;
 			explicit ILineRenderer(Line* line ,IMaterial* mat) :line(line), material(mat), IRenderer(ComponentType::LineRendererComp) {};
 			
+			IMaterial* GetMaterial()override { return material; }
+
+			IMeshFilter* GetMeshFilter()override { return nullptr; }
+
 		};
 	}
 }

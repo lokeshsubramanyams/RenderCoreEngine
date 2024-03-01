@@ -22,6 +22,8 @@ namespace RCEngine
 
 				static Mesh* GeometricalShapes(GeometryShapes shape);
 
+				
+
 				static Mesh* GetCubeMesh();
 				static Mesh* GetSphereMesh();
 				static Mesh* GetCylinderMesh();
@@ -30,6 +32,11 @@ namespace RCEngine
 
 				static Line* GetGridLines();
 
+
+				static IMeshAbstract* IGeometricalShapes(GeometryShapes shape);
+
+				static IMeshAbstract* IGetCubeMesh();
+				static IMeshAbstract* IGetSphereMesh();
 
 			};
 		}

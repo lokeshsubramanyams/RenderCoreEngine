@@ -8,6 +8,7 @@
 #include "Screen.h"
 #include "Camera.h"
 #include "IMesh.h"
+#include "RenderCoreBatch.h"
 
 namespace RCEngine
 {
@@ -68,7 +69,8 @@ namespace RCEngine
 
 			////////////////////////////////////////////////////////////// 
 
-		 	scene->AddShape("sphere", GeometryShapes::Sphere);
+		 	/*
+			scene->AddShape("sphere", GeometryShapes::Sphere);
 
 			scene->AddShape("sphere1", GeometryShapes::Sphere);
 			scene->GetGraphicsObject("sphere1")->transform->position = Vector3(0, 0, 10);
@@ -78,6 +80,15 @@ namespace RCEngine
 			 
 			scene->AddShape("Cube", GeometryShapes::Cube);
 			scene->GetGraphicsObject("Cube")->transform->position = Vector3(0, 0, 30);
+			*/
+
+			scene->IAddShape("ICube", GeometryShapes::Cube);
+			scene->GetGraphicsObject("ICube")->transform->position = Vector3(10, 0, 0);
+			scene->IAddShape("ISphere", GeometryShapes::Sphere);
+			scene->GetGraphicsObject("ISphere")->transform->position = Vector3(0, 0, 0);
+
+			RenderCoreBatch* batch = new RenderCoreBatch();
+			batch->CreateBatch(scene.get());
 
 			fps = new FrameRateTracker();
 		}

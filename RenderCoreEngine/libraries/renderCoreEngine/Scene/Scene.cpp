@@ -1,4 +1,8 @@
 #include "Scene.h"
+#include "Scene.h"
+#include "Scene.h"
+
+#include "../../graphicsEngine/openGLEngine/source/OpenGLMeshRenderer.h"
 
 namespace RCEngine
 {
@@ -32,12 +36,12 @@ namespace RCEngine
 		
 		void Scene::Render()
 		{
+			
 			graphicsEngine->PreRender();
-		
+			
 			for (int cam = 0; cam < cameras.size(); cam++)
 			{
 				graphicsEngine->PreRender(cameras[cam]);
-
 				for (int ren = 0; ren < renderers.size(); ren++)
 				{
 					renderers[ren]->Render(cameras[cam],lights[0]);// ->GetViewProjectionMatrix());
@@ -45,6 +49,7 @@ namespace RCEngine
 				graphicsEngine->PostRender(cameras[cam]);
 			}
 			graphicsEngine->PostRender();
+			
 		}
 
 		void Scene::Update(float deltaTime)
@@ -80,9 +85,38 @@ namespace RCEngine
 			return nullptr;
 		}
 
+		std::unordered_map<string, GraphicsObject*> Scene::GetSceneGraphicsObjects()
+		{
+			return sceneObjects;
+		}
+
+		std::vector<IRenderer*> Scene::GetRenderers()
+		{
+			return renderers;
+		}
+
 		string Scene::GetSceneUniqueName(string name)
 		{
 			return string(name+"-"+std::to_string(++sceneObjectCount));
+		}
+
+		void Scene::IAddShape(string objName, GeometryShapes shape)
+		{
+			
+			tupleGraphicsObject imeshRenderer = gFactory->IAddRenderingObject(objName, GraphicsTag::Scene, shape);
+			
+			OpenGLMeshRenderer* renderer = static_cast<OpenGLMeshRenderer*>(std::get<2>(imeshRenderer));
+			
+			sceneObjects.insert({ std::get<0>(imeshRenderer),std::get<1>(imeshRenderer) });
+			
+			sceneObjectKeys.push_back(std::get<0>(imeshRenderer));
+			
+			renderers.push_back(renderer);
+			
+			renderer->ILoad();
+
+			
+			
 		}
 
 		void Scene::AddShape(string objName, GeometryShapes shape)

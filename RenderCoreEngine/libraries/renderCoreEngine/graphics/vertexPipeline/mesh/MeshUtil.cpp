@@ -1,4 +1,7 @@
 #include "MeshUtil.h"
+#include "MeshUtil.h"
+#include "MeshUtil.h"
+#include "MeshUtil.h"
 #include "Debug.h"
 #include <vector>
 #include <cmath>
@@ -283,6 +286,152 @@ namespace RCEngine
 				Line* lines = new Line(vertices, count);
 
 				return lines;
+			}
+
+			IMeshAbstract* MeshUtil::IGeometricalShapes(GeometryShapes shape)
+      {
+				switch (shape)
+				{
+				case RCEngine::Cube:
+					return IGetCubeMesh();
+				case RCEngine::Sphere:
+					return IGetSphereMesh();
+				case RCEngine::Cylinder:
+					//return GetCylinderMesh();
+				case RCEngine::Cone:
+					//return GetMeshCone();
+				case RCEngine::Torus:
+					//return GetMeshTorus();
+				default:
+					Debug::LogError(std::string("Shape type is not implemented:" + std::to_string(shape)));
+					break;
+				}
+				return nullptr;
+      }
+
+			IMeshAbstract* MeshUtil::IGetCubeMesh()
+			{
+				VertexNormalTexCoord* cubeVertices = new VertexNormalTexCoord[24]{
+					// Front face
+					{Vector3(- 1.0f, -1.0f,  1.0f), Vector3(0.0f,  0.0f,  1.0f), Vector2(0.0f, 0.0f)}, // Bottom-left
+					{Vector3( 1.0f, -1.0f,  1.0f), Vector3(0.0f,  0.0f,  1.0f), Vector2(1.0f, 0.0f)}, // Bottom-right
+					{Vector3( 1.0f,  1.0f,  1.0f), Vector3(0.0f,  0.0f,  1.0f), Vector2(1.0f, 1.0f)}, // Top-right
+					{Vector3(-1.0f,  1.0f,  1.0f), Vector3(0.0f,  0.0f,  1.0f), Vector2(0.0f, 1.0f)}, // Top-left
+
+					// Right face
+					{ Vector3(1.0f, -1.0f,  1.0f),  Vector3(1.0f, 0.0f, 0.0f), Vector2( 0.0f, 0.0f )},
+					{ Vector3(1.0f, -1.0f, -1.0f ), Vector3(1.0f, 0.0f, 0.0f), Vector2( 1.0f, 0.0f )},
+					{ Vector3(1.0f,  1.0f, -1.0f ), Vector3(1.0f, 0.0f, 0.0f), Vector2( 1.0f, 1.0f )},
+					{ Vector3(1.0f,  1.0f,  1.0f ), Vector3(1.0f,  0.0f,  0.0f), Vector2(0.0f, 1.0f)},
+
+					// Back face
+					{Vector3( 1.0f, -1.0f, -1.0f), Vector3(0.0f,  0.0f, -1.0f), Vector2(0.0f, 0.0f)},
+					{Vector3(-1.0f, -1.0f, -1.0f), Vector3(0.0f,  0.0f, -1.0f), Vector2(1.0f, 0.0f)},
+					{Vector3(-1.0f,  1.0f, -1.0f), Vector3(0.0f,  0.0f, -1.0f), Vector2(1.0f, 1.0f)},
+					{Vector3( 1.0f,  1.0f, -1.0f), Vector3(0.0f,  0.0f, -1.0f), Vector2(0.0f, 1.0f)},
+
+					// Left face
+					{Vector3(-1.0f, -1.0f, -1.0f), Vector3(-1.0f,  0.0f,  0.0f), Vector2(0.0f, 0.0f)},
+					{Vector3(-1.0f, -1.0f,  1.0f), Vector3(-1.0f,  0.0f,  0.0f), Vector2(1.0f, 0.0f)},
+					{Vector3(-1.0f,  1.0f,  1.0f), Vector3(-1.0f,  0.0f,  0.0f), Vector2(1.0f, 1.0f)},
+					{Vector3(-1.0f,  1.0f, -1.0f), Vector3(-1.0f,  0.0f,  0.0f), Vector2(0.0f, 1.0f)},
+
+					// Top face
+					{Vector3(-1.0f,  1.0f,  1.0f), Vector3(0.0f,  1.0f,  0.0f), Vector2(0.0f, 0.0f)},
+					{Vector3( 1.0f,  1.0f,  1.0f), Vector3(0.0f,  1.0f,  0.0f), Vector2(1.0f, 0.0f)},
+					{Vector3( 1.0f,  1.0f, -1.0f), Vector3(0.0f,  1.0f,  0.0f), Vector2(1.0f, 1.0f)},
+					{Vector3(-1.0f,  1.0f, -1.0f), Vector3(0.0f,  1.0f,  0.0f), Vector2(0.0f, 1.0f)},
+
+					// Bottom face
+					{Vector3(-1.0f, -1.0f, -1.0f), Vector3(0.0f, -1.0f,  0.0f), Vector2(0.0f, 0.0f)},
+					{Vector3( 1.0f, -1.0f, -1.0f), Vector3(0.0f, -1.0f,  0.0f), Vector2(1.0f, 0.0f)},
+					{Vector3( 1.0f, -1.0f,  1.0f), Vector3(0.0f, -1.0f,  0.0f), Vector2(1.0f, 1.0f)},
+					{Vector3(-1.0f, -1.0f,  1.0f), Vector3(0.0f, -1.0f,  0.0f), Vector2(0.0f, 1.0f)},
+				};
+
+
+				int* cubeIndices = new int[36] {
+					// Front face
+					0, 1, 2, 2, 3, 0,
+						// Right face
+						4, 5, 6, 6, 7, 4,
+						// Back face
+						8, 9, 10, 10, 11, 8,
+						// Left face
+						12, 13, 14, 14, 15, 12,
+						// Top face
+						16, 17, 18, 18, 19, 16,
+						// Bottom face
+						20, 21, 22, 22, 23, 20
+					};
+				
+				IMeshAbstract* cubeIMesh = new IMesh< VertexNormalTexCoord, PrimitiveTopology::TRIANGLES, 3, 3, 2>(cubeVertices, 24, cubeIndices, 36);
+				return cubeIMesh;
+			}
+
+			IMeshAbstract* MeshUtil::IGetSphereMesh()
+			{
+				float radius = 1.0f; // Sphere radius
+				unsigned int sectors = 36; // Longitude lines
+				unsigned int stacks = 18; // Latitude lines
+
+				std::vector<VertexNormalTexCoord> vertices;
+				std::vector<int>indices;
+				float const PI = acos(-1);
+				float sectorStep = 2 * PI / sectors;
+				float stackStep = PI / stacks;
+				float sectorAngle, stackAngle;
+
+				for (unsigned int i = 0; i <= stacks; ++i) {
+					stackAngle = PI / 2 - i * stackStep; // starting from pi/2 to -pi/2
+					float xy = radius * cosf(stackAngle); // r * cos(u)
+					float z = radius * sinf(stackAngle); // r * sin(u)
+
+					for (unsigned int j = 0; j <= sectors; ++j) {
+						sectorAngle = j * sectorStep; // starting from 0 to 2pi
+
+						// Vertex position (x, y, z)
+						Vector3 position(xy * cosf(sectorAngle), xy * sinf(sectorAngle), z);
+
+						// Normalized vertex normal (nx, ny, nz)
+						Vector3 normal(position.x / radius, position.y / radius, position.z / radius);
+
+						// Vertex tex coords (s, t) range between [0, 1]
+						Vector2 texCoord((float)j / sectors, (float)i / stacks);
+
+						vertices.push_back({ position, normal, texCoord });
+					}
+				}
+
+				int k1, k2;
+				for (int i = 0; i < stacks; ++i) {
+					k1 = i * (sectors + 1);
+					k2 = k1 + sectors + 1;
+
+					for (int j = 0; j < sectors; ++j, ++k1, ++k2) {
+
+						if (i != 0) {
+							indices.push_back(k1);
+							indices.push_back(k2);
+							indices.push_back(k1 + 1);
+						}
+
+						// k1+1 => k2 => k2+1
+						if (i != (stacks - 1)) {
+							indices.push_back(k1 + 1);
+							indices.push_back(k2);
+							indices.push_back(k2 + 1);
+						}
+					}
+				}
+				VertexNormalTexCoord* vertexArray = new VertexNormalTexCoord[vertices.size()];
+				std::copy(vertices.begin(), vertices.end(), vertexArray);
+				int* indexArray = new int[indices.size()];
+				std::copy(indices.begin(), indices.end(), indexArray);
+
+				IMeshAbstract* sphereIMesh = 
+					new IMesh<VertexNormalTexCoord, PrimitiveTopology::TRIANGLES, 3, 3, 2>(vertexArray, vertices.size(), indexArray, indices.size());
+				return sphereIMesh;
 			}
 
 			

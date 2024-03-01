@@ -35,6 +35,9 @@ namespace RCEngine
 				virtual int SizeOfVertexDataStructure()=0;
 				virtual int SizeOfIndices()=0;
 				virtual std::vector<int> GetDataStructureSequenceSize() = 0;
+				virtual int IndiciesCount() = 0;
+
+
 			};
 
 			template<typename T>
@@ -66,6 +69,7 @@ namespace RCEngine
 				 int SizeOfVertexDataStructure()override;
 				 int SizeOfIndices() override;
 				 
+				 int IndiciesCount()override;
 
 			};
 
@@ -80,6 +84,10 @@ namespace RCEngine
 
 			template<MeshStructType T, PrimitiveTopology primitiveType, int... sizes>
 			std::vector<int> IMesh<T, primitiveType, sizes...>::GetDataStructureSequenceSize() { return variableSizeList; }
+
+			template<MeshStructType T, PrimitiveTopology primitiveType, int... sizes>
+			int IMesh<T, primitiveType, sizes...>::IndiciesCount() { return indicesCount; }
+
 
 
 			template<MeshStructType T, PrimitiveTopology primitiveType,int... sizes>

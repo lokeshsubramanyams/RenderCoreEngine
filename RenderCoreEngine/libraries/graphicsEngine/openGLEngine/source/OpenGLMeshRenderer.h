@@ -16,12 +16,17 @@ namespace RCEngine
 		public:
 			OpenGLMeshRenderer(MeshFilter *filter,IMaterial *material);
 
+			OpenGLMeshRenderer(IMeshFilter* iFilter, IMaterial* material);
+
+			
 			void Load()override;
 			void LoadInBatch()override;
 			void Render()override;
 			void Render(Matrix44 matrix)override;
 			void Render(ICamera* camera, ILight* light)override;
 			void UnLoad()override;
+
+			void ILoad();
 
 		};
 	}

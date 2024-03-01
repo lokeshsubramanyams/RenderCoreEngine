@@ -14,6 +14,7 @@ namespace RCEngine
 		public:
 			RCEngine::RenderCore::IComponent *CreateMeshRendererComp(Mesh& mesh, IShader& shader) override;
 			RCEngine::RenderCore::IComponent *CreateLineRendererComp(Line& mesh, IShader& shader) override;
+			RCEngine::RenderCore::IComponent *CreateMeshRendererComp(IMeshAbstract& mesh, IShader& shader)override;
 		};
 	}
 }

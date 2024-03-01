@@ -1,4 +1,5 @@
 #include "GraphicsFactory.h"
+#include "GraphicsFactory.h"
 namespace RCEngine
 {
 	namespace RenderCore
@@ -13,6 +14,18 @@ namespace RCEngine
 				return  CreateGraphicsObject(objName, tag, MeshUtil::GeometricalShapes(shape));
 				
 			}
+
+      tupleGraphicsObject GraphicsFactory::IAddRenderingObject(string objName, GraphicsTag tag, GeometryShapes shape)
+      {
+				GraphicsObject* obj = new GraphicsObject(objName); obj->tag = tag;
+				IShader* shader = graphicsEngine->GetLoadedShader(CONST::SHADERKEY::DEFAULT_VERTEX_FRAGMENT_V01);
+
+				 IMeshAbstract* imesh =  MeshUtil::IGeometricalShapes(shape);
+
+				IComponent* component = graphicsEngine->GetFactory()->CreateMeshRendererComp(*imesh, *shader);
+				obj->AttachComponent(component);
+				return std::make_tuple(objName, obj, static_cast<IRenderer*>(component));
+      }
 
 			tupleGraphicsObject GraphicsFactory::AddRenderingObject(string objName, GraphicsTag tag, Mesh* mesh)
 			{

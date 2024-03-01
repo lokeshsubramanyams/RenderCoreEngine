@@ -1,7 +1,5 @@
 #pragma once
 #include "IRenderer.h"
-#include "MeshFilter.h"
-#include "IMaterial.h"
 #include "Transform.h"
 namespace RCEngine
 {
@@ -13,8 +11,18 @@ namespace RCEngine
 			MeshFilter *meshFilter;
 			IMaterial *material;
 			explicit IMeshRenderer(MeshFilter* filter, IMaterial* mat):meshFilter(filter), material(mat), IRenderer(ComponentType::MeshRendererComp) {};
+
+			IMeshFilter* iMeshFilter;
+			explicit IMeshRenderer(IMeshFilter* iFilter,IMaterial*mat):iMeshFilter(iFilter),material(mat),IRenderer(ComponentType::MeshRendererComp) {};
+
+			
+
 		public:
-			IMaterial *GetMaterial() {	return material;}
+			IMaterial *GetMaterial()override {	return material;}
+
+			IMeshFilter* GetMeshFilter()override {return iMeshFilter;}
+
+			
 		};
 	}
 }

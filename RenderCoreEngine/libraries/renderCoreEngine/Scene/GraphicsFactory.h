@@ -30,6 +30,8 @@ namespace RCEngine
 			tupleGraphicsObject AddRenderingObject(string objName, GraphicsTag tag, Line* line);
 			tupleCameraObject AddCameraObject(string objName, GraphicsTag tag, CameraSetting cSetting);
 			tupleLightObject  AddLightObject(string objName, GraphicsTag tag,LightType lightType);
+
+			tupleGraphicsObject IAddRenderingObject(string objName, GraphicsTag tag, GeometryShapes shape);
 			
 		private:
 			IGraphicsEngine* graphicsEngine;

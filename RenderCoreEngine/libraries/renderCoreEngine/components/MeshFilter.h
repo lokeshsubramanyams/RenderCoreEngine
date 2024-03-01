@@ -27,6 +27,12 @@ namespace RCEngine
 			int SizeOfDataStructure();
 			std::tuple<void*, int> GetVertices();
 			std::vector<int> GetDataStructureSequenceSize();
+			std::string GetSequenceHash();
+			int GetSequenceTotalElementsCount();
+
+		private:
+			std::string squenceHash;
+			int sequenceTotalElementsCount;
 
 		};
 		

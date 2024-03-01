@@ -31,6 +31,9 @@ namespace RCEngine
 			template<typename T>
 			T AddLight(string objName);
 
+
+			void IAddShape(string objName, GeometryShapes shape);
+
 			void LoadAll();
 			void Load(IRenderer* renderer);
 			void Render();
@@ -39,6 +42,10 @@ namespace RCEngine
 			void AttachComponent(string objectName, IComponent* component);
 
 			GraphicsObject* GetGraphicsObject(string name);
+
+			std::unordered_map<string, GraphicsObject*>GetSceneGraphicsObjects();
+
+			std::vector<IRenderer*> GetRenderers();
 
 			std::vector<string>sceneObjectKeys;
 			std::string sceneHierarchySelectedKey;

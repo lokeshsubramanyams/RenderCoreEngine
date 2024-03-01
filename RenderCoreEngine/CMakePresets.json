@@ -28,6 +28,28 @@
       }
     },
     {
+      "name": "windows-x64-openGL_debug",
+      "displayName": "windows-x64-openGL(Debug)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "PRESET_NAME": "windows-x64-openGL",
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      }
+    },
+    {
       "name": "windows-x64-openGL",
       "displayName": "windows-x64-openGL",
       "inherits": "windows-base",
@@ -59,7 +81,7 @@
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "C:\\emsdk\\upstream\\emscripten\\cmake\\Modules\\Platform\\Emscripten.cmake",
         "CMAKE_C_COMPILER": "C:\\emsdk\\upstream\\emscripten\\emcc.bat",
-        "CMAKE_CXX_COMPILER": "C:\\emsdk\\upstream\\emscripten\\em++.bat",
+        "CMAKE_CXX_COMPILER": "C:\\emsdk\\upstream\\emscripten\\em++.bat"
         //"CMAKE_INCLUDE_PATH": "C:\\emsdk\\upstream\\emscripten\\cache\\sysroot\\include"
       }
     },

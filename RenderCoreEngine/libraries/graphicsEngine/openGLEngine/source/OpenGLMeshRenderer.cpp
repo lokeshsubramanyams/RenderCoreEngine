@@ -1,6 +1,7 @@
  #include "OpenGLMeshRenderer.h"
 #include "RenderCore.h"
 #include "Debug.h"
+#include<vector>
 namespace RCEngine
 {
 
@@ -12,6 +13,57 @@ namespace RCEngine
 		  
 			
 
+		}
+
+		OpenGLMeshRenderer::OpenGLMeshRenderer(IMeshFilter* iFilter, IMaterial* material):IMeshRenderer(iFilter,material)
+		{
+
+		}
+
+		void OpenGLMeshRenderer::ILoad()
+		{
+			if (!iMeshFilter)return;
+			
+			
+
+			std::tuple<void*, int> vertices = iMeshFilter->mesh->GetVertices();
+			void* vertexPointer = std::get<0>(vertices);
+			int vertexCount = std::get<1>(vertices);
+			int sizeOfVertices = iMeshFilter->mesh->SizeOfVertices();
+
+			std::tuple<int*,int> indicies = iMeshFilter->mesh->GetIndicies();
+
+			int* indiciesPointer = std::get<0>(indicies);
+			int indiciesCount = std::get<1>(indicies);
+			int sizeOfIndicies = iMeshFilter->mesh->SizeOfIndices();
+
+			std::vector<int>sequence = iMeshFilter->mesh->GetDataStructureSequenceSize();
+
+			glEnable(GL_CULL_FACE);
+			glFrontFace(GL_CCW);
+			glCullFace(GL_BACK);
+
+
+			glGenVertexArrays(1, &VAO);
+			glGenBuffers(1, &VBO);
+			glBindVertexArray(VAO);
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeOfVertices, vertexPointer, GL_STATIC_DRAW);
+			//glBufferData(GL_ARRAY_BUFFER, meshFilter->mesh->SizeOfVertNormalTex(), meshFilter->mesh->vertNormalTex, GL_STATIC_DRAW);
+
+			glGenBuffers(1, &EBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeOfIndicies, indiciesPointer, GL_STATIC_DRAW);
+			//glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshFilter->mesh->SizeOfIndices(), meshFilter->mesh->indices, GL_STATIC_DRAW);
+
+			int previousSize = 0;
+			for (int i = 0; i < sequence.size(); i++)
+			{
+				glEnableVertexAttribArray(i);
+				glVertexAttribPointer(i, sequence[i], GL_FLOAT, GL_FALSE, iMeshFilter->mesh->SizeOfVertexDataStructure(), (void*)(previousSize*sizeof(float)));
+				previousSize = sequence[i];
+			}
+		
 		}
 
 		void OpenGLMeshRenderer::Load()
@@ -99,7 +151,7 @@ namespace RCEngine
 
 			glBindVertexArray(VAO);
 
-			glDrawElements(GL_TRIANGLES, meshFilter->mesh->indicesCount, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, iMeshFilter->mesh->IndiciesCount(), GL_UNSIGNED_INT, 0);
 
 			glBindVertexArray(0);
 		}
